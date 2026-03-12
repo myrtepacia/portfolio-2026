@@ -21,12 +21,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Henmyr Vincent Tepacia",
+  title: "Henmyr Vincent Tepacia - Student Developer",
   description: "Henmyr Vincent Tepacia portfolio.",
     icons: {
-    icon: '/profile-img.jpg',
-    shortcut: '/profile-img.jpg',
-    apple: '/profile-img.jpg',
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
   
   },
 };

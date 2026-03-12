@@ -1,0 +1,73 @@
+@import "tailwindcss";
+/* Define how Tailwind should detect dark mode */
+@variant dark (&:where(.dark, .dark *));
+
+
+@layer components{
+  .padding-x{
+    padding-left: 4%;
+    padding-right: 4%;
+    margin: 0 auto;
+    
+  }
+  .padding-y{
+    @apply py-8 sm:py-16
+  }
+
+  .card {
+    @apply border border-slate-300 dark:border-zinc-700 rounded-md shadow-sm p-5 space-y-5;
+    @apply bg-white dark:bg-zinc-900;
+  }
+
+  .card:hover{
+    @apply shadow-md transition-shadow
+  }
+
+  .badge{
+    @apply text-xs bg-zinc-100 px-2 py-1 rounded-full text-zinc-600 dark:bg-zinc-800 dark:text-white;
+  }
+
+   .badge-square{
+    @apply text-xs bg-zinc-200 px-2 py-1 rounded dark:bg-zinc-800 dark:text-white;
+  }
+    .text{
+    @apply text-sm text-zinc-600 dark:text-zinc-400
+  }
+
+  .text-xxs{
+    font-size: 10px;
+  }
+}
+
+svg.icon-toggle {    
+    position:absolute;
+       top: 0 !important;
+    right: 0 !important;
+}
+
+
+
+@media screen and (max-width: 354px ) {
+  .course-text{
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 345px ) {
+  .freelance{
+    width: 120px;
+  }
+}
+
+@media  (min-width: 768px ) and (max-width: 850px) {
+  .freelance{
+    width: 120px;
+  }
+}
+
+
+@media(min-width: 737px ) and (max-width: 850px) {
+  .course-text{
+    width: 150px;
+  }
+}

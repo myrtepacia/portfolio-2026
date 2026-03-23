@@ -9,7 +9,7 @@ const ChatHeader = ({onClick} : {onClick: ()=>void}) => {
             <div className='flex gap-3 items-center'>
                 <Image src={profileImage} alt='Profile Image' className='rounded-full w-10' />
                 <div>
-                    <p className='font-bold'>Henmyr's Chat Bot</p>
+                    <p className='font-bold'>Henmyr's Bot Assistant</p>
                     <div className='flex gap-2 '>
                         <div className='bg-green-500 w-2 h-2 rounded-full mt-0.75'></div>
                         <p className='text-xxs'>  Online</p>

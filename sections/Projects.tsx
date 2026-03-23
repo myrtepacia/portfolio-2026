@@ -19,21 +19,8 @@ const Projects = () => {
 
                   {projectData.map( (project, index)=> 
                       <SelectedProject project={project} key={project.title} index={index}/>
-                  )}
-
-                   
-                 
-                  
-                      
+                  )} 
                 </div>
-
-                             
-             
-
-             
-
-
-
             </div>
     </div>
   )

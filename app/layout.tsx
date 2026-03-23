@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Henmyr Vincent Tepacia - Student Developer",
+  title: "Henmyr Vincent Tepacia",
   description: "Henmyr Vincent Tepacia portfolio.",
     icons: {
     icon: '/icon.png',

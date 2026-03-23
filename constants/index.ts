@@ -38,44 +38,16 @@ export const projectData = [
         stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
         link: 'https://talkly-eosin.vercel.app/login'
     },
-    // {
-    //     title: 'ThinkWrite',
-    //     description: 'An AI-powered blogging platform that generates daily content, allows prompt-based creation, publishing, and reading of blogs.',
-    //     stack: ['Next.js', 'PostgreSQL', 'Typescript', 'OpenAI', 'TailwindCSS'],
-    //     link: 'https://coming-soon-olive-psi.vercel.app/'
-    // },
-    {
-        title: 'Certicode',
-        description: 'Web-based Learning Management System that offers webinars, seminars, and online courses with digital certificates upon completion.',
-        stack: ['React', 'Laravel', 'SQL', 'Framer Motion', 'TailwindCSS'],
-        link: 'https://certicode.tech/'
+     {
+         title: 'ThinkWrite',
+         description: 'An AI-powered blogging platform that generates daily content, allows prompt-based creation, publishing, and reading of blogs.',
+         stack: ['Next.js', 'PostgreSQL', 'Typescript', 'OpenAI', 'TailwindCSS'],
+         link: 'https://coming-soon-olive-psi.vercel.app/'
     },
     {
         title: 'Dev Events',
         description: 'A developer-focused events platform where users can create events, book events, and browse upcoming developer activities.',
         stack: ['Next.js', 'MongoDB', 'TailwindCSS', 'Typescript'],
-        link: ''
-    },
-
-    {
-        title: 'Mojito Craze',
-        description: 'A modern web experience showcasing mojito drinks, flavors, and recipes with an engaging and visually refreshing design.',
-        stack: ['React', 'GSAP', 'TailwindCSS'],
-        link: ''
-    },
-    
-    {
-        title: 'Swagside',
-        description: 'eCommerce web application with a modern, responsive UI using React and Tailwind CSS, focusing on clean design and usability.',
-        stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
-        link: ''
-    },
-
-   
-    {
-        title: 'Quotiva',
-        description: 'A minimalist quote generator that displays random inspirational quotes.',
-        stack: ['React', 'TailwindCSS'],
         link: ''
     },
 

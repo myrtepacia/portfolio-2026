@@ -45,10 +45,9 @@ const Experience = () => {
                     <div>
                           <div className='flex justify-between relative'>
                             <h4 className='text-sm font-bold'>Freelance Web Designer</h4>
-                            <span className='badge text-[10px] absolute right-0'>2024 - 2025</span>
+                            <span className='badge text-[10px] absolute right-0'>2024</span>
                             
                           </div>
-                        <p className='text-xs text-zinc-600 dark:text-zinc-400'>Negros Oriental State University</p>
                     </div>
                     <div>
                         <div className='flex justify-between relative'>
@@ -60,14 +59,6 @@ const Experience = () => {
                     </div>
                       
                 </div>
-
-                             
-             
-
-             
-
-
-
             </div>
     </div>
   )

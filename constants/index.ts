@@ -39,16 +39,16 @@ export const projectData = [
         link: 'https://talkly-eosin.vercel.app/login'
     },
      {
-         title: 'ThinkWrite',
+         title: 'Restaurant Discrete Event Simulation',
          description: 'An AI-powered blogging platform that generates daily content, allows prompt-based creation, publishing, and reading of blogs.',
          stack: ['Next.js', 'PostgreSQL', 'Typescript', 'OpenAI', 'TailwindCSS'],
          link: 'https://coming-soon-olive-psi.vercel.app/'
     },
     {
-        title: 'Dev Events',
-        description: 'A developer-focused events platform where users can create events, book events, and browse upcoming developer activities.',
-        stack: ['Next.js', 'MongoDB', 'TailwindCSS', 'Typescript'],
-        link: ''
+        title: 'Algorithm Visualizer',
+        description: 'An interactive algorithm visualizer that demonstrates various algorithms through real-time animation and step-by-step execution for easier learning and understanding.',
+        stack: ['HTML', 'CSS', 'Javascript', 'Python'],
+        link: 'https://algorithms-gules.vercel.app/'
     },
 
 ]

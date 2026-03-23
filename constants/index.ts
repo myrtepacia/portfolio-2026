@@ -34,7 +34,7 @@ export const techSupport = [
 export const projectData = [
     {
         title: 'Restaurant Discrete Event Simulation',
-        description: 'Built a real-time chat application using the MERN stack, featuring instant messaging, online user presence, and image sharing via Socket.IO and Cloudinary.',
+        description: 'testing how dining-room demand, tables, server staffing, kitchen capacity, and service timing affect:',
         stack: ['Python'],
         link: 'https://coming-soon-olive-psi.vercel.app/'
     },
@@ -47,7 +47,7 @@ export const projectData = [
     {
         title: 'Algorithm Visualizer',
         description: 'An interactive algorithm visualizer that demonstrates various algorithms through real-time animation and step-by-step execution for easier learning and understanding.',
-        stack: ['HTML', 'CSS', 'Javascript', 'Python'],
+        stack: ['Javascript', 'Python'],
         link: 'https://algorithms-gules.vercel.app/'
     },
 

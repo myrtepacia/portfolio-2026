@@ -33,16 +33,16 @@ export const techSupport = [
 
 export const projectData = [
     {
-        title: 'Talkly',
+        title: 'Restaurant Discrete Event Simulation',
         description: 'Built a real-time chat application using the MERN stack, featuring instant messaging, online user presence, and image sharing via Socket.IO and Cloudinary.',
-        stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
-        link: 'https://talkly-eosin.vercel.app/login'
+        stack: ['Python'],
+        link: 'https://coming-soon-olive-psi.vercel.app/'
     },
      {
-         title: 'Restaurant Discrete Event Simulation',
-         description: 'An AI-powered blogging platform that generates daily content, allows prompt-based creation, publishing, and reading of blogs.',
-         stack: ['Next.js', 'PostgreSQL', 'Typescript', 'OpenAI', 'TailwindCSS'],
-         link: 'https://coming-soon-olive-psi.vercel.app/'
+         title: 'Portfolio',
+         description: 'A simple website portfolio with an AI-CHAT Bot assistant',
+         stack: ['Next.js', 'TailwindCSS', 'Javascript', 'Typescript', 'OpenAI'],
+         link: 'https://hvtepacia.com/'
     },
     {
         title: 'Algorithm Visualizer',

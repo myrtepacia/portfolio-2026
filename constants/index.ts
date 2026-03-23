@@ -40,7 +40,7 @@ export const projectData = [
     },
      {
          title: 'Portfolio',
-         description: 'A modern personal portfolio website showcasing my skills, projects, experience, and AI-powered interactive assistant.',
+         description: 'A modern personal portfolio website that showcases my skills, projects, and experience in a clean and interactive way. It features a professional design, highlights my background in technology, and includes an AI-powered assistant to create a more engaging and user-friendly experience for visitors.',
          stack: ['Next.js', 'TailwindCSS', 'Javascript', 'Typescript', 'OpenAI'],
          link: 'https://hvtepacia.com/'
     },

@@ -34,7 +34,7 @@ export const techSupport = [
 export const projectData = [
     {
         title: 'Restaurant Discrete Event Simulation',
-        description: 'testing how dining-room demand, tables, server staffing, kitchen capacity, and service timing affect:',
+        description: 'A dashboard-based restaurant operations simulator using discrete-event simulation to model guest flow, wait times, utilization, and revenue.',
         stack: ['Python'],
         link: 'https://coming-soon-olive-psi.vercel.app/'
     },

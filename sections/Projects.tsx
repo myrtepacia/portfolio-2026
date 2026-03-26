@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ChevronRight, FolderOpen, Globe } from 'lucide-react'
+import { ChevronRight, Folder, Globe } from 'lucide-react'
 import { projectData } from '@/constants'
 
 const Projects = () => {
@@ -8,16 +8,22 @@ const Projects = () => {
       <div className='flex flex-nowrap items-center justify-between'>
         <div className='flex flex-nowrap items-center gap-2'>
           <span>
-            <FolderOpen color='#71717a' size={20} />
+            <Folder color='#71717a' size={20} />
           </span>
           <h2 className='font-bold'>Projects</h2>
         </div>
 
         <div className='flex flex-nowrap items-center gap-1'>
-          <Link href='/projects' className='text-xs text-zinc-700 dark:text-white'>
+          <Link
+            href='/projects'
+            className='text-xs text-zinc-700 dark:text-white'
+          >
             View All
           </Link>
-          <ChevronRight size={12} className='text-zinc-700 dark:text-white' />
+          <ChevronRight
+            size={12}
+            className='text-zinc-700 dark:text-white'
+          />
         </div>
       </div>
 
@@ -27,7 +33,7 @@ const Projects = () => {
             <div className='flex items-start justify-between gap-3'>
               <div className='flex items-start gap-3'>
                 <span
-                  className={`mt-2 h-2.5 w-2.5 rounded-full ${
+                  className={`mt-2 h-2.5 w-2.5 rounded-full shrink-0 ${
                     index === 0
                       ? 'bg-red-500'
                       : index === 1
@@ -43,10 +49,15 @@ const Projects = () => {
                 </div>
               </div>
 
-              <Link href={item.link} target='_blank' rel='noopener noreferrer'>
+              <Link
+                href={item.link}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='shrink-0'
+              >
                 <Globe
                   size={18}
-                  className='text-zinc-500 dark:text-zinc-400 shrink-0'
+                  className='text-zinc-500 dark:text-zinc-400'
                 />
               </Link>
             </div>

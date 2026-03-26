@@ -54,11 +54,6 @@ export const projectData = [
 ]
 
 export const certificates = [
-     {
-        title: "The Artificial Intelligence for communities workshop",
-        provider: "Vjal Institute",
-        link: '/pdfs/AI-Certificate.pdf'
-    },
     {
         title: "Code Connect Workshop",
         provider: "Negros Oriental State University",

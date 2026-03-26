@@ -1,4 +1,3 @@
-import React from 'react'
 import About from '@/sections/About'
 import Experience from '@/sections/Experience'
 import Techstack from '@/sections/Techstack'
@@ -26,6 +25,7 @@ const BentoGrid = () => {
 
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
           <Certificate />
+
           <div className='grid grid-cols-1 gap-3'>
             <Hireme />
             <Philosophy />

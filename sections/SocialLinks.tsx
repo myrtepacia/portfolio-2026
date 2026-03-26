@@ -35,7 +35,7 @@ const SocialLinks = () => {
           >
             <Icon
               size={26}
-              strokeWidth={2.4}
+              strokeWidth={2.8}
               className='shrink-0 text-zinc-600 dark:text-zinc-300'
             />
             <span className='text-sm font-medium text-zinc-900 dark:text-white'>

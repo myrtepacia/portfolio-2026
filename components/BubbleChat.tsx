@@ -3,7 +3,7 @@
 import { Send } from 'lucide-react'
 import BubbleButton from './BubbleButton'
 import ChatHeader from './ChatHeader'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import BubbleConverstation from './BubbleConverstation'
@@ -29,6 +29,7 @@ const BubbleChat = () => {
   const [loading, setLoading] = useState(false)
 
   const chatRef = useRef<HTMLDivElement | null>(null)
+  const messagesRef = useRef<HTMLDivElement | null>(null)
 
   useGSAP(() => {
     if (isChatOpen && chatRef.current) {
@@ -50,6 +51,15 @@ const BubbleChat = () => {
       )
     }
   }, [isChatOpen])
+
+  useEffect(() => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTo({
+        top: messagesRef.current.scrollHeight,
+        behavior: 'smooth',
+      })
+    }
+  }, [chats, loading, isChatOpen])
 
   const handleOpenChat = () => {
     setIsChatOpen(true)
@@ -135,7 +145,10 @@ const BubbleChat = () => {
           <div className='flex h-[32rem] max-h-[75vh] flex-col rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-zinc-900'>
             <ChatHeader onClick={handleCloseChat} />
 
-            <div className='grow overflow-y-auto'>
+            <div
+              ref={messagesRef}
+              className='grow min-h-0 overflow-y-auto'
+            >
               <BubbleConverstation chats={chats} loading={loading} />
             </div>
 

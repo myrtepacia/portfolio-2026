@@ -7,7 +7,7 @@ const Certificate = () => {
    <div className='card '>
 
         <div className='flex flex-nowrap items-center justify-between'>
-          <div className='flex flex-nowrap items-center gap-2'>
+          <div className='flex flex-nowrap items-center gap-6'>
             <span><Trophy color='#71717a' size={20}/></span>
             <h2 className='font-bold'>Certificates</h2>
           </div>

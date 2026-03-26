@@ -1,11 +1,12 @@
 import Link from 'next/link'
-import { Facebook, Instagram, Link2, MessageCircleMore } from 'lucide-react'
+import { Facebook, Instagram, Link2 } from 'lucide-react'
+import { FaDiscord } from 'react-icons/fa'
 
 const socialLinks = [
   {
     href: 'https://discord.com/users/300006432798015489',
     label: 'Discord',
-    icon: MessageCircleMore,
+    icon: FaDiscord,
   },
   {
     href: 'https://web.facebook.com/myrtepacia/',
@@ -41,7 +42,6 @@ const SocialLinks = () => {
             >
               <Icon
                 size={24}
-                strokeWidth={2.3}
                 className='shrink-0 text-zinc-700 dark:text-zinc-300'
               />
               <span className='text-sm font-medium text-zinc-900 dark:text-white'>

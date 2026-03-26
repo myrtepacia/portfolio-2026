@@ -21,29 +21,35 @@ const socialLinks = [
 
 const SocialLinks = () => {
   return (
-    <div className='flex flex-col gap-2'>
-      {socialLinks.map((item) => {
-        const Icon = item.icon
+    <div className='card'>
+      <div className='flex items-center justify-between'>
+        <h2 className='font-bold'>Social Links</h2>
+      </div>
 
-        return (
-          <Link
-            key={item.label}
-            href={item.href}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='flex items-center gap-4 rounded-xl bg-zinc-100 px-5 py-5 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700'
-          >
-            <Icon
-              size={26}
-              strokeWidth={2.8}
-              className='shrink-0 text-zinc-600 dark:text-zinc-300'
-            />
-            <span className='text-sm font-medium text-zinc-900 dark:text-white'>
-              {item.label}
-            </span>
-          </Link>
-        )
-      })}
+      <div className='space-y-2'>
+        {socialLinks.map((item) => {
+          const Icon = item.icon
+
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center gap-4 rounded-lg bg-zinc-100 px-4 py-4 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700'
+            >
+              <Icon
+                size={24}
+                strokeWidth={2.5}
+                className='shrink-0 text-zinc-700 dark:text-zinc-300'
+              />
+              <span className='text-sm font-medium text-zinc-900 dark:text-white'>
+                {item.label}
+              </span>
+            </Link>
+          )
+        })}
+      </div>
     </div>
   )
 }

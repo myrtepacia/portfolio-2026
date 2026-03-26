@@ -1,16 +1,16 @@
 import Link from 'next/link'
-import { Facebook, Github, Instagram } from 'lucide-react'
+import { Facebook, Github, Instagram, Link2 } from 'lucide-react'
 
 const socialLinks = [
+  {
+    href: 'https://discord.com/users/300006432798015489',
+    label: 'Discord',
+    icon: Discord,
+  },
   {
     href: 'https://web.facebook.com/myrtepacia/',
     label: 'Facebook',
     icon: Facebook,
-  },
-  {
-    href: 'https://github.com/myrtepacia/',
-    label: 'GitHub',
-    icon: Github,
   },
   {
     href: 'https://www.instagram.com/myrtepacia/',
@@ -22,7 +22,8 @@ const socialLinks = [
 const SocialLinks = () => {
   return (
     <div className='card'>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center gap-2'>
+        <Link2 size={18} className='text-zinc-500 dark:text-zinc-400' />
         <h2 className='font-bold'>Social Links</h2>
       </div>
 

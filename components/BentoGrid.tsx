@@ -6,47 +6,44 @@ import Projects from '@/sections/Projects'
 import Certificate from '@/sections/Certificate'
 import Hireme from '@/sections/Hireme'
 import Philosophy from '@/sections/Philosophy'
+import SocialLinks from '@/sections/SocialLinks'
+
 const BentoGrid = () => {
   return (
-    <section className='grid grid-cols-1 sm:grid-cols-12 gap-3    padding-x max-container max-w-5xl pb-10 '>
-        <div className=' sm:col-span-7 space-y-3'>
-            <About/>
+    <section className='grid grid-cols-1 sm:grid-cols-12 gap-3 padding-x max-container max-w-5xl pb-10'>
+      <div className='sm:col-span-7 space-y-3'>
+        <About />
 
-            {/* Hide in desktop */}
-            <div className='sm:hidden'>
-                <Experience/>
-            </div>
-
-            <Techstack/>
-
-            <div className='sm:hidden '>
-                <Projects/>
-            </div>
-            
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-                <Certificate/>
-                <div className='grid grid-cols-1 gap-3'>
-                  <Hireme/>
-                  <Philosophy/>
-                </div>
-            </div>
-
+        <div className='sm:hidden'>
+          <Experience />
         </div>
 
-        <div className=' sm:col-span-5 space-y-3'>
+        <Techstack />
 
-          {/* hide in mobile & display in large devices */}
-          <div className='hidden sm:block'>
-            <Experience/>
+        <div className='sm:hidden'>
+          <Projects />
+        </div>
+
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+          <Certificate />
+          <div className='grid grid-cols-1 gap-3'>
+            <Hireme />
+            <Philosophy />
           </div>
+        </div>
+      </div>
 
-          <div className='hidden sm:block'>
-            <Projects/>
-          </div>
-        </div>  
+      <div className='sm:col-span-5 space-y-3'>
+        <div className='hidden sm:block'>
+          <Experience />
+        </div>
 
-       
+        <div className='hidden sm:block'>
+          <Projects />
+        </div>
 
+        <SocialLinks />
+      </div>
     </section>
   )
 }

@@ -1,6 +1,3 @@
-import { title } from "process"
-import { Scale } from "lucide-react"
-
 export const frontend = [
     'HTML5',
     'CSS',

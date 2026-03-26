@@ -10,7 +10,7 @@ const BubbleButton = ({ onClick }: { onClick: () => void }) => {
       <span className='chat-icon-wiggle'>
         <MessageSquareMore />
       </span>
-      Chat With Henmyr&apos;s AI
+      Chat With Henmyr
     </button>
   )
 }

@@ -30,19 +30,8 @@ import nextWhite from '@/public/icons/next-white.svg'
 const Footer = () => {
 
 
-
- 
-
-  
-const socialLinks = [
-    { href: 'https://www.instagram.com/myrtepacia/', icon: <Instagram /> },
-    { href: 'https://web.facebook.com/myrtepacia/', icon: <Facebook /> },
-    { href: 'https://github.com/myrtepacia/', icon: <Github /> },
-  ]
-
-
   return (
-    <footer className='max-w-5xl padding-x '>
+    <footer className='max-w-5xl padding-x justify-center'>
 
         <div className='border-t border-zinc-300 py-10 flex flex-col justify-center gap-3 sm:flex-row sm:justify-between items-center'>
 
@@ -54,28 +43,7 @@ const socialLinks = [
 
           
 
-           <div className='flex gap-3 justify-center'>
-                {socialLinks.map((social, index) => (
-                    <Link
-                    key={index}
-                    href={social.href}
-                    target='_blank'
-                    className='social-icon inline-block' 
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    >
-                    {social.icon}
-                    </Link>
-                ))}
-                </div>
-
-              <div className='text-center flex gap-1 justify-center items-center'>
-                <p className='text-sm dark:text-white'>Powered by  </p>
-                <Image src={nextJs} alt="Next.js" className='w-5 dark:hidden' />
-                <Image src={nextWhite} alt="Next.js" className='w-5 not-dark:hidden' />
-            </div> 
-        </div>
-        
+ 
     </footer>
   )
 }

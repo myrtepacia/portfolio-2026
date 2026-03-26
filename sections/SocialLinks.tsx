@@ -15,7 +15,7 @@ const BentoGrid = () => {
         <About />
 
         <div className='sm:hidden'>
-          <Experience />
+          <Experience /
         </div>
 
         <Techstack />

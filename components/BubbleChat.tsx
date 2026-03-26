@@ -99,7 +99,13 @@ const BubbleChat = () => {
       const result = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: trimmedMessage }),
+        body: JSON.stringify({
+        message: trimmedMessage,
+        history: chats.slice(-6).map(({ role, content }) => ({
+        role,
+        content,
+          })),
+        }),
       })
 
       let data: any = {}

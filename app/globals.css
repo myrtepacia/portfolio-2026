@@ -71,3 +71,32 @@ svg.icon-toggle {
     width: 150px;
   }
 }
+
+
+@keyframes chat-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-10deg);
+  }
+  30% {
+    transform: rotate(10deg);
+  }
+  45% {
+    transform: rotate(-8deg);
+  }
+  60% {
+    transform: rotate(8deg);
+  }
+  75% {
+    transform: rotate(-4deg);
+  }
+}
+
+.chat-icon-wiggle {
+  display: inline-flex;
+  transform-origin: center;
+  animation: chat-wiggle 1s ease-in-out infinite;
+}

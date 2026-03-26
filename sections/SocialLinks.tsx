@@ -6,7 +6,7 @@ const socialLinks = [
   {
     href: 'https://discord.com/users/300006432798015489',
     label: 'Discord',
-    icon: Facebook,
+    icon: FaDiscord,
   },
   {
     href: 'https://web.facebook.com/myrtepacia/',

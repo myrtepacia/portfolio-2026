@@ -57,7 +57,7 @@ export const certificates = [
     {
         title: "Code Connect Workshop",
         provider: "Negros Oriental State University",
-        link: '/images/cc-workshop.jpg'
+        image: '/images/cc-workshop.jpg'
     },
     {
         title: "Computer Servicing NC II",
@@ -67,12 +67,12 @@ export const certificates = [
     {
         title: "Basic Javascript for Web Development",
         provider: "Department of Information and Communications Technology",
-        link: '/images/basic-js.jpg'
+        image: '/images/basic-js.jpg'
     },
     {
         title: "Using HTML and CSS to Design a Website",
         provider: "Department of Information and Communications Technology",
-        link: '/images/html-css.jpg'
+        image: '/images/html-css.jpg'
     },
 ]
 

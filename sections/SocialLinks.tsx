@@ -38,4 +38,21 @@ const SocialLinks = () => {
               href={item.href}
               target='_blank'
               rel='noopener noreferrer'
-              className='flex items-center gap-4 rounded-lg bg-zinc-100 px-4 py-4 transition
+              className='flex items-center gap-4 rounded-lg bg-zinc-100 px-4 py-4 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700'
+            >
+              <Icon
+                size={24}
+                className='shrink-0 text-zinc-700 dark:text-zinc-300'
+              />
+              <span className='text-sm font-medium text-zinc-900 dark:text-white'>
+                {item.label}
+              </span>
+            </Link>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default SocialLinks

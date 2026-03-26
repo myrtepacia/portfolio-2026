@@ -33,12 +33,12 @@ export const techSupport = [
 
 
 export const projectData = [
-  /*  {
+    {
         title: 'Restaurant Discrete Event Simulation',
         description: 'A dashboard-based restaurant operations simulator using discrete-event simulation to model guest flow, wait times, utilization, and revenue.',
         stack: ['Python'],
-        link: 'https://restaurant-simulation.streamlit.app/'
-    },    */
+        link: 'https://coming-soon-olive-psi.vercel.app/'
+    },   
      {
          title: 'Portfolio',
          description: 'A modern personal portfolio website that presents my skills, projects, and experience through a clean and professional interface, enhanced by an AI-powered assistant for a more engaging user experience.',

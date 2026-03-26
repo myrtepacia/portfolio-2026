@@ -1,26 +1,22 @@
 import NextLink from 'next/link'
-import {
-  Facebook,
-  Github,
-  Instagram,
-  Link as LinkIcon,
-} from 'lucide-react'
+import { Link2 } from 'lucide-react'
+import { FaDiscord } from 'react-icons/fa'
 
 const socialLinks = [
   {
     href: 'https://discord.com/users/300006432798015489',
     label: 'Discord',
-    icon: Discord,
+    icon: FaDiscord,
   },
   {
     href: 'https://web.facebook.com/myrtepacia/',
     label: 'Facebook',
-    icon: Facebook,
+    icon: FaFacebook,
   },
   {
     href: 'https://www.instagram.com/myrtepacia/',
     label: 'Instagram',
-    icon: Instagram,
+    icon: FaInstagram,
   },
 ]
 

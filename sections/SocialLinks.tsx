@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { Link2 } from 'lucide-react'
-import { FaDiscord } from 'react-icons/fa'
+import { FaDiscord, FaFacebookF, FaInstagram } from 'react-icons/fa'
 
 const socialLinks = [
   {
@@ -11,7 +11,7 @@ const socialLinks = [
   {
     href: 'https://web.facebook.com/myrtepacia/',
     label: 'Facebook',
-    icon: FaFacebook,
+    icon: FaFacebookF,
   },
   {
     href: 'https://www.instagram.com/myrtepacia/',
@@ -24,7 +24,7 @@ const SocialLinks = () => {
   return (
     <div className='card'>
       <div className='flex items-center gap-2'>
-        <LinkIcon
+        <Link2
           size={18}
           strokeWidth={2.3}
           className='text-zinc-500 dark:text-zinc-400'
@@ -46,7 +46,6 @@ const SocialLinks = () => {
             >
               <Icon
                 size={24}
-                strokeWidth={2.5}
                 className='shrink-0 text-zinc-700 dark:text-zinc-300'
               />
               <span className='text-sm font-medium text-zinc-900 dark:text-white'>

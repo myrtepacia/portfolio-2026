@@ -1,46 +1,49 @@
-import React from 'react'
-import About from '@/sections/About'
-import Experience from '@/sections/Experience'
-import Techstack from '@/sections/Techstack'
-import Projects from '@/sections/Projects'
-import Certificate from '@/sections/Certificate'
-import Hireme from '@/sections/Hireme'
-import Philosophy from '@/sections/Philosophy'
-import SocialLinks from '@/sections/SocialLinks'
+import Link from 'next/link'
+import { Facebook, Github, Instagram } from 'lucide-react'
 
-const BentoGrid = () => {
+const socialLinks = [
+  {
+    href: 'https://web.facebook.com/myrtepacia/',
+    label: 'Facebook',
+    icon: Facebook,
+  },
+  {
+    href: 'https://github.com/myrtepacia/',
+    label: 'GitHub',
+    icon: Github,
+  },
+  {
+    href: 'https://www.instagram.com/myrtepacia/',
+    label: 'Instagram',
+    icon: Instagram,
+  },
+]
+
+const SocialLinks = () => {
   return (
-    <section className='grid grid-cols-1 sm:grid-cols-12 gap-3 padding-x max-container max-w-5xl pb-10'>
-      <div className='sm:col-span-7 space-y-3'>
-        <About />
+    <div className='grid grid-cols-1 gap-3'>
+      {socialLinks.map((item) => {
+        const Icon = item.icon
 
-        <div className='sm:hidden'>
-          <Experience />
-        </div>
-
-        <Techstack />
-
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-          <Certificate />
-
-          <div className='grid grid-cols-1 gap-3'>
-            <Hireme />
-            <Philosophy />
-          </div>
-        </div>
-      </div>
-
-      <div className='sm:col-span-5 space-y-3'>
-        <div className='hidden sm:block'>
-          <Experience />
-        </div>
-
-        <Projects />
-
-        <SocialLinks />
-      </div>
-    </section>
+        return (
+          <Link
+            key={item.label}
+            href={item.href}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='card !space-y-0 !p-4 flex items-center gap-4 transition-all hover:-translate-y-[1px] hover:bg-zinc-50 dark:hover:bg-zinc-800'
+          >
+            <Icon
+              size={22}
+              strokeWidth={1.8}
+              className='shrink-0 text-zinc-500 dark:text-zinc-400'
+            />
+            <span className='text-sm font-medium'>{item.label}</span>
+          </Link>
+        )
+      })}
+    </div>
   )
 }
 
-export default BentoGrid
+export default SocialLinks

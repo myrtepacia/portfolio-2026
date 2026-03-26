@@ -1,49 +1,46 @@
 import React from 'react'
-import Link from 'next/link'
-import { Facebook, Github, Instagram } from 'lucide-react'
+import About from '@/sections/About'
+import Experience from '@/sections/Experience'
+import Techstack from '@/sections/Techstack'
+import Projects from '@/sections/Projects'
+import Certificate from '@/sections/Certificate'
+import Hireme from '@/sections/Hireme'
+import Philosophy from '@/sections/Philosophy'
+import SocialLinks from '@/sections/SocialLinks'
 
-const socialLinks = [
-  {
-    href: 'https://web.facebook.com/myrtepacia/',
-    label: 'Facebook',
-    icon: Facebook,
-  },
-  {
-    href: 'https://github.com/myrtepacia/',
-    label: 'GitHub',
-    icon: Github,
-  },
-  {
-    href: 'https://www.instagram.com/myrtepacia/',
-    label: 'Instagram',
-    icon: Instagram,
-  },
-]
-
-const SocialLinks = () => {
+const BentoGrid = () => {
   return (
-    <div className='grid grid-cols-1 gap-3'>
-      {socialLinks.map((item) => {
-        const Icon = item.icon
+    <section className='grid grid-cols-1 sm:grid-cols-12 gap-3 padding-x max-container max-w-5xl pb-10'>
+      <div className='sm:col-span-7 space-y-3'>
+        <About />
 
-        return (
-          <Link
-            key={item.label}
-            href={item.href}
-            target='_blank'
-            className='card flex items-center gap-3 !p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors'
-          >
-            <Icon
-              size={22}
-              strokeWidth={1.8}
-              className='shrink-0 text-zinc-500 dark:text-zinc-400'
-            />
-            <span className='text-sm font-medium'>{item.label}</span>
-          </Link>
-        )
-      })}
-    </div>
+        <div className='sm:hidden'>
+          <Experience />
+        </div>
+
+        <Techstack />
+
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+          <Certificate />
+
+          <div className='grid grid-cols-1 gap-3'>
+            <Hireme />
+            <Philosophy />
+          </div>
+        </div>
+      </div>
+
+      <div className='sm:col-span-5 space-y-3'>
+        <div className='hidden sm:block'>
+          <Experience />
+        </div>
+
+        <Projects />
+
+        <SocialLinks />
+      </div>
+    </section>
   )
 }
 
-export default SocialLinks
+export default BentoGrid

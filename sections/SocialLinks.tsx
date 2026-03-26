@@ -1,5 +1,10 @@
-import Link from 'next/link'
-import { Facebook, Github, Instagram, Link2 } from 'lucide-react'
+import NextLink from 'next/link'
+import {
+  Facebook,
+  Github,
+  Instagram,
+  Link as LinkIcon,
+} from 'lucide-react'
 
 const socialLinks = [
   {
@@ -23,7 +28,11 @@ const SocialLinks = () => {
   return (
     <div className='card'>
       <div className='flex items-center gap-2'>
-        <Link2 size={18} className='text-zinc-500 dark:text-zinc-400' />
+        <LinkIcon
+          size={18}
+          strokeWidth={2.3}
+          className='text-zinc-500 dark:text-zinc-400'
+        />
         <h2 className='font-bold'>Social Links</h2>
       </div>
 
@@ -32,7 +41,7 @@ const SocialLinks = () => {
           const Icon = item.icon
 
           return (
-            <Link
+            <NextLink
               key={item.label}
               href={item.href}
               target='_blank'
@@ -47,7 +56,7 @@ const SocialLinks = () => {
               <span className='text-sm font-medium text-zinc-900 dark:text-white'>
                 {item.label}
               </span>
-            </Link>
+            </NextLink>
           )
         })}
       </div>

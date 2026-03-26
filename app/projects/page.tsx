@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, Globe } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { projectData } from '@/constants'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -30,23 +30,18 @@ const Page = () => {
 
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
         {projectData.map((item, index) => (
-          <div key={index} className='project-card card space-y-3'>
-            <div className='flex items-start justify-between gap-3'>
-              <div className='space-y-1'>
-                <h3 className='font-bold'>{item.title}</h3>
-                <p className='text-sm text-zinc-500 dark:text-zinc-300'>
-                  {item.description}
-                </p>
-              </div>
-
-              <Link
-                href={item.link}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='shrink-0'
-              >
-                <Globe size={18} className='text-zinc-500 dark:text-zinc-400' />
-              </Link>
+          <Link
+            key={index}
+            href={item.link}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='project-card card space-y-3 block hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors'
+          >
+            <div className='space-y-1'>
+              <h3 className='font-bold'>{item.title}</h3>
+              <p className='text-sm text-zinc-500 dark:text-zinc-300'>
+                {item.description}
+              </p>
             </div>
 
             <div className='flex flex-wrap gap-2'>
@@ -59,7 +54,7 @@ const Page = () => {
                 </span>
               ))}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -25,10 +25,13 @@ const Certificate = () => {
      
             
 {certificates.slice(0, 5).map((item, index) => (
-  <div key={index}>
-    <img src={item.image} alt={item.title} />
-    <h4>{item.title}</h4>
-    <p>{item.provider}</p>
+  <div
+    key={index}
+    className="bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors dark:bg-zinc-800 dark:hover:bg-zinc-700"
+  >
+    <img src={item.image} alt={item.title} className="w-full rounded-md" />
+    <h4 className="text-xs font-bold mt-2">{item.title}</h4>
+    <p className="text-xs text-zinc-600">{item.provider}</p>
   </div>
 ))}
      

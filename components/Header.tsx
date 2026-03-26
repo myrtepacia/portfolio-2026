@@ -55,12 +55,12 @@ const Header = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <Calendar size={15} />
-                <span>Book a Meeting</span>
+                <span>Schedule a Call</span>
                 {<ChevronRight size={18} />}
               </Link>
 
               <Button
-                label='Email'
+                label='Send Email'
                 textColor='text-black'
                 link='mailto:hvtepacia11@gmail.com'
                 icon={<Mail size={15} />}

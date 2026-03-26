@@ -13,13 +13,6 @@ const Philosophy = () => {
             <p className='text-xs text-zinc-600 dark:text-zinc-400'>“I value continuous learning and thoughtful problem-solving, using modern tools to build solutions that improve with time.”</p>
         </div>
 
-        <div>
-            <p className='text-sm  font-bold' >Henmyr Vincent L. Tepacia</p>
-            <p className='text-xs text-zinc-600 dark:text-zinc-400'>Aspiring Software Engineer</p>
-
-        </div>
-
-
     </div>
   )
 }

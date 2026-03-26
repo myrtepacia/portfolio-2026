@@ -21,7 +21,7 @@ const socialLinks = [
 
 const SocialLinks = () => {
   return (
-    <div className='grid grid-cols-1 gap-3'>
+    <div className='grid grid-cols-1 gap-2'>
       {socialLinks.map((item) => {
         const Icon = item.icon
 
@@ -31,14 +31,16 @@ const SocialLinks = () => {
             href={item.href}
             target='_blank'
             rel='noopener noreferrer'
-            className='card !space-y-0 !p-4 flex items-center gap-4 transition-all hover:-translate-y-[1px] hover:bg-zinc-50 dark:hover:bg-zinc-800'
+            className='rounded-xl border border-slate-300 bg-white px-5 py-6 flex items-center gap-4 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800 shadow-none'
           >
             <Icon
-              size={22}
-              strokeWidth={1.8}
+              size={20}
+              strokeWidth={2}
               className='shrink-0 text-zinc-500 dark:text-zinc-400'
             />
-            <span className='text-sm font-medium'>{item.label}</span>
+            <span className='text-sm font-medium text-black dark:text-white'>
+              {item.label}
+            </span>
           </Link>
         )
       })}

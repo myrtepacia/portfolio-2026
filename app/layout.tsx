@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono,Inter } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -11,8 +11,6 @@ const geistSans = Geist({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-
-
 });
 
 const geistMono = Geist_Mono({
@@ -23,11 +21,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Henmyr Vincent Tepacia",
   description: "Henmyr Vincent Tepacia portfolio.",
-    icons: {
-    icon: '/icon.png',
-    shortcut: '/icon.png',
-    apple: '/icon.png',
-  
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
@@ -38,16 +35,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}  antialiased`}  >
-         <ThemeProvider
+      <body className={`${inter.className} antialiased`}>
+        <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
->  
-      
-        {children}
-
+        >
+          {children}
         </ThemeProvider>
       </body>
     </html>

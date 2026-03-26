@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Facebook, Github, Instagram } from 'lucide-react'
 
-const links = [
+const socialLinks = [
   {
     href: 'https://web.facebook.com/myrtepacia/',
     label: 'Facebook',
@@ -22,8 +22,8 @@ const links = [
 
 const SocialLinks = () => {
   return (
-    <div className='card !p-0 !space-y-0'>
-      {links.map((item, index) => {
+    <div className='grid grid-cols-1 gap-3'>
+      {socialLinks.map((item) => {
         const Icon = item.icon
 
         return (
@@ -31,11 +31,13 @@ const SocialLinks = () => {
             key={item.label}
             href={item.href}
             target='_blank'
-            className={`flex items-center gap-3 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors ${
-              index !== links.length - 1 ? 'border-b border-slate-200 dark:border-zinc-700' : ''
-            }`}
+            className='card flex items-center gap-3 !p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors'
           >
-            <Icon size={20} className='text-zinc-500 dark:text-zinc-400' />
+            <Icon
+              size={22}
+              strokeWidth={1.8}
+              className='shrink-0 text-zinc-500 dark:text-zinc-400'
+            />
             <span className='text-sm font-medium'>{item.label}</span>
           </Link>
         )

@@ -42,17 +42,17 @@ export const projectData = [
         stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
         link: 'https://talkly-eosin.vercel.app/login'
     },
-     {
-         title: 'Portfolio',
-         description: 'A modern personal portfolio website that presents my skills, projects, and experience through a clean and professional interface, enhanced by an AI-powered assistant for a more engaging user experience.',
-         stack: ['Next.js', 'TailwindCSS', 'Javascript', 'Typescript', 'OpenAI'],
-         link: 'https://hvtepacia.com/'
-    },
     {
         title: 'Algorithm Visualizer',
         description: 'An interactive algorithm visualizer that demonstrates various algorithms through real-time animation and step-by-step execution for easier learning and understanding.',
         stack: ['Javascript', 'Python'],
         link: 'https://algorithms-gules.vercel.app/'
+    },
+     {
+         title: 'Portfolio',
+         description: 'A modern personal portfolio website that presents my skills, projects, and experience through a clean and professional interface, enhanced by an AI-powered assistant for a more engaging user experience.',
+         stack: ['Next.js', 'TailwindCSS', 'Javascript', 'Typescript', 'OpenAI'],
+         link: 'https://hvtepacia.com/'
     },
 
 ]

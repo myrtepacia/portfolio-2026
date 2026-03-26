@@ -207,7 +207,11 @@ const scoreChunk = (query: string, chunk: KnowledgeChunk) => {
   const normalizedQuery = normalize(query)
 
   if (normalizedQuery.includes(normalizedTitle)) score += 10
-  if (chunk.keywords.some((keyword) => normalizedQuery.includes(normalize(keyword)))) {
+  if (
+    chunk.keywords.some((keyword) =>
+      normalizedQuery.includes(normalize(keyword))
+    )
+  ) {
     score += 5
   }
 
@@ -223,6 +227,18 @@ const retrieveRelevantChunks = (query: string, limit = 5) => {
     .filter((chunk) => chunk.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
+}
+
+const cleanResponseText = (text: string) => {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/^\s*[-*•]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/`/g, '')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
 }
 
 export async function POST(req: NextRequest) {
@@ -293,7 +309,10 @@ Rules:
 - If the answer is not in the context, say:
   "That's a great question! I don't have that specific detail yet, but you can reach Henmyr at hvtepacia11@gmail.com."
 - Keep answers concise and natural.
-- Use bullet points only when it helps.
+- Respond in plain text only.
+- Do not use markdown.
+- Do not use asterisks, bold formatting, headings, or bullet symbols.
+- If you need to list items, write them as short plain lines or simple sentences.
 - If the user asks about age, use the age from the retrieved context.
 - If relevant, mention project links naturally.
     `.trim()
@@ -328,8 +347,10 @@ Now answer the user.
       )
     }
 
+    const cleanedText = cleanResponseText(text)
+
     return NextResponse.json({
-      response: text,
+      response: cleanedText,
       sources: retrievedChunks.map((chunk) => ({
         title: chunk.title,
         source: chunk.source,

@@ -98,5 +98,5 @@ svg.icon-toggle {
 .chat-icon-wiggle {
   display: inline-flex;
   transform-origin: center;
-  animation: chat-wiggle 1s ease-in-out infinite;
+  animation: chat-wiggle 1.8s ease-in-out infinite;
 }

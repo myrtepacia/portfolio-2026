@@ -50,7 +50,7 @@ He is interested in CyberSecurity, Artificial Intelligence, and Data Systems.
 He enjoys learning new technologies, solving problems, joining tech events, and building useful software.
 Henmyr was born on April 11, 2006 and is currently ${getCurrentAge()} years old.
 He is also open to freelance work and collaboration.
-Contact email: hvtepacia11@gmail.com
+Contact email: tepacia18@gmail.com
     `.trim(),
   },
   {
@@ -307,7 +307,7 @@ Rules:
 - Answer using the retrieved portfolio context first.
 - Do not invent facts, projects, skills, certifications, experience, or personal details.
 - If the answer is not in the context, say:
-  "That's a great question! I don't have that specific detail yet, but you can reach Henmyr at hvtepacia11@gmail.com."
+  "That's a great question! I don't have that specific detail yet, but you can reach Henmyr at tepacia18@gmail.com."
 - Keep answers concise and natural.
 - Respond in plain text only.
 - Do not use markdown.

@@ -62,7 +62,7 @@ const Header = () => {
               <Button
                 label='Send Email'
                 textColor='text-black'
-                link='mailto:hvtepacia11@gmail.com'
+                link='mailto:tepacia18@gmail.com'
                 icon={<Mail size={15} />}
                 arrow={<ChevronRight size={0} />}
               />

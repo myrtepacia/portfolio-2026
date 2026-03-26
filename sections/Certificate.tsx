@@ -6,13 +6,15 @@ import { certificates } from '@/constants'
 import Link from 'next/link'
 
 const Certificate = () => {
-  const [selectedCert, setSelectedCert] = useState<null | (typeof certificates)[number]>(null)
+  const [selectedCert, setSelectedCert] = useState<(typeof certificates)[number] | null>(null)
 
   return (
     <div className='card'>
       <div className='flex flex-nowrap items-center justify-between'>
         <div className='flex flex-nowrap items-center gap-2'>
-          <span><Trophy color='#71717a' size={20} /></span>
+          <span>
+            <Trophy color='#71717a' size={20} />
+          </span>
           <h2 className='font-bold'>Certificates</h2>
         </div>
 
@@ -28,22 +30,10 @@ const Certificate = () => {
         {certificates.slice(0, 5).map((item, index) => (
           <div
             key={index}
-            className='bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors dark:bg-zinc-800 dark:hover:bg-zinc-700'
+            onClick={() => setSelectedCert(item)}
+            className='bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer dark:bg-zinc-800 dark:hover:bg-zinc-700'
           >
-            <img
-              src={item.image}
-              alt={item.title}
-              className='w-full rounded-md'
-            />
-
-            <button
-              type='button'
-              onClick={() => setSelectedCert(item)}
-              className='mt-2 text-left w-full'
-            >
-              <h4 className='text-xs font-bold hover:underline'>{item.title}</h4>
-            </button>
-
+            <h4 className='text-xs font-bold'>{item.title}</h4>
             <p className='text-xs text-zinc-600 dark:text-zinc-300'>
               {item.provider}
             </p>
@@ -53,27 +43,23 @@ const Certificate = () => {
 
       {selectedCert && (
         <div
-          className='fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4'
+          className='fixed inset-0 z-50 bg-black/70 flex items-center justify-center'
           onClick={() => setSelectedCert(null)}
         >
-          <div
-            className='relative max-w-4xl w-full'
-            onClick={(e) => e.stopPropagation()}
+          <button
+            type='button'
+            onClick={() => setSelectedCert(null)}
+            className='absolute top-4 right-4 text-white z-50'
           >
-            <button
-              type='button'
-              onClick={() => setSelectedCert(null)}
-              className='absolute -top-10 right-0 text-white'
-            >
-              <X size={28} />
-            </button>
+            <X size={28} />
+          </button>
 
-            <img
-              src={selectedCert.image}
-              alt={selectedCert.title}
-              className='w-full max-h-[85vh] object-contain rounded-lg bg-white'
-            />
-          </div>
+          <img
+            src={selectedCert.image}
+            alt={selectedCert.title}
+            onClick={(e) => e.stopPropagation()}
+            className='max-w-[90vw] max-h-[90vh] object-contain'
+          />
         </div>
       )}
     </div>

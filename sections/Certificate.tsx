@@ -1,8 +1,13 @@
-import { ChevronRight, Trophy } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { ChevronRight, Trophy, X } from 'lucide-react'
 import { certificates } from '@/constants'
 import Link from 'next/link'
 
 const Certificate = () => {
+  const [selectedCert, setSelectedCert] = useState<null | (typeof certificates)[number]>(null)
+
   return (
     <div className='card'>
       <div className='flex flex-nowrap items-center justify-between'>
@@ -23,16 +28,54 @@ const Certificate = () => {
         {certificates.slice(0, 5).map((item, index) => (
           <div
             key={index}
-            className='bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer dark:bg-zinc-800 dark:hover:bg-zinc-700'
+            className='bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors dark:bg-zinc-800 dark:hover:bg-zinc-700'
           >
-            <img src={item.image} alt={item.title} className='w-full rounded-md' />
-            <h4 className='text-xs font-bold mt-2'>{item.title}</h4>
+            <img
+              src={item.image}
+              alt={item.title}
+              className='w-full rounded-md'
+            />
+
+            <button
+              type='button'
+              onClick={() => setSelectedCert(item)}
+              className='mt-2 text-left w-full'
+            >
+              <h4 className='text-xs font-bold hover:underline'>{item.title}</h4>
+            </button>
+
             <p className='text-xs text-zinc-600 dark:text-zinc-300'>
               {item.provider}
             </p>
           </div>
         ))}
       </div>
+
+      {selectedCert && (
+        <div
+          className='fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4'
+          onClick={() => setSelectedCert(null)}
+        >
+          <div
+            className='relative max-w-4xl w-full'
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type='button'
+              onClick={() => setSelectedCert(null)}
+              className='absolute -top-10 right-0 text-white'
+            >
+              <X size={28} />
+            </button>
+
+            <img
+              src={selectedCert.image}
+              alt={selectedCert.title}
+              className='w-full max-h-[85vh] object-contain rounded-lg bg-white'
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

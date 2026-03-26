@@ -11,7 +11,7 @@ const BubbleButton = ( {onClick} : {onClick : ()=> void} ) => {
                 <span>
                     <MessageSquareMore />
                 </span> 
-                    Chat With Henmyr's AI
+                    Chat With Henmyr
             
             </button>
   )

@@ -36,6 +36,12 @@ export const projectData = [
         stack: ['Python'],
         link: 'https://coming-soon-olive-psi.vercel.app/'
     },   
+    {
+        title: 'Talkly',
+        description: 'Built a real-time chat application using the MERN stack, featuring instant messaging, online user presence, and image sharing via Socket.IO and Cloudinary.',
+        stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
+        link: 'https://talkly-eosin.vercel.app/login'
+    },
      {
          title: 'Portfolio',
          description: 'A modern personal portfolio website that presents my skills, projects, and experience through a clean and professional interface, enhanced by an AI-powered assistant for a more engaging user experience.',

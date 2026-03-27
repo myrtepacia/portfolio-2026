@@ -16,6 +16,7 @@ const experiences = [
   },
   {
     title: 'Freelance Web Designer',
+    subtitle: '',
     year: '2024',
     icon: BrainCog,
   },
@@ -27,6 +28,7 @@ const experiences = [
   },
   {
     title: 'First Hello World',
+    subtitle: '',
     year: '2021',
     icon: CodeXml,
   },
@@ -62,7 +64,12 @@ const Experience = () => {
 
         <div className='flex flex-col gap-5 w-full'>
           {experiences.map((item, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className={`min-h-[44px] flex flex-col ${
+                item.subtitle ? 'justify-start' : 'justify-center'
+              }`}
+            >
               <div className='flex items-start justify-between gap-3'>
                 <h4 className='text-sm font-bold leading-tight pr-2'>
                   {item.title}

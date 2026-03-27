@@ -44,47 +44,44 @@ const Experience = () => {
         <h2 className='font-bold'>Experience</h2>
       </div>
 
-      <div className='flex gap-4'>
-        <div className='relative flex flex-col gap-5 pt-1'>
-          {experiences.map((item, index) => {
-            const Icon = item.icon
+      <div className='space-y-5'>
+        {experiences.map((item, index) => {
+          const Icon = item.icon
+          const isLast = index === experiences.length - 1
 
-            return (
-              <div
-                key={index}
-                className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 relative z-10 border border-zinc-200 dark:border-zinc-400'
-              >
-                <Icon className='text-zinc-500 dark:text-zinc-400' size={15} />
-              </div>
-            )
-          })}
+          return (
+            <div key={index} className='relative flex gap-4'>
+              <div className='relative flex flex-col items-center shrink-0'>
+                {!isLast && (
+                  <div className='absolute top-10 h-[calc(100%+20px)] w-0.5 bg-zinc-300 dark:bg-zinc-400' />
+                )}
 
-          <div className='absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-zinc-300 dark:bg-zinc-400' />
-        </div>
-
-        <div className='flex flex-col gap-5 w-full'>
-          {experiences.map((item, index) => (
-            <div
-              key={index}
-              className={`min-h-[44px] flex flex-col ${
-                item.subtitle ? 'justify-start' : 'justify-center'
-              }`}
-            >
-              <div className='flex items-start justify-between gap-3'>
-                <h4 className='text-sm font-bold leading-tight pr-2'>
-                  {item.title}
-                </h4>
-                <span className='badge text-[10px] shrink-0'>{item.year}</span>
+                <div className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 z-10 relative border border-zinc-200 dark:border-zinc-400'>
+                  <Icon className='text-zinc-500 dark:text-zinc-400' size={15} />
+                </div>
               </div>
 
-              {item.subtitle && (
-                <p className='text-xs text-zinc-600 dark:text-zinc-400 mt-1'>
-                  {item.subtitle}
-                </p>
-              )}
+              <div className='flex-1'>
+                <div
+                  className={`flex justify-between gap-3 ${
+                    item.subtitle ? 'items-start' : 'items-center min-h-[32px]'
+                  }`}
+                >
+                  <div className='pr-2'>
+                    <h4 className='text-sm font-bold leading-tight'>{item.title}</h4>
+                    {item.subtitle && (
+                      <p className='text-xs text-zinc-600 dark:text-zinc-400 mt-1'>
+                        {item.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  <span className='badge text-[10px] shrink-0'>{item.year}</span>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
+          )
+        })}
       </div>
     </div>
   )

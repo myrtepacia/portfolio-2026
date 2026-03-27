@@ -16,7 +16,6 @@ const experiences = [
   },
   {
     title: 'Freelance Web Designer',
-    subtitle: '',
     year: '2024',
     icon: BrainCog,
   },
@@ -28,7 +27,6 @@ const experiences = [
   },
   {
     title: 'First Hello World',
-    subtitle: '',
     year: '2021',
     icon: CodeXml,
   },

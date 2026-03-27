@@ -1,4 +1,4 @@
-import {  BrainCog, Briefcase, Code, CodeXml, GitFork, GraduationCap } from 'lucide-react'
+import { Binary, BrainCog, CodeXml, GraduationCap } from 'lucide-react'
 import React from 'react'
 
 const Experience = () => {
@@ -16,13 +16,16 @@ const Experience = () => {
                    
 
                     <div className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 z-1 relative border border-zinc-200 dark:border-zinc-400'>
-                          <CodeXml className="text-zinc-500 dark:text-zinc-400" size={15} /> 
+                          <Binary className="text-zinc-500 dark:text-zinc-400" size={15} /> 
                     </div>
                     <div className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 z-1 relative border border-zinc-200 dark:border-zinc-400'>
                           <BrainCog className="text-zinc-500 dark:text-zinc-400"  size={15} />
                     </div>
                     <div className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 z-1 relative border border-zinc-200 dark:border-zinc-400'>
                           <GraduationCap className="text-zinc-500 dark:text-zinc-400" size={15} />
+                    </div>
+                    <div className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 z-1 relative border border-zinc-200 dark:border-zinc-400'>
+                          <CodeXml className="text-zinc-500 dark:text-zinc-400" size={15} />
                     </div>
                     
                     {/* Vertical Line */}
@@ -57,7 +60,13 @@ const Experience = () => {
                         </div>
                           <p className='text-xs text-zinc-600 dark:text-zinc-400'>Demetrio L. Alviola National High School</p>
                     </div>
-                      
+                       <div>
+                          <div className='flex justify-between relative'>
+                            <h4 className='text-sm font-bold'>First Hello World</h4>
+                            <span className='badge text-[10px] absolute right-0'>2021</span>
+                            
+                          </div>
+                    </div>
                 </div>
             </div>
     </div>

@@ -48,7 +48,7 @@ const Header = () => {
 
             <div className='flex flex-col w-full gap-2 sm:flex-row'>
               <Link
-                href='https://calendly.com/tepacia18/consultation'
+                href='https://calendly.com/myrtepacia/consultation'
                 target='_blank'
                 className='header-button bg-black border border-slate-300 rounded py-2 px-2 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer text-white hover:bg-white hover:text-black transition-all dark:bg-white dark:text-black'
                 onMouseEnter={handleMouseEnter}
@@ -62,7 +62,7 @@ const Header = () => {
               <Button
                 label='Send Email'
                 textColor='text-black'
-                link='mailto:tepacia18@gmail.com'
+                link='mailto:myrtepacia@gmail.com'
                 icon={<Mail size={15} />}
                 arrow={<ChevronRight size={0} />}
               />

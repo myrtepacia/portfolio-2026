@@ -66,7 +66,7 @@ const Experience = () => {
                             <h4 className='text-sm font-bold'>First Hello World</h4>
                             <span className='badge text-[10px] absolute right-0'>2021</span>
                             </div>
-                          <p className='text-xs text-zinc-600 dark:text-zinc-400'>  </p>
+                          <p className='text-xs text-zinc-600 dark:text-zinc-400'>sdasdasdasdas  </p>
                           </div>
                     </div>
                 </div>

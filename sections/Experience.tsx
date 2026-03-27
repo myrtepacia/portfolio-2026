@@ -1,4 +1,4 @@
-import { Binary, BrainCog, CodeXml, GraduationCap } from 'lucide-react'
+import { Binary, BrainCog, Briefcase, CodeXml, GraduationCap } from 'lucide-react'
 import React from 'react'
 
 const Experience = () => {

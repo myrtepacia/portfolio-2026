@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ChevronRight, Folder, Globe } from 'lucide-react'
+import { ChevronRight, Folder } from 'lucide-react'
 import { projectData } from '@/constants'
 
 const Projects = () => {
@@ -55,10 +55,7 @@ const Projects = () => {
                 rel='noopener noreferrer'
                 className='shrink-0'
               >
-                <Globe
-                  size={18}
-                  className='text-zinc-500 dark:text-zinc-400'
-                />
+                <i className='fa-solid fa-up-right-from-square text-[18px] text-zinc-500 dark:text-zinc-400'></i>
               </Link>
             </div>
 

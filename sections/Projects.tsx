@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ChevronRight, Folder } from 'lucide-react'
+import { ChevronRight, Folder, ExternalLink } from 'lucide-react'
 import { projectData } from '@/constants'
 
 const Projects = () => {
@@ -55,7 +55,10 @@ const Projects = () => {
                 rel='noopener noreferrer'
                 className='shrink-0'
               >
-                <i className='fa-solid fa-up-right-from-square text-[18px] text-zinc-500 dark:text-zinc-400'></i>
+                <ExternalLink
+                  size={18}
+                  className='text-zinc-500 dark:text-zinc-400'
+                />
               </Link>
             </div>
 

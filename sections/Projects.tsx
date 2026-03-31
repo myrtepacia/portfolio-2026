@@ -53,12 +53,9 @@ const Projects = () => {
                 href={item.link}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='shrink-0'
+                className='shrink-0 text-zinc-500 hover:text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-400'
               >
-                <ExternalLink
-                  size={18}
-                  className='text-zinc-500 dark:text-zinc-400'
-                />
+                <ExternalLink size={18} />
               </Link>
             </div>
 

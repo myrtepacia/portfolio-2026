@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Facebook, Instagram, Link2 } from 'lucide-react'
+import { Facebook, Instagram, Mail, Link2 } from 'lucide-react'
 import { FaDiscord } from 'react-icons/fa'
 
 const socialLinks = [

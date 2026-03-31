@@ -21,7 +21,7 @@ const socialLinks = [
    {
     href: 'mailto:myrtepacia@gmail.com',
     label: 'Email Me',
-    icon: Gmail,
+    icon: Email,
   },
 ]
 

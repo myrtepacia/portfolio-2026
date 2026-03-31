@@ -10,16 +10,13 @@ export const frontend = [
 export const backend = [
     'Node.js',
     'MongoDB',
-    'SQL',
     'Python'
 ]
 
 export const devTools = [
     'Git',
-    'Docker',
-    'Vercel',
-    'Render',
-    'Figma'
+    'Figma',
+    'Vercel'
 ]
 
 export const techSupport = [

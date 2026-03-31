@@ -18,6 +18,11 @@ const socialLinks = [
     label: 'Instagram',
     icon: Instagram,
   },
+   {
+    href: 'mailto:myrtepacia@gmail.com',
+    label: 'Email Me',
+    icon: Gmail,
+  },
 ]
 
 const SocialLinks = () => {

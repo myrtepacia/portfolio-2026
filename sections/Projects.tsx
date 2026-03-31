@@ -53,9 +53,12 @@ const Projects = () => {
                 href={item.link}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='shrink-0 text-zinc-500 hover:text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-400'
+                className='group shrink-0'
               >
-                <ExternalLink size={18} />
+                <ExternalLink
+                  size={18}
+                  className='text-zinc-500 transition-colors group-hover:text-white dark:text-zinc-400 dark:group-hover:text-white'
+                />
               </Link>
             </div>
 

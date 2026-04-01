@@ -4,11 +4,6 @@ import { FaDiscord } from 'react-icons/fa'
 
 const socialLinks = [
   {
-    href: 'https://discord.com/users/300006432798015489',
-    label: 'Discord',
-    icon: FaDiscord,
-  },
-  {
     href: 'https://web.facebook.com/myrtepacia/',
     label: 'Facebook',
     icon: Facebook,
@@ -22,6 +17,11 @@ const socialLinks = [
     href: 'https://github.com/myrtepacia/',
     label: 'GitHub',
     icon: Github,
+  },
+   {
+    href: 'https://discord.com/users/300006432798015489',
+    label: 'Discord',
+    icon: FaDiscord,
   },
 ]
 

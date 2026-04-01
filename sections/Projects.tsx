@@ -38,10 +38,10 @@ const Projects = () => {
 
           const iconHoverColor =
             index === 0
-              ? 'group-hover:text-red-500'
+              ? 'group-hover:text-red-500 dark:group-hover:text-red-500'
               : index === 1
-              ? 'group-hover:text-blue-500'
-              : 'group-hover:text-green-500'
+              ? 'group-hover:text-blue-500 dark:group-hover:text-blue-500'
+              : 'group-hover:text-green-500 dark:group-hover:text-green-500'
 
           return (
             <div key={index} className='space-y-2'>

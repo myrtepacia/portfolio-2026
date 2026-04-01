@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Facebook, Instagram, GitHub, Link2 } from 'lucide-react'
+import { Facebook, Instagram, Github, Link2 } from 'lucide-react'
 import { FaDiscord } from 'react-icons/fa'
 
 const socialLinks = [
@@ -21,7 +21,7 @@ const socialLinks = [
    {
     href: 'https://github.com/myrtepacia/',
     label: 'GitHub',
-    icon: GitHub,
+    icon: Github,
   },
 ]
 

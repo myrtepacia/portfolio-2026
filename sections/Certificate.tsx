@@ -5,12 +5,10 @@ import { ChevronRight, Trophy, X } from 'lucide-react'
 import { certificates } from '@/constants'
 import Link from 'next/link'
 
-const MAX_DISPLAY = 3
-
 const Certificate = () => {
   const [selectedCert, setSelectedCert] = useState<(typeof certificates)[number] | null>(null)
 
-  const visibleCerts = certificates.slice(0, MAX_DISPLAY)
+  const visibleCerts = certificates
 
   return (
     <div className='card'>

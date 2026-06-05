@@ -24,7 +24,8 @@ const Certificate = () => {
           </span>
           <h2 className='font-bold'>Certificates</h2>
         </div>
-
+      </div>
+        
       <div className='flex flex-col flex-1 justify-between gap-2'>
         {visibleCerts.map((item, index) => (
           <div

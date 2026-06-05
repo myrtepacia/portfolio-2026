@@ -5,13 +5,18 @@ import { ChevronRight, Trophy, X } from 'lucide-react'
 import { certificates } from '@/constants'
 import Link from 'next/link'
 
+const MAX_DISPLAY = 3
+
 const Certificate = () => {
   const [selectedCert, setSelectedCert] = useState<(typeof certificates)[number] | null>(null)
 
-  const visibleCerts = certificates
+  // Always shows the first MAX_DISPLAY entries.
+  // Add new certificates to the TOP of the array in constants/index.ts
+  // and the oldest one will automatically fall off the visible list.
+  const visibleCerts = certificates.slice(0, MAX_DISPLAY)
 
   return (
-    <div className='card'>
+    <div className='card h-full flex flex-col'>
       <div className='flex flex-nowrap items-center justify-between'>
         <div className='flex flex-nowrap items-center gap-2'>
           <span>
@@ -28,12 +33,12 @@ const Certificate = () => {
         </div>
       </div>
 
-      <div className='space-y-2'>
+      <div className='flex flex-col flex-1 justify-between gap-2'>
         {visibleCerts.map((item, index) => (
           <div
             key={index}
             onClick={() => setSelectedCert(item)}
-            className='bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer dark:bg-zinc-800 dark:hover:bg-zinc-700'
+            className='flex-1 flex flex-col justify-center bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer dark:bg-zinc-800 dark:hover:bg-zinc-700'
           >
             <h4 className='text-xs font-bold'>{item.title}</h4>
             <p className='text-xs text-zinc-600 dark:text-zinc-300'>

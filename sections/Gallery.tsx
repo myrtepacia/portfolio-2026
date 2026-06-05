@@ -9,6 +9,8 @@ const galleryImages = [
   { src: '/images/gal2.jpg', alt: 'Gallery 2' },
   { src: '/images/gal3.jpg', alt: 'Gallery 3' },
   { src: '/images/gal4.jpg', alt: 'Gallery 4' },
+  { src: '/images/gal5.jpg', alt: 'Gallery 5' },
+  { src: '/images/gal6.jpg', alt: 'Gallery 6' },
 ]
 
 const Gallery = () => {

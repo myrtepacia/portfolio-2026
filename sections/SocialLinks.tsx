@@ -27,13 +27,13 @@ const socialLinks = [
 
 const SocialLinks = () => {
   return (
-    <div className='card h-full w-full flex flex-col'>
+    <div className='card'>
       <div className='flex items-center gap-2'>
         <Link2 size={18} className='text-zinc-500 dark:text-zinc-400' />
         <h2 className='font-bold'>Social Links</h2>
       </div>
 
-      <div className='flex flex-col flex-1 gap-2.5 mt-3'>
+      <div className='flex flex-col gap-2.5'>
         {socialLinks.map((item) => {
           const Icon = item.icon
 
@@ -43,7 +43,7 @@ const SocialLinks = () => {
               href={item.href}
               target='_blank'
               rel='noopener noreferrer'
-              className='group flex flex-1 items-center gap-3 rounded-xl border border-transparent bg-zinc-100 px-4 py-3 min-h-[56px] transition-colors hover:border-zinc-300 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-700'
+              className='group flex items-center gap-3 rounded-xl border border-transparent bg-zinc-100 px-4 py-3 transition-colors hover:border-zinc-300 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-700'
             >
               <span className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-zinc-700 dark:bg-zinc-900 dark:text-zinc-200'>
                 <Icon size={18} />

@@ -27,7 +27,7 @@ const socialLinks = [
 
 const SocialLinks = () => {
   return (
-    <div className='card h-full flex flex-col'>
+    <div className='card h-full w-full flex flex-col'>
       <div className='flex items-center gap-2'>
         <Link2 size={18} className='text-zinc-500 dark:text-zinc-400' />
         <h2 className='font-bold'>Social Links</h2>

@@ -16,7 +16,7 @@ const Certificate = () => {
   const visibleCerts = certificates.slice(0, MAX_DISPLAY)
 
   return (
-    <div className='card h-full flex flex-col'>
+    <div className='card h-full w-full flex flex-col'>
       <div className='flex flex-nowrap items-center justify-between'>
         <div className='flex flex-nowrap items-center gap-2'>
           <span>

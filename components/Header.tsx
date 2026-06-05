@@ -43,7 +43,7 @@ const Header = () => {
                 <MapPin size={18} />
                 Dumaguete, Philippines
               </p>
-              <p className='flex items-center justify-between mt-1.5 md:mt-2 text-[20px] text-lg '>AI \ Student \ Freelancer</p>
+              <p className='flex items-center justify-between mt-1.5 md:mt-2 text-[20px] text-lg '>Student Developer \ Freelancer</p>
             </div>
 
             <div className='flex flex-col w-full gap-2 sm:flex-row'>

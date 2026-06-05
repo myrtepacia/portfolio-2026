@@ -11,7 +11,7 @@ const experiences = [
   },
   {
     title: 'Freelance Web Designer',
-    subtitle: '',
+    subtitle: 'ㅤ',
     year: '2024',
   },
   {

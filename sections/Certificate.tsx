@@ -26,8 +26,8 @@ const Certificate = () => {
         </div>
       </div>
 
-      <div className='space-y-2'>
-        {certificates.slice(0, 5).map((item, index) => (
+      <div className='space-y-2 max-h-[280px] overflow-y-auto pr-1 custom-scrollbar'>
+        {certificates.map((item, index) => (
           <div
             key={index}
             onClick={() => setSelectedCert(item)}

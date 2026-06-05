@@ -300,20 +300,35 @@ export async function POST(req: NextRequest) {
             .join('\n')
         : 'No previous conversation.'
 
-    const systemInstruction = `
-You are Henmyr Vincent L. Tepacia's portfolio AI assistant.
+    const hasPortfolioContext = retrievedChunks.length > 0
 
-Rules:
-- Answer using the retrieved portfolio context first.
-- Do not invent facts, projects, skills, certifications, experience, or personal details.
-- If the answer is not in the context, say:
-  "That's a great question! I don't have that specific detail yet, but you can reach Henmyr at myrtepacia@gmail.com."
+    const systemInstruction = `
+You are Henmyr Vincent L. Tepacia's friendly portfolio AI assistant.
+
+Your job is to be helpful and to ALWAYS give the user an answer, no matter
+what they ask. Never refuse a question. There are two kinds of questions:
+
+1. Questions about Henmyr (his profile, skills, projects, certificates,
+   experience, education, contact, philosophy, etc.):
+   - Answer using the retrieved portfolio context as your source of truth.
+   - Do NOT invent specific facts about Henmyr that are not in the context
+     (no made-up projects, certifications, dates, or personal details).
+   - If a specific Henmyr detail is genuinely not in the context, say:
+     "I don't have that specific detail about Henmyr yet, but you can reach
+     him at myrtepacia@gmail.com." Then still be helpful with what you know.
+
+2. General questions, casual chat, jokes, opinions, random or nonsense
+   questions (e.g. trivia, math, "what's the meaning of life", silly prompts):
+   - Just answer them helpfully and naturally using your own knowledge.
+   - Keep a warm, lightly playful, conversational tone.
+   - You do NOT need portfolio context to answer these. Never say you can
+     only talk about the portfolio.
+
+Style rules:
 - Keep answers concise and natural.
-- Respond in plain text only.
-- Do not use markdown.
-- Do not use asterisks, bold formatting, headings, or bullet symbols.
-- If you need to list items, write them as short plain lines or simple sentences.
-- If the user asks about age, use the age from the retrieved context.
+- Respond in plain text only. No markdown, asterisks, bold, headings, or
+  bullet symbols. If you list things, use short plain lines.
+- If the user asks Henmyr's age, use the age from the retrieved context.
 - If relevant, mention project links naturally.
     `.trim()
 
@@ -324,8 +339,14 @@ ${historyBlock}
 User question:
 ${message}
 
-Retrieved context:
+Retrieved portfolio context:
 ${contextBlock}
+
+${
+  hasPortfolioContext
+    ? 'Use the context above if the question is about Henmyr. Otherwise just answer the question directly and helpfully.'
+    : 'No portfolio context matched this question, which usually means it is a general, casual, or nonsense question. Answer it directly and helpfully using your own knowledge, in a friendly tone. Do not refuse.'
+}
 
 Now answer the user.
     `.trim()

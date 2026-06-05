@@ -48,18 +48,24 @@ const Experience = () => {
         <div className='relative flex flex-col gap-5 pt-1'>
           {experiences.map((item, index) => {
             const Icon = item.icon
+            const isLast = index === experiences.length - 1
 
             return (
-              <div
-                key={index}
-                className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 relative z-10 border border-zinc-200 dark:border-zinc-400'
-              >
-                <Icon className='text-zinc-500 dark:text-zinc-400' size={15} />
+              <div key={index} className='relative'>
+                {/* Connector segment to the NEXT icon. Not rendered on the
+                    last item, so the line never protrudes past the ends.
+                    Each item draws its own segment, so adding an experience
+                    automatically extends the line. */}
+                {!isLast && (
+                  <span className='absolute left-1/2 top-full h-5 w-0.5 -translate-x-1/2 bg-zinc-300 dark:bg-zinc-400' />
+                )}
+
+                <div className='bg-zinc-100 dark:bg-zinc-800 rounded-full p-2 relative z-10 border border-zinc-200 dark:border-zinc-400'>
+                  <Icon className='text-zinc-500 dark:text-zinc-400' size={15} />
+                </div>
               </div>
             )
           })}
-
-          <div className='absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-zinc-300 dark:bg-zinc-400' />
         </div>
 
         <div className='flex flex-col gap-5 w-full'>

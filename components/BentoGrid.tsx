@@ -23,10 +23,11 @@ const BentoGrid = () => {
           <Projects />
         </div>
 
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+        {/* Bottom row: Certificate + (Hireme & Philosophy) — locked to same height */}
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch'>
           <Certificate />
 
-          <div className='grid grid-cols-1 gap-3'>
+          <div className='grid grid-cols-1 gap-3 items-stretch'>
             <Hireme />
             <Philosophy />
           </div>

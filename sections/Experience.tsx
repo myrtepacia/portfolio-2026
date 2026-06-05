@@ -10,11 +10,6 @@ const experiences = [
     year: '2024 - Present',
   },
   {
-    title: 'Freelance Web Designer',
-    subtitle: 'ㅤ',
-    year: '2024',
-  },
-  {
     title: 'Computer System Servicing',
     subtitle: 'Demetrio L. Alviola National High School',
     year: '2024',

@@ -25,14 +25,6 @@ const Certificate = () => {
           <h2 className='font-bold'>Certificates</h2>
         </div>
 
-        <div className='flex flex-nowrap items-center gap-1'>
-          <Link href='/certificates' className='text-xs text-zinc-700 dark:text-white'>
-            View All
-          </Link>
-          <ChevronRight size={12} className='text-zinc-700 dark:text-white' />
-        </div>
-      </div>
-
       <div className='flex flex-col flex-1 justify-between gap-2'>
         {visibleCerts.map((item, index) => (
           <div

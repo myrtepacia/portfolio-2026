@@ -10,6 +10,10 @@ import {
   techSupport,
 } from '@/constants'
 
+// Never cache this route — always generate a fresh response per request.
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 type ChatHistoryItem = {
   role: 'user' | 'model'
   content: string
@@ -38,7 +42,7 @@ const getCurrentAge = () => {
   return age
 }
 
-const knowledgeBase: KnowledgeChunk[] = [
+const buildKnowledgeBase = (): KnowledgeChunk[] => [
   {
     id: 'profile',
     title: 'Profile Overview',
@@ -57,7 +61,7 @@ Contact email: myrtepacia@gmail.com
     id: 'experience',
     title: 'Experience and Education',
     source: 'portfolio/experience',
-    keywords: ['experience', 'education', 'study', 'school', 'freelance'],
+    keywords: ['experience', 'education', 'study', 'school', 'freelance', 'timeline'],
     content: `
 Education:
 - BS Computer Science at Negros Oriental State University (2024 - Present)
@@ -65,6 +69,7 @@ Education:
 
 Experience:
 - Freelance Web Designer (2024)
+- First Hello World - started programming (2021)
     `.trim(),
   },
   {
@@ -219,7 +224,7 @@ const scoreChunk = (query: string, chunk: KnowledgeChunk) => {
 }
 
 const retrieveRelevantChunks = (query: string, limit = 5) => {
-  return knowledgeBase
+  return buildKnowledgeBase()
     .map((chunk) => ({
       ...chunk,
       score: scoreChunk(query, chunk),

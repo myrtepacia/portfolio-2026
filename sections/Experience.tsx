@@ -45,30 +45,29 @@ const Experience = () => {
             <div key={index} className='flex gap-4'>
               {/* Dot + line column */}
               <div className='flex flex-col items-center flex-shrink-0' style={{ width: 14 }}>
-                {/* Spacer aligns dot center with title's first line center (text-sm leading-tight) */}
-                <div className='h-[5px]' />
-
-                {/* Dot */}
-                {isPresent ? (
-                  <span className='relative flex items-center justify-center flex-shrink-0'>
-                    {/* Ping ring */}
-                    <span className='absolute inline-flex h-3 w-3 rounded-full bg-zinc-400 dark:bg-zinc-300 opacity-75 experience-dot-ping' />
-                    {/* Core dot */}
-                    <span className='relative inline-flex h-2 w-2 rounded-full bg-zinc-600 dark:bg-zinc-200' />
-                  </span>
-                ) : (
-                  <span className='inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-zinc-400 dark:bg-zinc-500' />
-                )}
+                {/* Dot wrapper matches the title row height so the dot centers on it */}
+                <div className='flex items-center' style={{ minHeight: 22 }}>
+                  {isPresent ? (
+                    <span className='relative flex items-center justify-center flex-shrink-0'>
+                      {/* Ping ring */}
+                      <span className='absolute inline-flex h-3 w-3 rounded-full bg-zinc-400 dark:bg-zinc-300 opacity-75 experience-dot-ping' />
+                      {/* Core dot */}
+                      <span className='relative inline-flex h-2 w-2 rounded-full bg-zinc-600 dark:bg-zinc-200' />
+                    </span>
+                  ) : (
+                    <span className='inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-zinc-400 dark:bg-zinc-500' />
+                  )}
+                </div>
 
                 {/* Connector line stretches to bottom of this row */}
                 {!isLast && (
-                  <div className='flex-1 w-0.5 bg-zinc-300 dark:bg-zinc-600 mt-1' />
+                  <div className='flex-1 w-0.5 bg-zinc-300 dark:bg-zinc-600' />
                 )}
               </div>
 
               {/* Text content — pb creates spacing between items */}
               <div className={`flex-1 ${isLast ? 'pb-0' : 'pb-5'}`}>
-                <div className='flex items-start justify-between gap-3'>
+                <div className='flex items-center justify-between gap-3' style={{ minHeight: 22 }}>
                   <h4 className='text-sm font-bold leading-tight'>{item.title}</h4>
                   <span className='badge text-[10px] shrink-0'>{item.year}</span>
                 </div>

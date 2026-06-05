@@ -5,7 +5,7 @@ import { ChevronRight, Trophy, X } from 'lucide-react'
 import { certificates } from '@/constants'
 import Link from 'next/link'
 
-const MAX_DISPLAY = 4
+const MAX_DISPLAY = 5
 
 const Certificate = () => {
   const [selectedCert, setSelectedCert] = useState<(typeof certificates)[number] | null>(null)

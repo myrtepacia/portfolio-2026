@@ -14,7 +14,9 @@ const Philosophy = ({ className = '' }: PhilosophyProps) => {
       </div>
 
       <div className='border-l-2 pl-3 border-gray-300 dark:border-zinc-500'>
-        <p className='text-xs text-zinc-600 dark:text-zinc-400'>"I value continuous learning and thoughtful problem-solving, using modern tools to build solutions that improve with time."</p>
+        <p className='text-sm leading-relaxed text-zinc-600 dark:text-zinc-400'>
+          "I value continuous learning and thoughtful problem-solving, using modern tools to build solutions that improve with time."
+        </p>
       </div>
     </div>
   )

@@ -246,6 +246,17 @@ const cleanResponseText = (text: string) => {
     .trim()
 }
 
+// Detect if the question is about current events / news / recent happenings
+const isCurrentEventsQuery = (query: string): boolean => {
+  const lower = query.toLowerCase()
+  const currentKeywords = [
+    'latest', 'recent', 'news', 'today', 'now', '2026', 'current',
+    'happening', 'update', 'this year', 'trending', 'new', 'just',
+    'what happened', 'recently', 'this month', 'this week',
+  ]
+  return currentKeywords.some((kw) => lower.includes(kw))
+}
+
 export async function POST(req: NextRequest) {
   try {
     const apiKey = process.env.GEMINI_API_KEY
@@ -306,12 +317,14 @@ export async function POST(req: NextRequest) {
         : 'No previous conversation.'
 
     const hasPortfolioContext = retrievedChunks.length > 0
+    const needsWebSearch = isCurrentEventsQuery(message)
 
     const systemInstruction = `
 You are Henmyr Vincent L. Tepacia's friendly portfolio AI assistant.
+The current year is 2026.
 
 Your job is to be helpful and to ALWAYS give the user an answer, no matter
-what they ask. Never refuse a question. There are two kinds of questions:
+what they ask. Never refuse a question. There are three kinds of questions:
 
 1. Questions about Henmyr (his profile, skills, projects, certificates,
    experience, education, contact, philosophy, etc.):
@@ -322,12 +335,17 @@ what they ask. Never refuse a question. There are two kinds of questions:
      "I don't have that specific detail about Henmyr yet, but you can reach
      him at myrtepacia@gmail.com." Then still be helpful with what you know.
 
-2. General questions, casual chat, jokes, opinions, random or nonsense
+2. Questions about current events, news, or 2026 happenings:
+   - Use the Google Search tool to look up accurate, up-to-date information.
+   - Share what you find in a concise, natural, conversational way.
+   - Be honest if something is uncertain or evolving.
+   - Keep it brief — 2 to 4 sentences unless they ask for more detail.
+
+3. General questions, casual chat, jokes, opinions, random or nonsense
    questions (e.g. trivia, math, "what's the meaning of life", silly prompts):
    - Just answer them helpfully and naturally using your own knowledge.
    - Keep a warm, lightly playful, conversational tone.
-   - You do NOT need portfolio context to answer these. Never say you can
-     only talk about the portfolio.
+   - You do NOT need portfolio context to answer these.
 
 Style rules:
 - Keep answers concise and natural.
@@ -350,7 +368,9 @@ ${contextBlock}
 ${
   hasPortfolioContext
     ? 'Use the context above if the question is about Henmyr. Otherwise just answer the question directly and helpfully.'
-    : 'No portfolio context matched this question, which usually means it is a general, casual, or nonsense question. Answer it directly and helpfully using your own knowledge, in a friendly tone. Do not refuse.'
+    : needsWebSearch
+    ? 'This looks like a question about current events or 2026 happenings. Use Google Search to find the latest information and answer naturally.'
+    : 'No portfolio context matched this question. Answer it directly and helpfully using your own knowledge, in a friendly tone.'
 }
 
 Now answer the user.
@@ -363,7 +383,16 @@ Now answer the user.
       systemInstruction,
     })
 
-    const result = await model.generateContent(finalPrompt)
+    // Use Google Search grounding when the question is about current events
+    const generateOptions: any = {
+      contents: [{ role: 'user', parts: [{ text: finalPrompt }] }],
+    }
+
+    if (needsWebSearch) {
+      generateOptions.tools = [{ googleSearch: {} }]
+    }
+
+    const result = await model.generateContent(generateOptions)
     const text = result.response.text()?.trim()
 
     if (!text) {

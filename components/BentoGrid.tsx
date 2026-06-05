@@ -6,6 +6,7 @@ import Certificate from '@/sections/Certificate'
 import Hireme from '@/sections/Hireme'
 import Philosophy from '@/sections/Philosophy'
 import SocialLinks from '@/sections/SocialLinks'
+import Gallery from '@/sections/Gallery'
 
 const BentoGrid = () => {
   return (
@@ -44,6 +45,11 @@ const BentoGrid = () => {
         </div>
 
         <SocialLinks />
+      </div>
+
+      {/* Gallery spans full width at the bottom */}
+      <div className='sm:col-span-12'>
+        <Gallery />
       </div>
     </section>
   )

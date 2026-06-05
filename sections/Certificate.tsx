@@ -5,8 +5,12 @@ import { ChevronRight, Trophy, X } from 'lucide-react'
 import { certificates } from '@/constants'
 import Link from 'next/link'
 
+const MAX_DISPLAY = 3
+
 const Certificate = () => {
   const [selectedCert, setSelectedCert] = useState<(typeof certificates)[number] | null>(null)
+
+  const visibleCerts = certificates.slice(0, MAX_DISPLAY)
 
   return (
     <div className='card'>
@@ -26,8 +30,8 @@ const Certificate = () => {
         </div>
       </div>
 
-      <div className='space-y-2 max-h-[280px] overflow-y-auto pr-1 custom-scrollbar'>
-        {certificates.map((item, index) => (
+      <div className='space-y-2'>
+        {visibleCerts.map((item, index) => (
           <div
             key={index}
             onClick={() => setSelectedCert(item)}

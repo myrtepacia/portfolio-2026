@@ -11,46 +11,40 @@ import Gallery from '@/sections/Gallery'
 const BentoGrid = () => {
   return (
     <section className='grid grid-cols-1 sm:grid-cols-12 gap-3 padding-x max-container max-w-5xl pb-10'>
+
+      {/* Top-left: About + Techstack */}
       <div className='sm:col-span-7 space-y-3'>
         <About />
-
-        <div className='sm:hidden'>
-          <Experience />
-        </div>
-
+        <div className='sm:hidden'><Experience /></div>
         <Techstack />
-
-        <div className='sm:hidden'>
-          <Projects />
-        </div>
-
-        {/* Certificate + (What I Bring & Philosophy) flow right under Tech Stack */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 items-start'>
-          <Certificate />
-
-          <div className='flex flex-col gap-3'>
-            <Hireme />
-            <Philosophy />
-          </div>
-        </div>
+        <div className='sm:hidden'><Projects /></div>
       </div>
 
+      {/* Top-right: Experience + Projects */}
       <div className='sm:col-span-5 space-y-3'>
-        <div className='hidden sm:block'>
-          <Experience />
-        </div>
+        <div className='hidden sm:block'><Experience /></div>
+        <div className='hidden sm:block'><Projects /></div>
+      </div>
 
-        <div className='hidden sm:block'>
-          <Projects />
-        </div>
-
+      {/* Bottom row: 4 equal cards side by side — matches screenshot */}
+      <div className='sm:col-span-3'>
+        <Certificate />
+      </div>
+      <div className='sm:col-span-3'>
+        <Hireme />
+      </div>
+      <div className='sm:col-span-3'>
+        <Philosophy />
+      </div>
+      <div className='sm:col-span-3'>
         <SocialLinks />
       </div>
 
-      {/* Gallery spans full width at the bottom */}
+      {/* Gallery: full width */}
       <div className='sm:col-span-12'>
         <Gallery />
       </div>
+
     </section>
   )
 }

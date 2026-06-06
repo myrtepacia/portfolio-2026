@@ -25,14 +25,14 @@ const Certificate = () => {
             <span><Trophy color='#71717a' size={20} /></span>
             <h2 className='font-bold'>Certificates</h2>
           </div>
-          {certificates.length > MAX_DISPLAY && (
-            <button
-              onClick={() => setShowAll(true)}
-              className='flex items-center gap-0.5 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-white transition-colors'
-            >
-              View all <ChevronRight size={12} />
-            </button>
-          )}
+
+
+           <div className='flex flex-nowrap items-center gap-1'>
+          <Link href='/certificates' className='text-xs text-zinc-700 dark:text-white'>
+            View All
+          </Link>
+          <ChevronRight size={12} className='text-zinc-700 dark:text-white'/>
+          </div>
         </div>
 
         {/* Cert list — compact gap, no stretching */}

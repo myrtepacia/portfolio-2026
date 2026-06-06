@@ -75,11 +75,7 @@ export const certificates = [
         provider: "Department of Information and Communications Technology",
         image: '/images/basic-js.jpg'
     },
-    {
-        title: "Using HTML and CSS to Design a Website",
-        provider: "Department of Information and Communications Technology",
-        image: '/images/html-css.jpg'
-    },
+
 ]
 
 export const hireme = [

@@ -56,14 +56,14 @@ export const projectData = [
 
 export const certificates = [
     {
-        title: "Introduction to Modern AI",
-        provider: "CISCO Network Academy",
-        image: '/images/Modern-AI.jpg'
-    },
-    {
         title: "Code Connect Workshop",
         provider: "Negros Oriental State University",
         image: '/images/cc-workshop.jpg'
+    },
+     {
+        title: "Computer Servicing NC II",
+        provider: "Technical Education and Skills Development Authority",
+        image: '/images/NCII.jpg'
     },
     {
         title: "Basic Javascript for Web Development",

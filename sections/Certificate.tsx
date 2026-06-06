@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ChevronRight, Trophy, X } from 'lucide-react'
 import { certificates } from '@/constants'
 
-const MAX_DISPLAY = 4   // "Using HTML and CSS to Design a Website" is at index 4, hidden from main view
+const MAX_DISPLAY = 5   // Show all 5 certificates to fill the card
 
 const Certificate = () => {
   const [selectedCert, setSelectedCert] = useState<(typeof certificates)[number] | null>(null)
@@ -25,12 +25,14 @@ const Certificate = () => {
             <span><Trophy color='#71717a' size={20} /></span>
             <h2 className='font-bold'>Certificates</h2>
           </div>
-          <button
-            onClick={() => setShowAll(true)}
-            className='flex items-center gap-0.5 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-white transition-colors'
-          >
-            View all <ChevronRight size={12} />
-          </button>
+          {certificates.length > MAX_DISPLAY && (
+            <button
+              onClick={() => setShowAll(true)}
+              className='flex items-center gap-0.5 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-white transition-colors'
+            >
+              View all <ChevronRight size={12} />
+            </button>
+          )}
         </div>
 
         {/* Cert list — compact gap, no stretching */}

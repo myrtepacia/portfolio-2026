@@ -35,7 +35,7 @@ const BentoGrid = () => {
           Right : 3 cards + Gallery (col-span-8) */}
 
       {/* Left column: Certificates */}
-      <div className='sm:col-span-4'>
+      <div className='sm:col-span-4 flex flex-col'>
         <Certificate />
       </div>
 

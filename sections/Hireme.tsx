@@ -12,7 +12,7 @@ const icons = [
 
 const Hireme = () => {
   return (
-    <div className='card h-full'>
+    <div className='card'>
 
         <div className='flex flex-nowrap items-center gap-2'>
           <span><BadgeCheck color='#71717a' size={20}/></span>

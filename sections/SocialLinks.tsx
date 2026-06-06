@@ -36,13 +36,13 @@ const socialLinks = [
 
 const SocialLinks = () => {
   return (
-    <div className='card h-full'>
+    <div className='card'>
       <div className='flex items-center gap-2'>
         <Link2 size={18} className='text-zinc-500 dark:text-zinc-400' />
         <h2 className='font-bold'>Social Links</h2>
       </div>
 
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-3'>
         {socialLinks.map((item) => (
           <Link
             key={item.label}
@@ -52,11 +52,11 @@ const SocialLinks = () => {
             className='group flex items-center gap-3 text-zinc-700 transition-colors hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white'
           >
             {item.custom ? (
-              <DiscordIcon size={16} />
+              <DiscordIcon size={14} />
             ) : (
-              item.icon && <item.icon size={16} className='shrink-0' />
+              item.icon && <item.icon size={14} className='shrink-0' />
             )}
-            <span className='text-sm'>{item.label}</span>
+            <span className='text-xs'>{item.label}</span>
           </Link>
         ))}
       </div>

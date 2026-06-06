@@ -7,17 +7,15 @@ interface PhilosophyProps {
 
 const Philosophy = ({ className = '' }: PhilosophyProps) => {
   return (
-    <div className={`card h-full ${className}`}>
+    <div className={`card ${className}`}>
       <div className='flex flex-nowrap items-center gap-2'>
         <span><Quote color='#71717a' size={20} /></span>
         <h2 className='font-bold'>Philosophy</h2>
       </div>
 
-      <div className='border-l-2 pl-3 border-gray-300 dark:border-zinc-500'>
-        <p className='text-sm leading-relaxed text-zinc-600 dark:text-zinc-400'>
-          "I value continuous learning and thoughtful problem-solving, using modern tools to build solutions that improve with time."
-        </p>
-      </div>
+      <p className='text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed'>
+        "I value continuous learning and thoughtful problem-solving, using modern tools to build solutions that improve with time."
+      </p>
     </div>
   )
 }

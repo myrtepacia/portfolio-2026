@@ -42,6 +42,16 @@ const getCurrentAge = () => {
   return age
 }
 
+// Live, human-readable current date so the model never assumes an old year.
+const getCurrentDateString = () =>
+  new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Asia/Manila',
+  })
+
 const buildKnowledgeBase = (): KnowledgeChunk[] => [
   {
     id: 'profile',
@@ -319,9 +329,17 @@ export async function POST(req: NextRequest) {
     const hasPortfolioContext = retrievedChunks.length > 0
     const needsWebSearch = isCurrentEventsQuery(message)
 
+    const currentDate = getCurrentDateString()
+
     const systemInstruction = `
 You are Henmyr Vincent L. Tepacia's friendly portfolio AI assistant.
-The current year is 2026.
+
+IMPORTANT — TODAY'S DATE: ${currentDate}.
+Treat this as the real, present-day date. Never assume it is an earlier year
+and never claim your knowledge stops before today. When a question touches on
+anything that may have changed recently, you have the Google Search tool — use
+it to ground your answer in up-to-date information rather than relying on
+memory.
 
 Your job is to be helpful and to ALWAYS give the user an answer, no matter
 what they ask. Never refuse a question. There are three kinds of questions:
@@ -335,10 +353,14 @@ what they ask. Never refuse a question. There are three kinds of questions:
      "I don't have that specific detail about Henmyr yet, but you can reach
      him at myrtepacia@gmail.com." Then still be helpful with what you know.
 
-2. Questions about current events, news, or 2026 happenings:
-   - Use the Google Search tool to look up accurate, up-to-date information.
-   - Share what you find in a concise, natural, conversational way.
-   - Be honest if something is uncertain or evolving.
+2. Questions about current events, news, recent releases, prices, sports,
+   public figures, "what's the latest", or anything time-sensitive:
+   - ALWAYS use the Google Search tool to look up accurate, up-to-date
+     information before answering. Do not answer these from memory.
+   - Anchor your answer to today's date above (for example, when someone says
+     "this year" they mean ${new Date().getFullYear()}).
+   - Share what you find in a concise, natural, conversational way and be
+     honest if something is still uncertain or evolving.
    - Keep it brief — 2 to 4 sentences unless they ask for more detail.
 
 3. General questions, casual chat, jokes, opinions, random or nonsense
@@ -379,17 +401,16 @@ Now answer the user.
     const genAI = new GoogleGenerativeAI(apiKey)
 
     const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.5-flash',
       systemInstruction,
     })
 
-    // Use Google Search grounding when the question is about current events
+    // Always give the model the Google Search grounding tool. It decides when
+    // to actually search, so recency questions stay current without relying on
+    // brittle keyword matching.
     const generateOptions: any = {
       contents: [{ role: 'user', parts: [{ text: finalPrompt }] }],
-    }
-
-    if (needsWebSearch) {
-      generateOptions.tools = [{ googleSearch: {} }]
+      tools: [{ googleSearch: {} }],
     }
 
     const result = await model.generateContent(generateOptions)

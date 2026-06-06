@@ -3,7 +3,7 @@ import React from 'react'
 import { frontend, backend, devTools, techSupport } from '@/constants'
 const Techstack = () => {
   return (
-    <div className='card'>
+    <div className='card h-full w-full'>
 
         <div className='flex flex-nowrap items-center gap-2 '>
           <span><Layers color='#71717a' size={20}/></span>

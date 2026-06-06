@@ -18,15 +18,20 @@ const Gallery = () => {
   const [startIndex, setStartIndex] = useState(0)
 
   const visibleCount = 4
-  const maxStart = galleryImages.length - visibleCount
+  const total = galleryImages.length
 
-  const handlePrev = () => setStartIndex((prev) => Math.max(prev - 1, 0))
-  const handleNext = () => setStartIndex((prev) => Math.min(prev + 1, maxStart))
+  const handlePrev = () => setStartIndex((prev) => (prev - 1 + total) % total)
+  const handleNext = () => setStartIndex((prev) => (prev + 1) % total)
+
+  const visibleImages = Array.from({ length: visibleCount }, (_, i) => {
+    const index = (startIndex + i) % total
+    return { ...galleryImages[index], index }
+  })
 
   const handleLightboxPrev = () =>
-    setLightbox((prev) => (prev !== null ? (prev - 1 + galleryImages.length) % galleryImages.length : 0))
+    setLightbox((prev) => (prev !== null ? (prev - 1 + total) % total : 0))
   const handleLightboxNext = () =>
-    setLightbox((prev) => (prev !== null ? (prev + 1) % galleryImages.length : 0))
+    setLightbox((prev) => (prev !== null ? (prev + 1) % total : 0))
 
   return (
     <div className="card">
@@ -35,22 +40,14 @@ const Gallery = () => {
         <h2 className="font-bold">Gallery</h2>
       </div>
 
-      <div className="relative flex items-center gap-2">
-        {/* Prev button */}
-        <button
-          onClick={handlePrev}
-          disabled={startIndex === 0}
-          className="shrink-0 p-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-        >
-          <ChevronLeft size={16} />
-        </button>
-
+      {/* Wrapper with horizontal padding so arrows have room to sit outside */}
+      <div className="relative px-5">
         {/* Image strip */}
-        <div className="flex gap-2 flex-1 overflow-hidden">
-          {galleryImages.slice(startIndex, startIndex + visibleCount).map((img, i) => (
+        <div className="flex gap-2 overflow-hidden">
+          {visibleImages.map((img, i) => (
             <button
-              key={startIndex + i}
-              onClick={() => setLightbox(startIndex + i)}
+              key={`${img.index}-${i}`}
+              onClick={() => setLightbox(img.index)}
               className="relative flex-1 aspect-square overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:scale-[1.02] transition-transform duration-200 cursor-pointer"
             >
               <Image
@@ -64,13 +61,34 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* Next button */}
+        {/* Prev — centered on the left edge of the image strip */}
+        <button
+          onClick={handlePrev}
+          aria-label="Previous images"
+          className="absolute left-5 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10
+                     grid place-items-center h-7 w-7 rounded-md
+                     border border-zinc-200 dark:border-zinc-600
+                     bg-white/75 dark:bg-zinc-800/75 backdrop-blur-sm
+                     text-zinc-600 dark:text-zinc-300 shadow-md
+                     opacity-80 hover:opacity-100
+                     transition-all duration-200"
+        >
+          <ChevronLeft size={15} />
+        </button>
+
+        {/* Next — centered on the right edge of the image strip */}
         <button
           onClick={handleNext}
-          disabled={startIndex >= maxStart}
-          className="shrink-0 p-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+          aria-label="Next images"
+          className="absolute right-5 top-1/2 -translate-y-1/2 translate-x-1/2 z-10
+                     grid place-items-center h-7 w-7 rounded-md
+                     border border-zinc-200 dark:border-zinc-600
+                     bg-white/75 dark:bg-zinc-800/75 backdrop-blur-sm
+                     text-zinc-600 dark:text-zinc-300 shadow-md
+                     opacity-80 hover:opacity-100
+                     transition-all duration-200"
         >
-          <ChevronRight size={16} />
+          <ChevronRight size={15} />
         </button>
       </div>
 

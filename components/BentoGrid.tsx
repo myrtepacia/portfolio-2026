@@ -41,7 +41,7 @@ const BentoGrid = () => {
 
       {/* Right column: three cards, then the gallery below them */}
       <div className='sm:col-span-8 flex flex-col gap-3'>
-        <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 items-start'>
+        <div className='grid grid-cols-1 sm:grid-cols-[5fr_4fr_3fr] gap-3'>
           <Hireme />
           <Philosophy />
           <SocialLinks />

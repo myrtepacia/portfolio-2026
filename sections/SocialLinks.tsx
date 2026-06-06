@@ -39,7 +39,7 @@ const SocialLinks = () => {
     <div className='card h-full'>
       <div className='flex items-center gap-2'>
         <Link2 size={18} className='text-zinc-500 dark:text-zinc-400' />
-        <h2 className='font-bold'>Social</h2>
+        <h2 className='font-bold'>Socials</h2>
       </div>
 
       <div className='flex flex-col gap-3'>

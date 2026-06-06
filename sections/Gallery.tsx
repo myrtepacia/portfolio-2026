@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 
@@ -15,18 +15,65 @@ const galleryImages = [
 
 const Gallery = () => {
   const [lightbox, setLightbox] = useState<number | null>(null)
-  const [startIndex, setStartIndex] = useState(0)
 
   const visibleCount = 4
   const total = galleryImages.length
+  const clones = visibleCount
 
-  const handlePrev = () => setStartIndex((prev) => (prev - 1 + total) % total)
-  const handleNext = () => setStartIndex((prev) => (prev + 1) % total)
+  // Build a track that clones `visibleCount` images on each side so the
+  // slide can loop seamlessly in both directions. Each slide remembers the
+  // real index it maps to (for the lightbox).
+  const slides = [
+    ...galleryImages
+      .slice(total - clones)
+      .map((img, i) => ({ ...img, realIndex: total - clones + i })),
+    ...galleryImages.map((img, i) => ({ ...img, realIndex: i })),
+    ...galleryImages.slice(0, clones).map((img, i) => ({ ...img, realIndex: i })),
+  ]
 
-  const visibleImages = Array.from({ length: visibleCount }, (_, i) => {
-    const index = (startIndex + i) % total
-    return { ...galleryImages[index], index }
-  })
+  // Start at the first real image (just past the leading clones).
+  const [index, setIndex] = useState(clones)
+  const [withTransition, setWithTransition] = useState(true)
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  const step = 100 / slides.length // % of track width per single slide
+
+  const handlePrev = () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    setWithTransition(true)
+    setIndex((prev) => prev - 1)
+  }
+
+  const handleNext = () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    setWithTransition(true)
+    setIndex((prev) => prev + 1)
+  }
+
+  // When a slide finishes, snap back to the matching real image without an
+  // animation if we've landed on a clone — that's what makes the loop seamless.
+  const handleTransitionEnd = () => {
+    setIsAnimating(false)
+    if (index >= clones + total) {
+      setWithTransition(false)
+      setIndex(index - total)
+    } else if (index < clones) {
+      setWithTransition(false)
+      setIndex(index + total)
+    }
+  }
+
+  // Re-enable the transition on the next frame after a no-animation snap.
+  useEffect(() => {
+    if (!withTransition) {
+      const id = requestAnimationFrame(() =>
+        requestAnimationFrame(() => setWithTransition(true))
+      )
+      return () => cancelAnimationFrame(id)
+    }
+  }, [withTransition])
 
   const handleLightboxPrev = () =>
     setLightbox((prev) => (prev !== null ? (prev - 1 + total) % total : 0))
@@ -42,23 +89,39 @@ const Gallery = () => {
 
       {/* Wrapper with horizontal padding so arrows have room to sit outside */}
       <div className="relative px-5">
-        {/* Image strip */}
-        <div className="flex gap-2 overflow-hidden">
-          {visibleImages.map((img, i) => (
-            <button
-              key={`${img.index}-${i}`}
-              onClick={() => setLightbox(img.index)}
-              className="relative flex-1 aspect-square overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:scale-[1.02] transition-transform duration-200 cursor-pointer"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 25vw, 180px"
-              />
-            </button>
-          ))}
+        {/* Viewport — clips the sliding track */}
+        <div className="overflow-hidden">
+          {/* Sliding track */}
+          <div
+            className="flex"
+            style={{
+              width: `${(slides.length / visibleCount) * 100}%`,
+              transform: `translateX(-${index * step}%)`,
+              transition: withTransition ? 'transform 450ms ease-in-out' : 'none',
+            }}
+            onTransitionEnd={handleTransitionEnd}
+          >
+            {slides.map((img, i) => (
+              <div
+                key={`${img.realIndex}-${i}`}
+                style={{ flex: `0 0 ${100 / slides.length}%` }}
+                className="px-1"
+              >
+                <button
+                  onClick={() => setLightbox(img.realIndex)}
+                  className="relative w-full aspect-square overflow-hidden rounded-lg bg-zinc-200 dark:bg-zinc-700 hover:scale-[1.02] transition-transform duration-200 cursor-pointer"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 25vw, 180px"
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Prev — centered on the left edge of the image strip */}

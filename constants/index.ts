@@ -66,11 +66,6 @@ export const certificates = [
         image: '/images/cc-workshop.jpg'
     },
     {
-        title: "Computer Servicing NC II",
-        provider: "Technical Education and Skills Development Authority",
-        image: '/images/NCII.jpg'
-    },
-    {
         title: "Basic Javascript for Web Development",
         provider: "Department of Information and Communications Technology",
         image: '/images/basic-js.jpg'

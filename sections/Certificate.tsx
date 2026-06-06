@@ -66,17 +66,12 @@ const Certificate = () => {
           >
             <X size={28} />
           </button>
-          {/* Wide gray mat — same color as the cert list items */}
-          <div
-            className='w-[85vw] max-w-3xl bg-gray-100 dark:bg-zinc-800 rounded-2xl px-10 py-10 flex items-center justify-center'
+          <img
+            src={selectedCert.image}
+            alt={selectedCert.title}
             onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={selectedCert.image}
-              alt={selectedCert.title}
-              className='max-w-full max-h-[75vh] object-contain rounded-lg'
-            />
-          </div>
+            className='max-w-[90vw] max-h-[90vh] object-contain'
+          />
         </div>
       )}
 

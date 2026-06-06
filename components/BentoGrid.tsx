@@ -34,18 +34,18 @@ const BentoGrid = () => {
           Left  : Certificates (col-span-4 — slightly wider for more breathing room)
           Right : 3 cards + Gallery (col-span-8) */}
 
-      {/* Three cards — own full-width row */}
-      <div className='sm:col-span-12 grid grid-cols-1 sm:grid-cols-[5fr_4fr_3fr] gap-3'>
-        <Hireme />
-        <Philosophy />
-        <SocialLinks />
-      </div>
-
-      {/* Certificate + Gallery — same row so heights always match */}
-      <div className='sm:col-span-4 flex flex-col'>
+      {/* Left column: Certificates */}
+      <div className='sm:col-span-4'>
         <Certificate />
       </div>
-      <div className='sm:col-span-8'>
+
+      {/* Right column: three cards, then the gallery below them */}
+      <div className='sm:col-span-8 flex flex-col gap-3'>
+        <div className='grid grid-cols-1 sm:grid-cols-[5fr_4fr_3fr] gap-3'>
+          <Hireme />
+          <Philosophy />
+          <SocialLinks />
+        </div>
         <Gallery />
       </div>
 

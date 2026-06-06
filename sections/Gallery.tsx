@@ -109,17 +109,15 @@ const Gallery = () => {
               >
                 <button
                   onClick={() => setLightbox(img.realIndex)}
-                  className="relative w-full aspect-square rounded-lg bg-gray-100 dark:bg-zinc-800 hover:scale-[1.02] transition-transform duration-200 cursor-pointer p-2"
+                  className="relative w-full aspect-square overflow-hidden rounded-lg bg-zinc-200 dark:bg-zinc-700 hover:scale-[1.02] transition-transform duration-200 cursor-pointer"
                 >
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 25vw, 180px"
-                    />
-                  </div>
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 25vw, 180px"
+                  />
                 </button>
               </div>
             ))}
@@ -171,13 +169,13 @@ const Gallery = () => {
           </button>
 
           <div
-            className="w-[85vw] max-w-3xl bg-gray-100 dark:bg-zinc-800 rounded-2xl px-10 py-10 flex items-center justify-center"
+            className="relative max-w-[90vw] max-h-[85vh] rounded-xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={galleryImages[lightbox].src}
               alt={galleryImages[lightbox].alt}
-              className="max-w-full max-h-[75vh] object-contain rounded-lg"
+              className="max-w-[90vw] max-h-[85vh] object-contain"
             />
           </div>
 

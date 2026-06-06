@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ChevronRight, Trophy, X } from 'lucide-react'
 import { certificates } from '@/constants'
 
-const MAX_DISPLAY = 5   // Show all 5 certificates to fill the card
+const MAX_DISPLAY = 4   // Show 4 certificates in the card; the rest live in "View All"
 
 const Certificate = () => {
   const [selectedCert, setSelectedCert] = useState<(typeof certificates)[number] | null>(null)
@@ -36,14 +36,14 @@ const Certificate = () => {
           </div>
         </div>
 
-        {/* Cert list — grows to fill the card and spreads items evenly,
-            so there's no empty gap left at the bottom of the box */}
-        <div className='flex flex-col gap-2 flex-1 justify-between'>
+        {/* Cert list — items keep their natural height and sit top-aligned
+            with an even gap between them (no stretching to fill the card) */}
+        <div className='flex flex-col gap-3'>
           {visibleCerts.map((item, index) => (
             <div
               key={index}
               onClick={() => setSelectedCert(item)}
-              className='flex flex-col justify-center flex-1 bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer dark:bg-zinc-800 dark:hover:bg-zinc-700'
+              className='flex flex-col justify-center bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer dark:bg-zinc-800 dark:hover:bg-zinc-700'
             >
               <h4 className='text-xs font-bold'>{item.title}</h4>
               <p className='text-xs text-zinc-600 dark:text-zinc-300'>{item.provider}</p>

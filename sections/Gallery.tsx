@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 
@@ -20,9 +20,6 @@ const Gallery = () => {
   const total = galleryImages.length
   const clones = visibleCount
 
-  // Build a track that clones `visibleCount` images on each side so the
-  // slide can loop seamlessly in both directions. Each slide remembers the
-  // real index it maps to (for the lightbox).
   const slides = [
     ...galleryImages
       .slice(total - clones)
@@ -31,15 +28,23 @@ const Gallery = () => {
     ...galleryImages.slice(0, clones).map((img, i) => ({ ...img, realIndex: i })),
   ]
 
-  // Start at the first real image (just past the leading clones).
   const [index, setIndex] = useState(clones)
   const [withTransition, setWithTransition] = useState(true)
   const [isAnimating, setIsAnimating] = useState(false)
 
-  const step = 100 / slides.length // % of track width per single slide
+  // Ref so the auto-advance interval always sees the latest isAnimating value
+  // without needing to recreate the interval on every render.
+  const isAnimatingRef = useRef(false)
+  useEffect(() => { isAnimatingRef.current = isAnimating }, [isAnimating])
+
+  // Bump this to restart the 2-second window after a manual click.
+  const [autoKey, setAutoKey] = useState(0)
+
+  const step = 100 / slides.length
 
   const handlePrev = () => {
     if (isAnimating) return
+    setAutoKey((k) => k + 1)   // reset auto-timer
     setIsAnimating(true)
     setWithTransition(true)
     setIndex((prev) => prev - 1)
@@ -47,13 +52,26 @@ const Gallery = () => {
 
   const handleNext = () => {
     if (isAnimating) return
+    setAutoKey((k) => k + 1)   // reset auto-timer
     setIsAnimating(true)
     setWithTransition(true)
     setIndex((prev) => prev + 1)
   }
 
-  // When a slide finishes, snap back to the matching real image without an
-  // animation if we've landed on a clone — that's what makes the loop seamless.
+  // Auto-advance every 2 seconds. Pauses while lightbox is open.
+  // Resets the 2-second window whenever the user manually navigates.
+  useEffect(() => {
+    if (lightbox !== null) return
+    const id = setInterval(() => {
+      if (!isAnimatingRef.current) {
+        setIsAnimating(true)
+        setWithTransition(true)
+        setIndex((prev) => prev + 1)
+      }
+    }, 2000)
+    return () => clearInterval(id)
+  }, [autoKey, lightbox])
+
   const handleTransitionEnd = () => {
     setIsAnimating(false)
     if (index >= clones + total) {
@@ -65,7 +83,6 @@ const Gallery = () => {
     }
   }
 
-  // Re-enable the transition on the next frame after a no-animation snap.
   useEffect(() => {
     if (!withTransition) {
       const id = requestAnimationFrame(() =>
@@ -87,8 +104,17 @@ const Gallery = () => {
         <h2 className="font-bold">Gallery</h2>
       </div>
 
-      {/* Wrapper with horizontal padding so arrows have room to sit outside */}
-      <div className="relative px-5">
+      {/*
+        FIX 1 — Equal padding on all sides: p-3 (12px everywhere) instead of px-7 py-3
+        FIX 2 — Gray box is now the `relative` parent, so both arrow buttons are
+                 absolutely positioned *inside* the box. `top-1/2 -translate-y-1/2`
+                 now resolves against the box height which is:
+                   p-3(top) + imageHeight + p-3(bottom)
+                 The vertical center of the box equals the center of the images,
+                 so the arrows land exactly in the middle of the image strip.
+      */}
+      <div className="relative rounded-xl bg-gray-100 dark:bg-zinc-800/50 p-3">
+
         {/* Viewport — clips the sliding track */}
         <div className="overflow-hidden">
           {/* Sliding track */}
@@ -124,35 +150,36 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Prev — centered on the left edge of the image strip */}
+        {/* Prev — centered on the left edge of the gray box */}
         <button
           onClick={handlePrev}
           aria-label="Previous images"
-          className="absolute left-5 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10
+          className="absolute left-0 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10
                      grid place-items-center h-7 w-7 rounded-md
                      border border-zinc-200 dark:border-zinc-600
-                     bg-white/75 dark:bg-zinc-800/75 backdrop-blur-sm
+                     bg-white dark:bg-zinc-800
                      text-zinc-600 dark:text-zinc-300 shadow-md
-                     opacity-80 hover:opacity-100
+                     hover:shadow-lg hover:scale-105
                      transition-all duration-200"
         >
           <ChevronLeft size={15} />
         </button>
 
-        {/* Next — centered on the right edge of the image strip */}
+        {/* Next — centered on the right edge of the gray box */}
         <button
           onClick={handleNext}
           aria-label="Next images"
-          className="absolute right-5 top-1/2 -translate-y-1/2 translate-x-1/2 z-10
+          className="absolute right-0 translate-x-1/2 top-1/2 -translate-y-1/2 z-10
                      grid place-items-center h-7 w-7 rounded-md
                      border border-zinc-200 dark:border-zinc-600
-                     bg-white/75 dark:bg-zinc-800/75 backdrop-blur-sm
+                     bg-white dark:bg-zinc-800
                      text-zinc-600 dark:text-zinc-300 shadow-md
-                     opacity-80 hover:opacity-100
+                     hover:shadow-lg hover:scale-105
                      transition-all duration-200"
         >
           <ChevronRight size={15} />
         </button>
+
       </div>
 
       {/* Lightbox */}

@@ -12,8 +12,21 @@ const cleanResponseText = (text: string) => {
     .replace(/^\s*[-*•]\s+/gm, '')
     .replace(/^\s*\d+\.\s+/gm, '')
     .replace(/`/g, '')
+    // Safety net in case the model still returns a markdown link or a raw
+    // URL despite the system prompt saying not to. Markdown links keep the
+    // visible label and drop the address; raw URLs are dropped entirely.
+    .replace(/\[([^\]]+)\]\((?:https?:\/\/|www\.)[^\s)]+\)/g, '$1')
+    .replace(/\(?\bhttps?:\/\/[^\s)]+\)?/g, '')
+    .replace(/\(?\bwww\.[^\s)]+\)?/g, '')
+    // Safety net for em dashes (and stray " -- " used the same way) slipping
+    // through despite the system prompt.
+    .replace(/\s*—\s*/g, ', ')
+    .replace(/\s+--\s+/g, ', ')
     .replace(/[ \t]+\n/g, '\n')
+    .replace(/[ \t]{2,}/g, ' ')
     .replace(/\n{3,}/g, '\n\n')
+    .replace(/ ,/g, ',')
+    .replace(/,\s*,/g, ',')
     .trim()
 }
 

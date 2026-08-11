@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -44,6 +45,10 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Script
+          src="//code.tidio.co/gks7nwkhnr4jnxacmhbo2tq01zczy3db.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

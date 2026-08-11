@@ -1,0 +1,299 @@
+import {
+  backend,
+  certificates,
+  devTools,
+  frontend,
+  hireme,
+  projectData,
+  techSupport,
+} from '@/constants'
+import { puterChat, type PuterMessage } from './puter'
+
+export type AssistantHistoryItem = {
+  role: 'user' | 'model'
+  content: string
+}
+
+type KnowledgeChunk = {
+  id: string
+  title: string
+  content: string
+  source: string
+  keywords: string[]
+}
+
+const getCurrentAge = () => {
+  const birthDate = new Date('2006-04-11')
+  const today = new Date()
+
+  let age = today.getFullYear() - birthDate.getFullYear()
+  const hasHadBirthdayThisYear =
+    today.getMonth() > birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() &&
+      today.getDate() >= birthDate.getDate())
+
+  if (!hasHadBirthdayThisYear) age -= 1
+
+  return age
+}
+
+// Live, human-readable current date so the model never assumes an old year.
+const getCurrentDateString = () =>
+  new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Asia/Manila',
+  })
+
+const buildKnowledgeBase = (): KnowledgeChunk[] => [
+  {
+    id: 'profile',
+    title: 'Profile Overview',
+    source: 'portfolio/about',
+    keywords: ['about', 'profile', 'student', 'university', 'age', 'location'],
+    content: `
+Henmyr Vincent L. Tepacia is a Computer Science student at Negros Oriental State University in Dumaguete, Philippines.
+He is interested in CyberSecurity, Artificial Intelligence, and Data Systems.
+He enjoys learning new technologies, solving problems, joining tech events, and building useful software.
+Henmyr was born on April 11, 2006 and is currently ${getCurrentAge()} years old.
+He is also open to freelance work and collaboration.
+Contact email: myrtepacia@gmail.com
+    `.trim(),
+  },
+  {
+    id: 'experience',
+    title: 'Experience and Education',
+    source: 'portfolio/experience',
+    keywords: ['experience', 'education', 'study', 'school', 'freelance', 'timeline'],
+    content: `
+Education:
+- BS Computer Science at Negros Oriental State University (2024 - Present)
+- Computer System Servicing at Demetrio L. Alviola National High School (2024)
+
+Experience:
+- Freelance Web Designer (2024)
+- First Hello World - started programming (2021)
+    `.trim(),
+  },
+  {
+    id: 'philosophy',
+    title: 'Philosophy',
+    source: 'portfolio/philosophy',
+    keywords: ['philosophy', 'mindset', 'values'],
+    content: `
+Henmyr's philosophy:
+"I value continuous learning and thoughtful problem-solving, using modern tools to build solutions that improve with time."
+He aims to become a skilled software developer who creates practical solutions that help people.
+    `.trim(),
+  },
+  {
+    id: 'frontend',
+    title: 'Frontend Skills',
+    source: 'portfolio/tech-stack',
+    keywords: ['frontend', 'skills', 'tech stack', 'react', 'next', 'typescript'],
+    content: `Frontend skills: ${frontend.join(', ')}`,
+  },
+  {
+    id: 'backend',
+    title: 'Backend Skills',
+    source: 'portfolio/tech-stack',
+    keywords: ['backend', 'skills', 'node', 'mongo', 'python', 'sql'],
+    content: `Backend skills: ${backend.join(', ')}`,
+  },
+  {
+    id: 'tools',
+    title: 'Developer Tools',
+    source: 'portfolio/tech-stack',
+    keywords: ['tools', 'developer tools', 'git', 'docker', 'vercel', 'figma'],
+    content: `Developer tools: ${devTools.join(', ')}`,
+  },
+  {
+    id: 'tech-support',
+    title: 'IT and Technical Support',
+    source: 'portfolio/tech-stack',
+    keywords: ['technical support', 'it support', 'printer', 'troubleshooting'],
+    content: `IT and technical support skills: ${techSupport.join(', ')}`,
+  },
+  {
+    id: 'hireme',
+    title: 'What Henmyr Brings',
+    source: 'portfolio/what-i-bring',
+    keywords: ['hire', 'strengths', 'bring', 'work style'],
+    content: `What Henmyr brings: ${hireme.join(', ')}`,
+  },
+  ...projectData.map((project, index) => ({
+    id: `project-${index}`,
+    title: project.title,
+    source: 'portfolio/projects',
+    keywords: [
+      project.title.toLowerCase(),
+      ...project.stack.map((item) => item.toLowerCase()),
+      'project',
+    ],
+    content: `
+Project title: ${project.title}
+Description: ${project.description}
+Stack: ${project.stack.join(', ')}
+Link: ${project.link}
+    `.trim(),
+  })),
+  ...certificates.map((certificate, index) => ({
+    id: `certificate-${index}`,
+    title: certificate.title,
+    source: 'portfolio/certificates',
+    keywords: [
+      certificate.title.toLowerCase(),
+      certificate.provider.toLowerCase(),
+      'certificate',
+      'certification',
+    ],
+    content: `
+Certificate: ${certificate.title}
+Provider: ${certificate.provider}
+Image path: ${certificate.image}
+    `.trim(),
+  })),
+]
+
+const STOP_WORDS = new Set([
+  'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'do', 'for', 'from',
+  'how', 'i', 'in', 'is', 'it', 'me', 'my', 'of', 'on', 'or', 'the', 'to',
+  'what', 'when', 'where', 'which', 'who', 'with', 'you', 'your',
+])
+
+const normalize = (text: string) =>
+  text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim()
+
+const tokenize = (text: string) =>
+  normalize(text)
+    .split(' ')
+    .filter((token) => token.length > 1 && !STOP_WORDS.has(token))
+
+const scoreChunk = (query: string, chunk: KnowledgeChunk) => {
+  const queryTokens = tokenize(query)
+  const normalizedTitle = normalize(chunk.title)
+  const normalizedContent = normalize(chunk.content)
+
+  let score = 0
+
+  for (const token of queryTokens) {
+    if (normalizedTitle.includes(token)) score += 6
+    if (normalizedContent.includes(token)) score += 3
+    if (chunk.keywords.some((keyword) => normalize(keyword).includes(token))) {
+      score += 8
+    }
+  }
+
+  const normalizedQuery = normalize(query)
+
+  if (normalizedQuery.includes(normalizedTitle)) score += 10
+  if (
+    chunk.keywords.some((keyword) => normalizedQuery.includes(normalize(keyword)))
+  ) {
+    score += 5
+  }
+
+  return score
+}
+
+const retrieveRelevantChunks = (query: string, limit = 5) => {
+  return buildKnowledgeBase()
+    .map((chunk) => ({ ...chunk, score: scoreChunk(query, chunk) }))
+    .filter((chunk) => chunk.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+}
+
+const cleanResponseText = (text: string) => {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/^\s*[-*•]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/`/g, '')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+}
+
+const buildSystemInstruction = (currentDate: string) =>
+  `
+You are Henmyr Vincent L. Tepacia's friendly portfolio AI assistant.
+
+IMPORTANT — TODAY'S DATE: ${currentDate}.
+Treat this as the real, present-day date. Never assume it is an earlier year
+and never claim your knowledge stops before today. When a question touches on
+anything that may have changed recently, you have a web search tool — use it
+to ground your answer in up-to-date information rather than relying on memory.
+
+Your job is to be helpful and to ALWAYS give the user an answer, no matter
+what they ask. Never refuse a question. There are three kinds of questions:
+
+1. Questions about Henmyr (his profile, skills, projects, certificates,
+   experience, education, contact, philosophy, etc.):
+   - Answer using the retrieved portfolio context as your source of truth.
+   - Do NOT invent specific facts about Henmyr that are not in the context
+     (no made-up projects, certifications, dates, or personal details).
+   - If a specific Henmyr detail is genuinely not in the context, say:
+     "I don't have that specific detail about Henmyr yet, but you can reach
+     him at myrtepacia@gmail.com." Then still be helpful with what you know.
+
+2. Questions about current events, news, recent releases, prices, sports,
+   public figures, "what's the latest", or anything time-sensitive:
+   - ALWAYS use your web search tool to look up accurate, up-to-date
+     information before answering. Do not answer these from memory.
+   - Anchor your answer to today's date above (for example, when someone says
+     "this year" they mean ${new Date().getFullYear()}).
+   - Share what you find in a concise, natural, conversational way and be
+     honest if something is still uncertain or evolving.
+   - Keep it brief — 2 to 4 sentences unless they ask for more detail.
+
+3. General questions, casual chat, jokes, opinions, random or nonsense
+   questions (e.g. trivia, math, "what's the meaning of life", silly prompts):
+   - Just answer them helpfully and naturally using your own knowledge.
+   - Keep a warm, lightly playful, conversational tone.
+   - You do NOT need portfolio context to answer these.
+
+Style rules:
+- Keep answers concise and natural.
+- Respond in plain text only. No markdown, asterisks, bold, headings, or
+  bullet symbols. If you list things, use short plain lines.
+- If the user asks Henmyr's age, use the age from the retrieved context.
+- If relevant, mention project links naturally.
+  `.trim()
+
+export const getAssistantReply = async (
+  message: string,
+  history: AssistantHistoryItem[]
+): Promise<string> => {
+  const trimmedMessage = message.trim()
+  const retrievedChunks = retrieveRelevantChunks(trimmedMessage, 5)
+
+  const contextBlock =
+    retrievedChunks.length > 0
+      ? retrievedChunks
+          .map((chunk, index) => `[Source ${index + 1}] ${chunk.title}\n${chunk.content}`)
+          .join('\n\n')
+      : 'No relevant portfolio context found.'
+
+  const systemInstruction = buildSystemInstruction(getCurrentDateString())
+
+  const messages: PuterMessage[] = [
+    { role: 'system', content: systemInstruction },
+    ...history.slice(-6).map(
+      (item): PuterMessage => ({
+        role: item.role === 'model' ? 'assistant' : 'user',
+        content: item.content,
+      })
+    ),
+    {
+      role: 'user',
+      content: `${trimmedMessage}\n\nRetrieved portfolio context:\n${contextBlock}`,
+    },
+  ]
+
+  const rawReply = await puterChat(messages)
+  return cleanResponseText(rawReply)
+}

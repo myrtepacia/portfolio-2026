@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import BubbleConverstation from './BubbleConverstation'
+import { ensurePuterSignedIn, type PuterUser } from '@/lib/puter'
+import { getAssistantReply } from '@/lib/portfolioAssistant'
 
 type Chat = {
   role: 'user' | 'model'
@@ -27,6 +29,7 @@ const BubbleChat = () => {
   ])
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const [puterUser, setPuterUser] = useState<PuterUser | null>(null)
 
   const chatRef = useRef<HTMLDivElement | null>(null)
   const messagesRef = useRef<HTMLDivElement | null>(null)
@@ -77,6 +80,8 @@ const BubbleChat = () => {
 
     setLoading(true)
 
+    const historyForRequest = chats.slice(-6)
+
     setChats((prev) => [
       ...prev,
       {
@@ -88,45 +93,31 @@ const BubbleChat = () => {
     setMessage('')
 
     try {
-      const result = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: trimmedMessage,
-          history: chats.slice(-6).map(({ role, content }) => ({
-            role,
-            content,
-          })),
-        }),
-      })
+      // signIn() opens a popup, so this must stay inside this user-gesture
+      // handler (form submit). It resolves instantly if already signed in.
+      const user = await ensurePuterSignedIn()
+      setPuterUser(user)
 
-      let data: any = {}
-
-      try {
-        data = await result.json()
-      } catch {
-        data = {}
-      }
-
-      if (!result.ok) {
-        throw new Error(
-          data.message || 'An unexpected error occurred. Please try again later.'
-        )
-      }
+      const reply = await getAssistantReply(trimmedMessage, historyForRequest)
 
       setChats((prev) => [
         ...prev,
         {
           role: 'model',
-          content: data.response || 'No response received.',
+          content: reply || 'No response received.',
         },
       ])
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error && error.message
+          ? error.message
+          : 'Failed to connect to Puter. Please try again.'
+
       setChats((prev) => [
         ...prev,
         {
           role: 'model',
-          content: error.message || 'Failed to connect to the server.',
+          content: errorMessage,
           isError: true,
         },
       ])
@@ -143,7 +134,7 @@ const BubbleChat = () => {
           className='absolute bottom-full right-0 mb-3 w-full sm:w-[26rem]'
         >
           <div className='flex h-[32rem] max-h-[75vh] flex-col rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-zinc-900'>
-            <ChatHeader onClick={handleCloseChat} />
+            <ChatHeader onClick={handleCloseChat} puterUsername={puterUser?.username} />
 
             <div
               ref={messagesRef}
@@ -181,7 +172,9 @@ const BubbleChat = () => {
 
               <div className='flex justify-between'>
                 <p className='text-xxs text-zinc-500'>
-                  Ask me about programming, web dev, or tech!
+                  {puterUser?.username
+                    ? `Signed in as ${puterUser.username} via Puter`
+                    : 'Ask me about programming, web dev, or tech!'}
                 </p>
                 <p
                   className={`text-xxs ${

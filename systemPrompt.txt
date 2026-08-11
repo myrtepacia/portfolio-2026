@@ -1,10 +1,16 @@
 NOTE: This file is NOT used by the application.
 
-The live chatbot's instructions and knowledge base live in:
-  app/api/chat/route.ts
+The chatbot now runs entirely client-side through Puter.js (Puter Auth +
+puter.ai.chat), so there is no server API route or API key anymore.
 
-The old prompt that used to be here referenced the wrong person and was a
-leftover from a template. It has been removed to avoid confusion. If you ever
-need to update what the chatbot knows, edit `buildKnowledgeBase()` and
-`systemInstruction` inside app/api/chat/route.ts (and the data in
-constants/index.ts, which it reads from automatically).
+The live chatbot's instructions and knowledge base live in:
+  lib/portfolioAssistant.ts   (system prompt, knowledge base, retrieval)
+  lib/puter.ts                (Puter Auth + puter.ai.chat wrapper)
+  components/BubbleChat.tsx   (chat UI, calls the two files above)
+
+If you ever need to update what the chatbot knows, edit `buildKnowledgeBase()`
+and `buildSystemInstruction()` inside lib/portfolioAssistant.ts (and the data
+in constants/index.ts, which it reads from automatically).
+
+To change the AI model, edit the `model` option in lib/puter.ts's
+`puterChat()` function.

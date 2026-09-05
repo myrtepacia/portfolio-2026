@@ -31,7 +31,7 @@ export const projectData = [
         title: 'Restaurant Discrete Event Simulation',
         description: 'A dashboard-based restaurant operations simulator using discrete-event simulation to model guest flow, wait times, utilization, and revenue.',
         stack: ['Python'],
-        link: 'https://restaurantdes.vercel.app/'
+        link: 'https://coming-soon-olive-psi.vercel.app/'
     },   
     {
         title: 'Talkly',
@@ -43,7 +43,7 @@ export const projectData = [
         title: 'Algorithm Visualizer',
         description: 'An interactive algorithm visualizer that demonstrates various algorithms through real-time animation and step-by-step execution for easier learning and understanding.',
         stack: ['Javascript', 'Python'],
-        link: 'https://algorithms-gules.vercel.app/'
+        link: 'https://coming-soon-olive-psi.vercel.app/'
     },
      {
          title: 'Portfolio',

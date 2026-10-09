@@ -29,9 +29,9 @@ export const techSupport = [
 export const projectData = [
     {
         title: 'Norsu Campus MarketPlace',
-        description: 'A full-stack campus trading platform that allows students to list items, explore listings, message peers, and manage favorites. Built with a modular PHP backend REST API, vanilla JavaScript client-side routing and state handling, and a MySQL relational database.',
-        stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
-        link: 'https://talkly-eosin.vercel.app/login'
+        description: 'A campus-focused peer-to-peer marketplace providing item listings, buyer–seller messaging, saved favorites, and student authentication powered by a custom PHP REST API and MySQ',
+        stack: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
+        link: 'https://coming-soon-olive-psi.vercel.app/'
     },
     {
         title: 'Restaurant Discrete Event Simulation',

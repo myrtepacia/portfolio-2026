@@ -28,6 +28,12 @@ export const techSupport = [
 
 export const projectData = [
     {
+        title: 'Norsu Campus MarketPlace',
+        description: 'A full-stack campus trading platform that allows students to list items, explore listings, message peers, and manage favorites. Built with a modular PHP backend REST API, vanilla JavaScript client-side routing and state handling, and a MySQL relational database.',
+        stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
+        link: 'https://talkly-eosin.vercel.app/login'
+    },
+    {
         title: 'Restaurant Discrete Event Simulation',
         description: 'A dashboard-based restaurant operations simulator using discrete-event simulation to model guest flow, wait times, utilization, and revenue.',
         stack: ['Python'],
@@ -38,12 +44,6 @@ export const projectData = [
         description: 'Built a real-time chat application using the MERN stack, featuring instant messaging, online user presence, and image sharing via Socket.IO and Cloudinary.',
         stack: ['React', 'MongoDB', 'Express.js', 'Node.js', 'TailwindCSS'],
         link: 'https://talkly-eosin.vercel.app/login'
-    },
-    {
-        title: 'Algorithm Visualizer',
-        description: 'An interactive algorithm visualizer that demonstrates various algorithms through real-time animation and step-by-step execution for easier learning and understanding.',
-        stack: ['Javascript', 'Python'],
-        link: 'https://coming-soon-olive-psi.vercel.app/'
     },
      {
          title: 'Portfolio',

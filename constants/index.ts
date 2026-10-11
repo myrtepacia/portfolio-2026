@@ -36,8 +36,8 @@ export const projectData = [
     {
         title: 'Restaurant Discrete Event Simulation',
         description: 'A dashboard-based restaurant operations simulator using discrete-event simulation to model guest flow, wait times, utilization, and revenue.',
-        stack: ['Python'],
-        link: 'https://coming-soon-olive-psi.vercel.app/'
+        stack: ['TypeScript, TailwindCSS, React, Next.js, Python'],
+        link: 'https://restaurant-discrete-event-simulatio.vercel.app/'
     },   
     {
         title: 'Talkly',

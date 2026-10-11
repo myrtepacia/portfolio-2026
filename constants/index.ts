@@ -9,6 +9,7 @@ export const frontend = [
 ]
 export const backend = [
     'Node.js',
+    'PHP',
     'MongoDB',
     'Python'
 ]

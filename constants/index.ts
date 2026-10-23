@@ -29,8 +29,8 @@ export const techSupport = [
 
 export const projectData = [
     {
-        title: 'Movie Booking System',
-        description: 'A campus-focused peer-to-peer marketplace providing item listings, buyer–seller messaging, saved favorites, and student authentication powered by a custom PHP REST API and MySQ',
+        title: 'Cinema Booking System',
+        description: 'A cinema booking website for reserving seats, pre-ordering snacks, and paying online, with QR e-tickets, customer reviews, and an admin dashboard for managing films and scanning tickets',
         stack: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
         link: 'https://csflix.gt.tc/'
     },

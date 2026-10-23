@@ -29,10 +29,10 @@ export const techSupport = [
 
 export const projectData = [
     {
-        title: 'Norsu Campus MarketPlace',
+        title: 'Movie Booking System',
         description: 'A campus-focused peer-to-peer marketplace providing item listings, buyer–seller messaging, saved favorites, and student authentication powered by a custom PHP REST API and MySQ',
         stack: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
-        link: 'https://coming-soon-olive-psi.vercel.app/'
+        link: 'https://csflix.gt.tc/'
     },
     {
         title: 'Restaurant Discrete Event Simulation',

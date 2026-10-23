@@ -29,7 +29,7 @@ export const techSupport = [
 
 export const projectData = [
     {
-        title: 'Cinema Booking System',
+        title: 'CSFlix',
         description: 'A school project cinema booking website for reserving seats, pre-ordering snacks, and paying online, with QR e-tickets, customer reviews, and an admin dashboard for managing films and scanning tickets.',
         stack: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL'],
         link: 'https://csflix.gt.tc/'

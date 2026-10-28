@@ -1,0 +1,33 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Cloud, gear and circuit icon for the Restaurant Discrete Event Simulation -->
+  <defs>
+    <linearGradient id="sim" x1="0" y1="20" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9c3592"/>
+      <stop offset="1" stop-color="#2f3c96"/>
+    </linearGradient>
+    <clipPath id="top-half">
+      <rect x="0" y="0" width="256" height="136"/>
+    </clipPath>
+  </defs>
+  <path d="M60 150H198A36 36 0 0 0 208 80A62 62 0 0 0 98 48A44 44 0 0 0 44 92A30 30 0 0 0 60 150Z" fill="url(#sim)"/>
+  <g stroke="#ffffff" stroke-width="7">
+    <path clip-path="url(#top-half)" d="M117.9 90.1L120.8 76.4L135.2 76.4L138.1 90.1L146.8 92.9L157.2 83.6L168.9 92.1L163.1 104.8L168.5 112.2L182.4 110.7L186.9 124.5L174.8 131.4L174.8 140.6L186.9 147.5L182.4 161.3L168.5 159.8L163.1 167.2L168.9 179.9L157.2 188.4L146.8 179.1L138.1 181.9L135.2 195.6L120.8 195.6L117.9 181.9L109.2 179.1L98.8 188.4L87.1 179.9L92.9 167.2L87.5 159.8L73.6 161.3L69.1 147.5L81.2 140.6L81.2 131.4L69.1 124.5L73.6 110.7L87.5 112.2L92.9 104.8L87.1 92.1L98.8 83.6L109.2 92.9Z"/>
+    <path d="M102 136A26 26 0 0 1 154 136"/>
+    <path d="M52 136H204"/>
+  </g>
+  <g stroke="url(#sim)" stroke-width="6">
+    <path d="M52 150V162L32 180"/>
+    <path d="M90 150V184L72 202"/>
+    <path d="M128 150V198"/>
+    <path d="M166 150V184L184 202"/>
+    <path d="M204 150V162L224 180"/>
+  </g>
+  <g fill="url(#sim)">
+    <circle cx="28" cy="184" r="12"/>
+    <circle cx="68" cy="206" r="12"/>
+    <circle cx="188" cy="206" r="12"/>
+    <circle cx="228" cy="184" r="12"/>
+    <path d="M128 196L150 206V230L128 240L106 230V206Z"/>
+  </g>
+  <path d="M106 206L128 216L150 206M128 216V240" stroke="#ffffff" stroke-width="3"/>
+</svg>

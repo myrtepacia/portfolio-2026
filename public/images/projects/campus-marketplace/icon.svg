@@ -1,0 +1,29 @@
+<svg viewBox="28 40 210 150" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Graduation cap illustration from the NORSU Campus Marketplace hero -->
+  <g stroke="#16803c" stroke-width="2">
+    <path d="M210 150V92" stroke="#0e3fa8"/>
+    <path d="M210 112C194 108 187 97 185 84"/>
+    <path d="M210 125C225 119 232 108 233 95"/>
+    <path d="M210 101C202 92 201 81 204 70"/>
+    <path d="M210 138C220 131 226 122 227 111"/>
+    <path d="M195 149H226L222 174H199Z" fill="#e9f7e9"/>
+    <path d="M192 174H229"/>
+  </g>
+  <g stroke="#0e3fa8" stroke-width="2">
+    <path d="M35 139L164 110L180 153L51 184Z" fill="#ffffff"/>
+    <path d="M40 139L164 112L174 145L51 174Z" fill="#ffffff"/>
+    <path d="M57 145L153 124"/>
+    <path d="M57 151L159 129"/>
+    <path d="M58 157L149 138"/>
+    <path d="M59 163L139 145"/>
+  </g>
+  <g stroke="#0e3fa8" stroke-width="2">
+    <path d="M53 80L128 48L207 79L130 111Z" fill="#1554d1"/>
+    <path d="M78 86V124C78 141 99 151 129 151C159 151 181 141 181 124V86L130 106Z" fill="#1d63df"/>
+  </g>
+  <ellipse cx="128" cy="65" rx="8" ry="3" fill="#0e3fa8"/>
+  <path d="M205 79V113" stroke="#000000"/>
+  <path d="M200 113H210L208 127H202Z" fill="#000000"/>
+  <path d="M61 86V112" stroke="#c86d00"/>
+  <path d="M56 112H66L64 126H58Z" fill="#f79009" stroke="#c86d00"/>
+</svg>

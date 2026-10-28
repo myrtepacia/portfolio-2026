@@ -1,0 +1,254 @@
+@import "tailwindcss";
+/* Define how Tailwind should detect dark mode */
+@variant dark (&:where(.dark, .dark *));
+
+/* Design tokens: clean white light theme, near-black dark theme */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --wash: #f6f6f7;
+  --fg: #0a0a0b;
+  --muted: #5d5d66;
+  --subtle: #8b8b94;
+  --line: #ebebed;
+  --good-bg: #e8f5ec;
+  --good-fg: #1f7a45;
+  --heat-0: #ececea;
+  --heat-1: #cfcfcb;
+  --heat-2: #a2a29e;
+  --heat-3: #5e5e5c;
+  --heat-4: #111113;
+}
+
+/* Dark palette matches bryllim.com: near-black with a faint blue tint */
+.dark {
+  --bg: #0c0c0f;
+  --surface: #18181b;
+  --wash: #1e1e22;
+  --fg: #f4f4f5;
+  --muted: #b8b8c0;
+  --subtle: #8a8a92;
+  --line: #2a2a30;
+  --good-bg: rgba(34, 197, 94, 0.12);
+  --good-fg: #4ade80;
+  --heat-0: #1c1c1f;
+  --heat-1: #3a3a3f;
+  --heat-2: #6b6b71;
+  --heat-3: #b8b8c0;
+  --heat-4: #f4f4f5;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-wash: var(--wash);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-good-bg: var(--good-bg);
+  --color-good-fg: var(--good-fg);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer components {
+  .padding-x {
+    padding-left: 4%;
+    padding-right: 4%;
+    margin: 0 auto;
+  }
+
+  .padding-y {
+    @apply py-8 sm:py-16;
+  }
+
+  .card {
+    @apply border border-line rounded-xl p-5 space-y-5 bg-surface;
+  }
+
+  .badge {
+    @apply text-xs bg-zinc-100 px-2 py-1 rounded-full text-zinc-600 dark:bg-zinc-800 dark:text-white;
+  }
+
+  .badge-square {
+    @apply text-xs bg-zinc-200 px-2 py-1 rounded dark:bg-zinc-800 dark:text-white;
+  }
+
+  .text {
+    @apply text-sm text-zinc-600 dark:text-white;
+  }
+
+  .text-xxs {
+    font-size: 10px;
+  }
+}
+
+
+
+svg.icon-toggle {
+  position: absolute;
+  top: 0 !important;
+  right: 0 !important;
+}
+
+@media screen and (max-width: 354px) {
+  .course-text {
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .freelance {
+    width: 120px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+  .freelance {
+    width: 120px;
+  }
+}
+
+@media (min-width: 737px) and (max-width: 850px) {
+  .course-text {
+    width: 150px;
+  }
+}
+
+/* Experience timeline — blinking dot for "Present" entries */
+@keyframes experience-dot-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.experience-dot-ping {
+  animation: experience-dot-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes chat-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-10deg);
+  }
+  30% {
+    transform: rotate(10deg);
+  }
+  45% {
+    transform: rotate(-8deg);
+  }
+  60% {
+    transform: rotate(8deg);
+  }
+  75% {
+    transform: rotate(-4deg);
+  }
+}
+
+.chat-icon-wiggle {
+  display: inline-flex;
+  transform-origin: center;
+  animation: chat-wiggle 2.8s ease-in-out infinite;
+}
+
+.dark .text-zinc-300,
+.dark .text-zinc-400,
+.dark .text-zinc-500,
+.dark .text-zinc-600,
+.dark .text-gray-300,
+.dark .text-gray-400,
+.dark .text-gray-500,
+.dark .text-gray-600,
+.dark .dark\:text-zinc-300,
+.dark .dark\:text-zinc-400,
+.dark .dark\:text-zinc-500,
+.dark .dark\:text-zinc-600,
+.dark .dark\:text-gray-300,
+.dark .dark\:text-gray-400,
+.dark .dark\:text-gray-500,
+.dark .dark\:text-gray-600 {
+  color: white !important;
+}
+
+/* Tech stack marquee: the track holds two copies, so -50% loops seamlessly */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 45s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Page background (components/GridBackground.tsx): two halftone dot patches
+   fixed to opposite corners of the screen, each fading out toward the middle */
+.halftone {
+  --dot-size: 13px;
+  --dot-color: color-mix(in srgb, var(--fg) 42%, transparent);
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1.6px);
+  background-size: var(--dot-size) var(--dot-size);
+}
+
+.halftone-fine {
+  --dot-size: 9px;
+}
+
+/* Top-right patch: dense corner that fades in a curve toward the center */
+.halftone-corner-tr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 65vw;
+  height: 70vh;
+  opacity: 0.16;
+  mask-image: radial-gradient(80% 80% at 100% 0%, black 0%, transparent 65%);
+}
+
+/* Bottom-left patch: finer dots, slightly fainter, fading the other way */
+.halftone-corner-bl {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 55vw;
+  height: 60vh;
+  opacity: 0.13;
+  mask-image: radial-gradient(80% 80% at 0% 100%, black 0%, transparent 65%);
+}
+
+/* Faint dotted band used as a section divider; fades out at both ends */
+.dot-divider {
+  height: 36px;
+  background-image: radial-gradient(circle, var(--subtle) 1px, transparent 1.2px);
+  background-size: 14px 14px;
+  background-position: center;
+  opacity: 0.55;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}

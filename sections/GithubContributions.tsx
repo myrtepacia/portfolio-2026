@@ -15,7 +15,7 @@ type ContributionsResponse = {
   contributions: Contribution[]
 }
 
-// Monochrome heat scale; tokens flip for dark mode in globals.css
+// Heat scale in GitHub's Halloween palette; colors live in globals.css (--heat-0..4)
 const levelColors = [
   'bg-[var(--heat-0)]',
   'bg-[var(--heat-1)]',

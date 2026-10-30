@@ -55,7 +55,7 @@ export const projectData = [
             '/images/projects/campus-marketplace/message.jpg',
         ],
         tagline: 'Student Buy & Sell Marketplace',
-        type: 'School Project',
+        type: 'Collaboration',
         description: 'A student trading platform featuring item listings, direct buyer-seller messaging, saved favorites, and session-based authentication',
         stack: ['PHP', 'JavaScript', 'MySQL', 'CSS3', 'HTML5'],
         highlights: [
@@ -220,6 +220,29 @@ export const journey = [
         date: '2021',
         description: 'Wrote my first program and got hooked on building things.',
         current: false,
+    },
+]
+
+// "Education & Experience" list on the home page, newest first.
+// Leave `end` out for something still ongoing; it shows as "Present".
+export const educationAndExperience = [
+    {
+        start: '2024',
+        title: 'Freelance Web Developer',
+        place: 'Self-employed',
+    },
+    {
+        start: '2024',
+        title: 'BS Computer Science',
+        place: 'Negros Oriental State University',
+        link: 'https://web.facebook.com/NORSUPIOMAIN',
+    },
+    {
+        start: '2022',
+        end: '2024',
+        title: 'Computer System Servicing NC II',
+        place: 'Demetrio L. Alviola National High School',
+        link: 'https://web.facebook.com/DlanhsSince1968',
     },
 ]
 

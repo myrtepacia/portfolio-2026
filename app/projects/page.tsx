@@ -5,6 +5,18 @@ import { ArrowLeft } from 'lucide-react'
 import { projectData } from '@/constants'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import ProjectCard from '@/components/home/ProjectCard'
+
+// This page's own order (the home page keeps the constants order)
+const PAGE_ORDER = ['CSFlix', 'Restaurant Discrete Event Simulation', 'Portfolio', 'Campus Marketplace']
+const orderedProjects = [...projectData].sort((a, b) => {
+  // Projects not listed above keep their place after the listed ones
+  const rank = (title: string) => (PAGE_ORDER.indexOf(title) + 1 || PAGE_ORDER.length + 1)
+  return rank(a.title) - rank(b.title)
+})
+
+const cardClass =
+  'project-card block rounded-2xl border border-line bg-surface p-4 transition-colors sm:p-6'
 
 const Page = () => {
   useGSAP(() => {
@@ -18,7 +30,7 @@ const Page = () => {
   }, [])
 
   return (
-    <div className='max-w-5xl padding-x py-10 space-y-5'>
+    <main id='top' className='max-w-5xl padding-x py-10 space-y-5'>
       <div className='flex flex-nowrap gap-5 flex-col sm:items-center sm:flex-row'>
         <Link href='/' className='text-sm flex flex-nowrap items-center gap-2'>
           <ArrowLeft size={20} />
@@ -28,39 +40,32 @@ const Page = () => {
         <h1 className='text-2xl font-bold'>All Projects</h1>
       </div>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-        {projectData.map((item, index) => (
-          <Link
-            key={index}
-            // Projects without a live link stay on this page instead of opening a new tab
-            href={item.link || '/projects'}
-            target={item.link ? '_blank' : undefined}
-            rel='noopener noreferrer'
-            // Flex column so the stack row can sit at the bottom of every card, even when descriptions differ in length
-            className='project-card card !space-y-0 flex h-full flex-col gap-3 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors'
-          >
-            <div className='space-y-1'>
-              <h2 className='font-bold'>{item.title}</h2>
-              {/* Long descriptions stop after three lines with an ellipsis instead of pushing into the stack */}
-              <p className='line-clamp-3 text-sm text-zinc-500 dark:text-zinc-300'>
-                {item.description}
-              </p>
-            </div>
-
-            <div className='mt-auto flex flex-wrap gap-2 pt-1'>
-              {item.stack.map((tech, techIndex) => (
-                <span
-                  key={techIndex}
-                  className='rounded-md bg-zinc-100 px-2 py-1 text-xs text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200'
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </Link>
+      {/* Same cards as the home page's Featured Projects stack, laid out flat, with
+          the tech stack in place of the buttons. A card with a live site opens it. */}
+      {/* Cards come out the same height on their own (one-line title, three-line
+          description, one row of tags), so nothing is stretched to match */}
+      <ul className='grid gap-4 sm:grid-cols-2'>
+        {orderedProjects.map((project) => (
+          <li key={project.title}>
+            {project.link ? (
+              <a
+                href={project.link}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label={`${project.title}: visit the live website (opens in a new tab)`}
+                className={`${cardClass} hover:bg-wash`}
+              >
+                <ProjectCard project={project} footer='stack' showType={false} />
+              </a>
+            ) : (
+              <div className={cardClass}>
+                <ProjectCard project={project} footer='stack' showType={false} />
+              </div>
+            )}
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </main>
   )
 }
 

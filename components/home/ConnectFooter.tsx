@@ -11,8 +11,8 @@ const primary = [
 
 const ConnectFooter = () => {
   return (
-    <footer data-comment='Footer'>
-      <div data-comment='Social links' className='flex justify-center'>
+    <footer>
+      <div className='flex justify-center'>
         <MonoLabel icon={<MessageSquare size={12} />}>Connect across platforms</MonoLabel>
       </div>
 
@@ -39,7 +39,7 @@ const ConnectFooter = () => {
         ))}
       </ul>
 
-      <p data-comment='Copyright' className='mt-12 border-t border-line py-6 text-center text-xs text-subtle'>
+      <p className='mt-12 border-t border-line py-6 text-center text-xs text-subtle'>
         © {new Date().getFullYear()} {profile.name}. All rights reserved.
       </p>
     </footer>

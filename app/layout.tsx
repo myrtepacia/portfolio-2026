@@ -6,7 +6,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import GridBackground from "@/components/GridBackground";
 import ConsoleSignature from "@/components/ConsoleSignature";
 import ScriptCleanup from "@/components/ScriptCleanup";
-import HtmlComments from "@/components/HtmlComments";
 import { profile } from "@/constants";
 
 const geistSans = Geist({
@@ -73,14 +72,6 @@ export const viewport: Viewport = {
   ],
 };
 
-// Shows at the top of <body> in the Elements panel for anyone inspecting the page
-const sourceNote = `<!--
-  Hey there, curious developer 👋
-  ${profile.name} · ${profile.role}
-  Built with Next.js, React, TypeScript, and Tailwind CSS.
-  Like what you see? ${profile.email}
--->`;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -89,11 +80,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans bg-bg text-fg antialiased`}>
-        <div hidden dangerouslySetInnerHTML={{ __html: sourceNote }} />
         <Script src="https://js.puter.com/v2/" strategy="afterInteractive" />
         <ConsoleSignature />
         <ScriptCleanup />
-        <HtmlComments />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

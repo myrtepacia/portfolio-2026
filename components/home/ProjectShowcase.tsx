@@ -1,67 +1,65 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowUpRight, Clapperboard, Globe, ImageIcon, MessageSquare, Sparkles, UtensilsCrossed } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { projectData } from '@/constants'
 import SectionTitle from './SectionTitle'
 import Lightbox from './Lightbox'
+import ProjectCard from './ProjectCard'
 
 // The portfolio itself isn't shown in the featured stack; it stays on /projects
 const featured = projectData.filter((project) => project.title !== 'Portfolio')
 
-// App-style icon tile per project
-// Fallback icon tiles, used only when a project has no `icon` file in constants
-const appIcons: Record<string, { icon: LucideIcon; bg: string }> = {
-  CSFlix: { icon: Clapperboard, bg: '#e50914' },
-  'Restaurant Discrete Event Simulation': { icon: UtensilsCrossed, bg: '#e8743b' },
-  Talkly: { icon: MessageSquare, bg: '#c9853f' },
-  'Campus Marketplace': { icon: MessageSquare, bg: '#1d63df' },
-  Portfolio: { icon: Sparkles, bg: '#18181b' },
-}
-
-// Small laurel branch for the featured badge; `flip` mirrors it for the right side.
-const Laurel = ({ flip = false }: { flip?: boolean }) => (
-  <svg viewBox='0 0 12 20' className={`h-3.5 w-2 ${flip ? '-scale-x-100' : ''}`} fill='currentColor' aria-hidden>
-    <path d='M9 19C4 16 3 9 6 2' fill='none' stroke='currentColor' strokeWidth='1.2' strokeLinecap='round' />
-    <ellipse cx='4.6' cy='5.5' rx='1.1' ry='2.2' transform='rotate(-25 4.6 5.5)' />
-    <ellipse cx='3.8' cy='10' rx='1.1' ry='2.2' transform='rotate(-10 3.8 10)' />
-    <ellipse cx='4.6' cy='14.5' rx='1.1' ry='2.2' transform='rotate(15 4.6 14.5)' />
-  </svg>
-)
-
-// Store-badge style button: icon + small caption over a bold label.
-// Compact on phones so two of them fit side by side in a card.
-const BadgeButton = ({ icon: Icon, caption, label, dark, ...props }: {
-  icon: LucideIcon
-  caption: string
-  label: string
-  dark?: boolean
-} & React.ComponentProps<'button'>) => (
-  <button
-    type='button'
-    {...props}
-    className={`inline-flex h-10 shrink-0 items-center gap-1.5 rounded-lg px-2 text-left transition-opacity hover:opacity-85 sm:h-11 sm:gap-2 sm:px-3 ${
-      dark ? 'bg-fg text-bg' : 'border border-line bg-surface text-fg'
-    }`}
-  >
-    <Icon strokeWidth={1.8} className='size-4 sm:size-5' />
-    <span className='leading-none'>
-      <span className='block text-[8px] opacity-80 sm:text-[9px]'>{caption}</span>
-      <span className='mt-0.5 block whitespace-nowrap text-[12px] font-semibold tracking-tight sm:text-[14px]'>{label}</span>
-    </span>
-  </button>
-)
+// How long each card stays in front before the stack rotates to the next one
+const AUTOPLAY_MS = 3000
 
 const ProjectShowcase = () => {
   const [active, setActive] = useState(0)
   // Which project's screenshots are open, and which one is showing
   const [preview, setPreview] = useState<{ project: number; shot: number } | null>(null)
+  // True while a mouse is over the cards or keyboard focus is inside them.
+  // Touch never sets it: phones report a tap as the mouse entering, with no
+  // matching leave, which would pause the rotation for good
+  const [paused, setPaused] = useState(false)
+  // Where a touch swipe started, to tell a left or right swipe from a tap
+  const swipeStart = useRef<{ x: number; y: number } | null>(null)
+  // Becomes true the first time the card stack comes on screen and stays true,
+  // so the rotation starts when the cards are first seen and never stops after
+  const [started, setStarted] = useState(false)
+  const stackRef = useRef<HTMLDivElement | null>(null)
   const total = featured.length
 
   const go = (step: number) => setActive((i) => (i + step + total) % total)
+
+  // Watch the card stack until it is first seen (a fifth of it on screen),
+  // then stop watching: scrolling away later doesn't stop the rotation
+  useEffect(() => {
+    const stack = stackRef.current
+    if (!stack) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setStarted(true)
+        observer.disconnect()
+      },
+      { threshold: 0.2 }
+    )
+    observer.observe(stack)
+    return () => observer.disconnect()
+  }, [])
+
+  // Rotate to the next card every AUTOPLAY_MS. Waits until the cards are first
+  // seen, so visitors always see the first card for the full 3 seconds, then
+  // keeps going even when scrolled away. Pauses while someone is reading or
+  // using a card, or viewing screenshots, and stays still for reduced-motion
+  // users. Depending on `active` restarts the 3 seconds after any manual change.
+  useEffect(() => {
+    if (!started || paused || preview !== null || total < 2) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const timer = setTimeout(() => setActive((i) => (i + 1) % total), AUTOPLAY_MS)
+    return () => clearTimeout(timer)
+  }, [active, started, paused, preview, total])
 
   // Signed distance from the active card, wrapped so neighbours sit on both sides
   const offsetOf = (index: number) => {
@@ -72,17 +70,47 @@ const ProjectShowcase = () => {
   }
 
   return (
-    <section id='projects' aria-label='Featured projects' data-comment='Featured projects' className='scroll-mt-20'>
+    <section id='projects' aria-label='Featured projects' className='scroll-mt-20'>
       <SectionTitle
         title='Featured Projects'
-        subtitle='School and personal builds where I take an idea from a rough sketch to a working, deployed app.'
+        subtitle='School, personal, and collaborative builds where I take an idea from a rough sketch to a working, deployed app.'
       />
 
       <div
+        ref={stackRef}
         className='relative -mx-5 h-[400px] overflow-hidden px-5 [--card-w:300px] [--fan:96px] sm:mx-0 sm:h-[380px] sm:overflow-visible sm:px-0 sm:[--card-w:380px] sm:[--fan:250px]'
         onKeyDown={(e) => {
           if (e.key === 'ArrowLeft') go(-1)
           if (e.key === 'ArrowRight') go(1)
+        }}
+        onPointerEnter={(e) => {
+          if (e.pointerType === 'mouse') setPaused(true)
+        }}
+        onPointerLeave={(e) => {
+          if (e.pointerType === 'mouse') setPaused(false)
+        }}
+        // Only keyboard focus pauses; a tapped or clicked button keeps focus
+        // afterwards, which would otherwise leave the rotation stopped
+        onFocus={(e) => {
+          if (e.target.matches(':focus-visible')) setPaused(true)
+        }}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false)
+        }}
+        // Swipe left for the next card, right for the previous one
+        onTouchStart={(e) => {
+          const t = e.touches[0]
+          swipeStart.current = { x: t.clientX, y: t.clientY }
+        }}
+        onTouchEnd={(e) => {
+          const start = swipeStart.current
+          swipeStart.current = null
+          if (!start) return
+          const t = e.changedTouches[0]
+          const dx = t.clientX - start.x
+          const dy = t.clientY - start.y
+          // Mostly sideways and at least 40px, so vertical scrolling isn't a swipe
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1)
         }}
       >
         {featured.map((project, index) => {
@@ -90,9 +118,6 @@ const ProjectShowcase = () => {
           const distance = Math.abs(offset)
           const isActive = offset === 0
           const hidden = distance > 1
-          const { icon: Icon, bg: fallbackBg } = appIcons[project.title] ?? { icon: Globe, bg: '#18181b' }
-          const image = project.icon
-          const bg = image ? 'transparent' : fallbackBg
 
           return (
             <article
@@ -123,62 +148,18 @@ const ProjectShowcase = () => {
               )}
 
               <div className={`transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-45'}`}>
-                <ul className='flex flex-wrap gap-1.5'>
-                  <li className='inline-flex items-center gap-1 rounded-full bg-fg px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-wide text-bg'>
-                    <Laurel />
-                    {project.type}
-                    <Laurel flip />
-                  </li>
-                </ul>
-
-                <div className='mt-5 flex items-center gap-3.5'>
-                  <span
-                    className={`relative grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-[14px] text-white ${image ? '' : 'shadow-sm'}`}
-                    style={{ backgroundColor: bg }}
-                  >
-                    {image ? (
-                      <Image src={image} alt='' fill sizes='56px' className='object-contain' />
-                    ) : (
-                      <Icon size={26} strokeWidth={1.8} />
-                    )}
-                  </span>
-                  <div className='min-w-0'>
-                    <h3 className='font-mono text-[17px] leading-tight tracking-tight'>{project.title}</h3>
-                    <p className='mt-1 truncate font-mono text-[11px] text-subtle'>{project.tagline}</p>
-                  </div>
-                </div>
-
-                <p className='mt-4 line-clamp-3 text-[13px] leading-relaxed text-muted'>{project.description}</p>
-
-                <div className='mt-5 flex flex-wrap gap-2 sm:gap-2.5'>
-                  {/* Only projects with a link get the Live Website button */}
-                  {project.link && (
-                    <BadgeButton
-                      dark
-                      icon={Globe}
-                      caption='Visit the'
-                      label='Live Website'
-                      tabIndex={isActive ? 0 : -1}
-                      onClick={() => window.open(project.link, '_blank', 'noopener,noreferrer')}
-                    />
-                  )}
-                  {project.screenshots.length > 0 && (
-                    <BadgeButton
-                      icon={ImageIcon}
-                      caption='Preview the'
-                      label={project.screenshots.length > 1 ? 'Screenshots' : 'Screenshot'}
-                      tabIndex={isActive ? 0 : -1}
-                      onClick={() => setPreview({ project: index, shot: 0 })}
-                    />
-                  )}
-                </div>
+                <ProjectCard
+                  project={project}
+                  focusable={isActive}
+                  onPreview={() => setPreview({ project: index, shot: 0 })}
+                />
               </div>
             </article>
           )
         })}
       </div>
 
-      <div data-comment='All projects link' className='mt-3 flex justify-center'>
+      <div className='mt-3 flex justify-center'>
         <Link href='/projects' className='inline-flex items-center gap-1 font-mono text-xs text-subtle hover:text-fg'>
           View all projects
           <ArrowUpRight size={12} />

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 
 type LightboxProps = {
@@ -46,8 +47,11 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false, count
 
   const navButton = 'absolute top-1/2 z-10 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-zinc-800/90 text-white ring-1 ring-white/20 transition hover:bg-zinc-700'
 
-  return (
+  // Rendered at the end of <body> rather than inside the section that opened it,
+  // so dialogs sit together after the main content in the page structure
+  return createPortal(
     <div
+      id='lightbox'
       role='dialog'
       aria-modal='true'
       aria-label={alt}
@@ -125,7 +129,8 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false, count
           <ChevronRight size={22} />
         </button>
       )}
-    </div>
+    </div>,
+    document.body
   )
 }
 

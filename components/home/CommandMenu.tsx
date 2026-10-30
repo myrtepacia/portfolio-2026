@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUpRight, Award, ChevronDown, ChevronRight, CornerDownLeft, FolderGit2, Hash, Mail, Search } from 'lucide-react'
+import { ArrowUpRight, Award, ChevronDown, ChevronRight, CornerDownLeft, FolderGit2, Hash, Mail, Search, X } from 'lucide-react'
 import type { IconType } from 'react-icons'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { certificates, profile, projectData, socials } from '@/constants'
@@ -126,7 +126,16 @@ const CommandMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) 
             placeholder='Search projects, certifications, contact...'
             className='h-12 flex-1 bg-transparent text-sm outline-none placeholder:text-subtle'
           />
-          <kbd className='rounded border border-line px-1.5 py-0.5 font-mono text-[10px] text-subtle'>ESC</kbd>
+          {/* Keyboard hint on larger screens; phones have no Escape key, so they get a close button */}
+          <kbd className='hidden rounded border border-line px-1.5 py-0.5 font-mono text-[10px] text-subtle sm:inline-block'>ESC</kbd>
+          <button
+            type='button'
+            aria-label='Close menu'
+            onClick={close}
+            className='-mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-md text-subtle transition-colors hover:bg-wash hover:text-fg sm:hidden'
+          >
+            <X size={18} />
+          </button>
         </div>
 
         <ul className='max-h-[360px] overflow-y-auto p-2'>

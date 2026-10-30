@@ -26,12 +26,17 @@ const levelColors = [
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-// Public proxy over GitHub's contribution calendar; cached for a day.
+// How often the graph refreshes, in seconds. Next.js keeps the last fetched
+// calendar for this long, then fetches a fresh one in the background on the
+// next visit, so new contributions show up within about 30 minutes.
+const REFRESH_SECONDS = 1800
+
+// Public proxy over GitHub's contribution calendar
 const getContributions = async (): Promise<ContributionsResponse | null> => {
   try {
     const res = await fetch(
       `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`,
-      { next: { revalidate: 86400 } }
+      { next: { revalidate: REFRESH_SECONDS } }
     )
     if (!res.ok) return null
     return await res.json()

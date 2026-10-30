@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 
 type LightboxProps = {
@@ -13,9 +13,13 @@ type LightboxProps = {
   // screenshots) instead of sizing to each one, so the viewer doesn't jump
   // around when stepping between images
   fixedFrame?: boolean
+  // Optional dot row under the image: how many images there are, which one is showing, and how to jump to one
+  count?: number
+  index?: number
+  onSelect?: (index: number) => void
 }
 
-const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false }: LightboxProps) => {
+const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false, count = 0, index = 0, onSelect }: LightboxProps) => {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -26,7 +30,21 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false }: Lig
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose, onPrev, onNext])
 
-  const navButton = 'absolute top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white transition hover:bg-white/30'
+  // Swipe left/right on the image to step through images (phones and touchpads)
+  const touchStartX = useRef<number | null>(null)
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const dx = e.changedTouches[0].clientX - touchStartX.current
+    touchStartX.current = null
+    if (Math.abs(dx) < 40) return
+    if (dx < 0) onNext?.()
+    else onPrev?.()
+  }
+
+  const navButton = 'absolute top-1/2 z-10 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-zinc-800/90 text-white ring-1 ring-white/20 transition hover:bg-zinc-700'
 
   return (
     <div
@@ -45,21 +63,45 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false }: Lig
           type='button'
           aria-label='Previous image'
           onClick={(e) => { e.stopPropagation(); onPrev() }}
-          className={`${navButton} left-4`}
+          className={`${navButton} left-1 sm:left-4`}
         >
           <ChevronLeft size={22} />
         </button>
       )}
 
       {fixedFrame ? (
-        // Width is the largest 2:1 box that fits in 94% of the width and 88% of the height;
+        // Width is the largest 2:1 box that fits in 80% of the width and 70% of the height,
+        // and on phones leaves 3.5rem each side so the arrows sit beside the image, not on it;
         // object-cover fills it edge to edge, so there are no bars around the image
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className='aspect-[2/1] w-[min(94vw,1600px,calc(88vh*2))] overflow-hidden rounded-xl ring-1 ring-white/10'
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={src} alt={alt} className='h-full w-full object-cover object-top' />
+        <div onClick={(e) => e.stopPropagation()} className='flex flex-col items-center gap-4'>
+          <div
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            className='aspect-[2/1] w-[min(calc(100vw-7rem),80vw,1200px,calc(70vh*2))] touch-pan-y overflow-hidden rounded-xl ring-1 ring-white/10'
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt={alt} className='h-full w-full object-cover object-top' />
+          </div>
+
+          {count > 1 && (
+            <div className='flex items-center'>
+              {Array.from({ length: count }, (_, i) => (
+                // Padding gives each small dot a finger-sized tap area
+                <button
+                  key={i}
+                  type='button'
+                  aria-label={`Show image ${i + 1} of ${count}`}
+                  aria-current={i === index ? 'true' : undefined}
+                  onClick={() => onSelect?.(i)}
+                  className='group cursor-pointer p-2'
+                >
+                  <span
+                    className={`block h-2 rounded-full transition-all ${i === index ? 'w-6 bg-white' : 'w-2 bg-white/40 group-hover:bg-white/70'}`}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
@@ -67,7 +109,9 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false }: Lig
           src={src}
           alt={alt}
           onClick={(e) => e.stopPropagation()}
-          className='max-h-[85vh] max-w-[90vw] rounded-xl object-contain'
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          className='max-h-[85vh] max-w-[90vw] touch-pan-y rounded-xl object-contain'
         />
       )}
 
@@ -76,7 +120,7 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false }: Lig
           type='button'
           aria-label='Next image'
           onClick={(e) => { e.stopPropagation(); onNext() }}
-          className={`${navButton} right-4`}
+          className={`${navButton} right-1 sm:right-4`}
         >
           <ChevronRight size={22} />
         </button>

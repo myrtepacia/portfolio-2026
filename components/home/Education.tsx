@@ -33,23 +33,16 @@ const Education = () => {
       <ul className='grid gap-4 sm:grid-cols-2'>
         {shown.map((cert, index) => (
           <li key={cert.title} className='flex flex-col overflow-hidden rounded-2xl border border-line bg-surface'>
-            <button
-              type='button'
-              onClick={() => setOpen(index)}
-              aria-label={`View ${cert.title} certificate`}
-              className='group relative aspect-[16/10] overflow-hidden border-b border-line bg-wash'
-            >
+            {/* Preview only; the certificate opens from the View Certificate button below */}
+            <div className='relative aspect-[16/10] overflow-hidden border-b border-line bg-wash'>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={cert.image}
                 alt=''
                 loading='lazy'
-                className='h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]'
+                className='h-full w-full object-cover object-top'
               />
-              <span className='absolute right-2 top-2 rounded-md bg-black/70 px-1.5 py-0.5 font-mono text-[10px] text-white'>
-                {index + 1}/{certificates.length}
-              </span>
-            </button>
+            </div>
 
             <div className='flex flex-1 flex-col p-4'>
               <div className='flex items-center justify-between gap-2'>
@@ -76,8 +69,6 @@ const Education = () => {
           src={shown[open].image}
           alt={shown[open].title}
           onClose={() => setOpen(null)}
-          onPrev={() => setOpen((i) => (i === null ? 0 : (i - 1 + shown.length) % shown.length))}
-          onNext={() => setOpen((i) => (i === null ? 0 : (i + 1) % shown.length))}
         />
       )}
     </section>

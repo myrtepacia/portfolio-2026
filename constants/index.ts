@@ -32,6 +32,7 @@ export const projectData = [
         icon: '/images/projects/csflix/icon.svg',
         screenshots: [
             '/images/projects/csflix/home.jpg',
+            '/images/projects/csflix/home-2.jpg',
             '/images/projects/csflix/booking.jpg',
         ],
         tagline: 'Cinema Booking & E-Ticketing Platform',
@@ -51,7 +52,7 @@ export const projectData = [
         screenshots: [
             '/images/projects/campus-marketplace/home.jpg',
             '/images/projects/campus-marketplace/profile.jpg',
-            '/images/projects/campus-marketplace/messages.jpg',
+            '/images/projects/campus-marketplace/message.jpg',
         ],
         tagline: 'Student Buy & Sell Marketplace',
         type: 'School Project',

@@ -198,6 +198,9 @@ const ProjectShowcase = () => {
             onClose={() => setPreview(null)}
             onPrev={shots.length > 1 ? () => step(-1) : undefined}
             onNext={shots.length > 1 ? () => step(1) : undefined}
+            count={shots.length}
+            index={preview.shot}
+            onSelect={(shot) => setPreview((p) => (p === null ? p : { ...p, shot }))}
           />
         )
       })()}

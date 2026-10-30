@@ -36,16 +36,18 @@ const Page = () => {
             href={item.link || '/projects'}
             target={item.link ? '_blank' : undefined}
             rel='noopener noreferrer'
-            className='project-card card space-y-3 block hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors'
+            // Flex column so the stack row can sit at the bottom of every card, even when descriptions differ in length
+            className='project-card card !space-y-0 flex h-full flex-col gap-3 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors'
           >
             <div className='space-y-1'>
               <h2 className='font-bold'>{item.title}</h2>
-              <p className='text-sm text-zinc-500 dark:text-zinc-300'>
+              {/* Long descriptions stop after three lines with an ellipsis instead of pushing into the stack */}
+              <p className='line-clamp-3 text-sm text-zinc-500 dark:text-zinc-300'>
                 {item.description}
               </p>
             </div>
 
-            <div className='flex flex-wrap gap-2'>
+            <div className='mt-auto flex flex-wrap gap-2 pt-1'>
               {item.stack.map((tech, techIndex) => (
                 <span
                   key={techIndex}

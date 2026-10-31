@@ -28,7 +28,8 @@ const Page = () => {
 
   return (
     <main id='top' className='max-w-5xl padding-x py-10 space-y-5'>
-      <div className='flex flex-nowrap gap-5 flex-col sm:items-center sm:flex-row'>
+      {/* Same header as All Projects: back link on the left, page title on the right */}
+      <div className='flex flex-nowrap items-center justify-between gap-5'>
         <Link href='/' className='text-sm flex flex-nowrap items-center gap-2'>
           <ArrowLeft size={20} />
           Back to home

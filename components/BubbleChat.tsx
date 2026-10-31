@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import BubbleConverstation from './BubbleConverstation'
-import { ensurePuterSignedIn, getPuterErrorMessage, puterSignOut, type PuterUser } from '@/lib/puter'
+import { ensurePuterSignedIn, getPuterErrorMessage, loadPuter, puterSignOut, type PuterUser } from '@/lib/puter'
 import { getAssistantReply } from '@/lib/portfolioAssistant'
 type Chat = {
   role: 'user' | 'model'
@@ -62,6 +62,12 @@ const BubbleChat = () => {
       })
     }
   }, [chats, loading, isChatOpen])
+
+  // Start downloading Puter the first time the chat opens, so it's ready by the
+  // time the visitor sends a message (sign-in needs to run inside that click)
+  useEffect(() => {
+    if (isChatOpen) loadPuter()
+  }, [isChatOpen])
 
   // Alt + K toggles the chat
   useEffect(() => {

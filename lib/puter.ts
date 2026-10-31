@@ -1,7 +1,8 @@
 'use client'
 
-// Thin wrapper around the Puter.js global (loaded via <script src="https://js.puter.com/v2/">
-// in app/layout.tsx). Puter Auth signs the visitor into their own free Puter account, and
+// Thin wrapper around the Puter.js global. The script is added to the page only when
+// the chat first opens (see loadPuter), so visitors who never chat don't download it
+// and its console banner doesn't show up on every page. Puter Auth signs the visitor into their own free Puter account, and
 // puter.ai.chat() bills that visitor's account instead of us needing a server-side API key.
 
 export type PuterUser = {
@@ -37,6 +38,18 @@ declare global {
 const READY_TIMEOUT_MS = 10000
 const READY_POLL_MS = 100
 
+const PUTER_SRC = 'https://js.puter.com/v2/'
+
+// Adds the Puter <script> once; safe to call many times
+export const loadPuter = () => {
+  if (typeof document === 'undefined') return
+  if (document.querySelector(`script[src="${PUTER_SRC}"]`)) return
+  const script = document.createElement('script')
+  script.src = PUTER_SRC
+  script.async = true
+  document.head.appendChild(script)
+}
+
 export const isPuterLoaded = () =>
   typeof window !== 'undefined' && !!window.puter?.ai && !!window.puter?.auth
 
@@ -44,6 +57,7 @@ export const isPuterLoaded = () =>
 // exists. Poll briefly instead of failing immediately.
 export const waitForPuter = (): Promise<void> =>
   new Promise((resolve, reject) => {
+    loadPuter()
     if (isPuterLoaded()) {
       resolve()
       return

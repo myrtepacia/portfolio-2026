@@ -40,7 +40,6 @@ const Hero = () => {
         <Image
           src={portrait}
           alt={`Portrait of ${profile.name}`}
-          priority
           // Serve the original 512px file: resized copies blur the halftone dots
           unoptimized
          

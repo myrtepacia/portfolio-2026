@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Activity, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { FaGithub } from 'react-icons/fa'
 
 const GITHUB_USERNAME = 'myrtepacia'
 const MOBILE_WEEKS = 26
@@ -93,8 +94,8 @@ const GithubContributions = async () => {
     <section id='github' aria-label='GitHub contributions' className='scroll-mt-24 space-y-5 rounded-2xl border border-line bg-surface p-5 sm:p-6'>
       <div className='flex flex-nowrap items-center justify-between gap-3'>
         <h2 className='flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-muted'>
-          <Activity size={14} />
-          Contribution Graph
+          <FaGithub size={14} />
+          GitHub
         </h2>
 
         <Link
@@ -151,13 +152,6 @@ const GithubContributions = async () => {
               <strong className='font-medium text-fg'>{data.total.lastYear}</strong> contributions in the last year
             </p>
 
-            <div className='flex items-center gap-1'>
-              <span>Less</span>
-              {levelColors.map((color, index) => (
-                <span key={index} className={`h-2.5 w-2.5 rounded-[2px] ${color}`} />
-              ))}
-              <span>More</span>
-            </div>
           </div>
         </div>
       ) : (

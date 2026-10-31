@@ -20,7 +20,7 @@ export default function Home() {
         <GithubContributions />
 
         <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20">
-          <h2 id="contact-title" className="mb-8 text-[28px] font-bold tracking-[-0.03em] sm:text-[32px]">Get in Touch</h2>
+          <h2 id="contact-title" className="mb-8 whitespace-nowrap text-[clamp(20px,6.4vw,28px)] font-bold tracking-[-0.03em] sm:text-[32px]">Get in Touch</h2>
           <ContactIntro />
           <ConnectFooter />
         </section>

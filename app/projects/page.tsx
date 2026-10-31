@@ -16,7 +16,7 @@ const orderedProjects = [...projectData].sort((a, b) => {
 })
 
 const cardClass =
-  'project-card block rounded-2xl border border-line bg-surface p-4 transition-colors sm:p-6'
+  'project-card block rounded-2xl border border-line bg-surface p-4 transition-colors'
 
 const Page = () => {
   useGSAP(() => {
@@ -31,7 +31,8 @@ const Page = () => {
 
   return (
     <main id='top' className='max-w-5xl padding-x py-10 space-y-5'>
-      <div className='flex flex-nowrap gap-5 flex-col sm:items-center sm:flex-row'>
+      {/* Back link on the left, page title on the right */}
+      <div className='flex flex-nowrap items-center justify-between gap-5'>
         <Link href='/' className='text-sm flex flex-nowrap items-center gap-2'>
           <ArrowLeft size={20} />
           Back to home
@@ -44,9 +45,13 @@ const Page = () => {
           the tech stack in place of the buttons. A card with a live site opens it. */}
       {/* Cards come out the same height on their own (one-line title, three-line
           description, one row of tags), so nothing is stretched to match */}
-      <ul className='grid gap-4 sm:grid-cols-2'>
+      {/* Two columns from tablet width up, one on phones. Phone cards keep a desktop
+          card's width (centered, not stretched), so they look the same and long tag
+          rows still slide. minmax(0, 1fr) keeps wide content from pushing columns
+          past the screen edge. */}
+      <ul className='grid gap-4 md:grid-cols-[repeat(2,minmax(0,1fr))]'>
         {orderedProjects.map((project) => (
-          <li key={project.title}>
+          <li key={project.title} className='mx-auto w-full min-w-0 max-w-[453px] md:max-w-none'>
             {project.link ? (
               <a
                 href={project.link}

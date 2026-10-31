@@ -17,17 +17,17 @@ const groups = [
 
 const StackPage = () => {
   return (
-    <main className='mx-auto max-w-[880px] px-5 py-14 sm:px-8 sm:py-20'>
-      <Link
-        href='/'
-        className='inline-flex items-center gap-2 font-mono text-xs text-subtle transition-colors hover:text-fg'
-      >
-        <ArrowLeft size={14} />
-        Back home
-      </Link>
+    <main className='max-w-5xl padding-x py-10'>
+      {/* Same header as All Projects: back link on the left, page title on the right */}
+      <div className='flex flex-nowrap items-center justify-between gap-5'>
+        <Link href='/' className='text-sm flex flex-nowrap items-center gap-2'>
+          <ArrowLeft size={20} />
+          Back to home
+        </Link>
 
-      <h1 className='mt-8 text-[32px] font-bold tracking-[-0.03em] sm:text-[40px]'>Stack</h1>
-      <p className='mt-2 text-[15px] text-muted'>The languages, frameworks, and tools I work with.</p>
+        <h1 className='text-2xl font-bold'>Stack</h1>
+      </div>
+      <p className='mt-5 text-[15px] text-muted'>The languages, frameworks, and tools I work with.</p>
 
       <div className='mt-10 space-y-8'>
         {groups.map((group) => (

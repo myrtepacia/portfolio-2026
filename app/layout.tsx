@@ -1,10 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import GridBackground from "@/components/GridBackground";
-import ConsoleSignature from "@/components/ConsoleSignature";
 import ScriptCleanup from "@/components/ScriptCleanup";
 import { profile } from "@/constants";
 
@@ -80,8 +78,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans bg-bg text-fg antialiased`}>
-        <Script src="https://js.puter.com/v2/" strategy="afterInteractive" />
-        <ConsoleSignature />
         <ScriptCleanup />
         <ThemeProvider
           attribute="class"

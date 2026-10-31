@@ -17,15 +17,16 @@ const Education = () => {
 
   return (
     <section id='education' aria-label='Certificates and training' className='scroll-mt-20 !mb-10'>
-      <div className='flex flex-wrap items-end justify-between gap-x-6'>
+      {/* View all sits on the right, level with the subtitle's last line, at every screen size */}
+      <div className='flex items-end justify-between gap-x-4 sm:gap-x-6'>
         <SectionTitle
           title='Certificates & Training'
           subtitle='Workshops, courses, and certifications I have completed.'
         />
         <Link
           href='/certificates'
-          // ml-auto keeps it on the right even when it wraps below the title on phones
-          className='mb-8 ml-auto inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-[0.12em] text-subtle transition-colors hover:text-fg'
+          // mb-8 matches the title block's bottom margin so it lines up with the subtitle
+          className='mb-8 inline-flex shrink-0 items-center gap-1 font-mono text-[11px] uppercase tracking-[0.12em] text-subtle transition-colors hover:text-fg'
         >
           View all
           <ArrowUpRight size={12} />

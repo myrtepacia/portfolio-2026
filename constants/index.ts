@@ -44,7 +44,7 @@ export const projectData = [
             'QR-code e-tickets scanned from the admin dashboard',
             'Customer reviews and film management for admins',
         ],
-        link: 'https://csflix.app'
+        link: 'https://csflix.gt.tc'
     },   
     {
         title: 'Campus Marketplace',

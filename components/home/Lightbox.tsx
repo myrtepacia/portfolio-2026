@@ -76,15 +76,17 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false, count
       {fixedFrame ? (
         // Width is the largest 2:1 box that fits in 80% of the width and 70% of the height,
         // and on phones leaves 3.5rem each side so the arrows sit beside the image, not on it;
-        // object-cover fills it edge to edge, so there are no bars around the image
+        // The frame itself is invisible: it only keeps the size steady between images.
+        // The image is shown whole inside it (tall phone screenshots aren't cropped),
+        // with the rounded corners and outline on the image, not the frame
         <div onClick={(e) => e.stopPropagation()} className='flex flex-col items-center gap-4'>
           <div
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
-            className='aspect-[2/1] w-[min(calc(100vw-7rem),80vw,1200px,calc(70vh*2))] touch-pan-y overflow-hidden rounded-xl ring-1 ring-white/10'
+            className='flex aspect-[2/1] w-[min(calc(100vw-7rem),80vw,1200px,calc(70vh*2))] touch-pan-y items-center justify-center'
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt={alt} className='h-full w-full object-cover object-top' />
+            <img src={src} alt={alt} className='max-h-full max-w-full rounded-xl object-contain ring-1 ring-white/10' />
           </div>
 
           {count > 1 && (

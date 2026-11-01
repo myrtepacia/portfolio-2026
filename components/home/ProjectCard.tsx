@@ -13,7 +13,6 @@ const appIcons: Record<string, { icon: LucideIcon; bg: string }> = {
   CSFlix: { icon: Clapperboard, bg: '#e50914' },
   'Restaurant Discrete Event Simulation': { icon: UtensilsCrossed, bg: '#e8743b' },
   Talkly: { icon: MessageSquare, bg: '#c9853f' },
-  'Campus Marketplace': { icon: MessageSquare, bg: '#1d63df' },
   Portfolio: { icon: Sparkles, bg: '#18181b' },
 }
 

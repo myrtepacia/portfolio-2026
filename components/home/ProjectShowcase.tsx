@@ -8,8 +8,8 @@ import SectionTitle from './SectionTitle'
 import Lightbox from './Lightbox'
 import ProjectCard from './ProjectCard'
 
-// The portfolio itself isn't shown in the featured stack; it stays on /projects
-const featured = projectData.filter((project) => project.title !== 'Portfolio')
+// Every project is featured, in the order listed in constants
+const featured = projectData
 
 // How long each card stays in front before the stack rotates to the next one
 const AUTOPLAY_MS = 3000

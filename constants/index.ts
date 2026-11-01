@@ -47,23 +47,19 @@ export const projectData = [
         link: 'https://csflix.gt.tc'
     },   
     {
-        title: 'Campus Marketplace',
-        icon: '/images/projects/campus-marketplace/icon.svg',
-        screenshots: [
-            '/images/projects/campus-marketplace/home.jpg',
-            '/images/projects/campus-marketplace/profile.jpg',
-            '/images/projects/campus-marketplace/message.jpg',
-        ],
-        tagline: 'Student Buy & Sell Marketplace',
-        type: 'Collaboration',
-        description: 'A student trading platform featuring item listings, direct buyer-seller messaging, saved favorites, and session-based authentication',
-        stack: ['PHP', 'JavaScript', 'MySQL', 'CSS3', 'HTML5'],
-        highlights: [
-            'Item listings with categories, search, and saved favorites',
-            'Direct buyer-seller messaging from any listing',
-            'Verified student accounts with selling tools on each profile',
-        ],
-        link: 'https://coming-soon-olive-psi.vercel.app/'
+         title: 'Portfolio',
+         icon: '',
+         screenshots: ['/images/projects/portfolio/home.jpg'],
+         tagline: 'AI-Assisted Personal Website',
+         type: 'Personal Project',
+         description: 'A modern personal portfolio website that presents my skills, projects, and experience through a clean and professional interface, enhanced by an AI-powered assistant for a more engaging user experience.',
+         stack: ['Next.js', 'TailwindCSS', 'Javascript', 'Typescript', 'OpenAI'],
+         highlights: [
+            'Skills, projects, and experience in one place',
+            'AI assistant that answers visitor questions',
+            'Light and dark themes with a responsive layout',
+         ],
+         link: 'https://hvtepacia.com/'
     },
      {
         title: 'Restaurant Discrete Event Simulation',
@@ -81,21 +77,7 @@ export const projectData = [
         link: ''
         // https://restaurant-discrete-event-simulatio.vercel.app/
     },
-     {
-         title: 'Portfolio',
-         icon: '',
-         screenshots: ['/images/projects/portfolio/home.jpg'],
-         tagline: 'AI-Assisted Personal Website',
-         type: 'Personal Project',
-         description: 'A modern personal portfolio website that presents my skills, projects, and experience through a clean and professional interface, enhanced by an AI-powered assistant for a more engaging user experience.',
-         stack: ['Next.js', 'TailwindCSS', 'Javascript', 'Typescript', 'OpenAI'],
-         highlights: [
-            'Skills, projects, and experience in one place',
-            'AI assistant that answers visitor questions',
-            'Light and dark themes with a responsive layout',
-         ],
-         link: 'https://hvtepacia.com/'
-    },
+
 
 ]
 

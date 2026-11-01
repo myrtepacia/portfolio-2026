@@ -8,7 +8,7 @@ import { useGSAP } from '@gsap/react'
 import ProjectCard from '@/components/home/ProjectCard'
 
 // This page's own order (the home page keeps the constants order)
-const PAGE_ORDER = ['CSFlix', 'Restaurant Discrete Event Simulation', 'Portfolio', 'Campus Marketplace']
+const PAGE_ORDER = ['CSFlix', 'Restaurant Discrete Event Simulation', 'Portfolio']
 const orderedProjects = [...projectData].sort((a, b) => {
   // Projects not listed above keep their place after the listed ones
   const rank = (title: string) => (PAGE_ORDER.indexOf(title) + 1 || PAGE_ORDER.length + 1)

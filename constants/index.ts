@@ -49,7 +49,7 @@ export const projectData = [
     {
          title: 'Portfolio',
          icon: '',
-         screenshots: ['/images/projects/portfolio/home.jpg'],
+         screenshots: ['/images/projects/portfolio/home.jpg', '/images/projects/portfolio/home-2.jpg'],
          tagline: 'AI-Assisted Personal Website',
          type: 'Personal Project',
          description: 'A modern personal portfolio website that presents my skills, projects, and experience through a clean and professional interface, enhanced by an AI-powered assistant for a more engaging user experience.',

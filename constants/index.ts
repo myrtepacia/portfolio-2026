@@ -1,4 +1,4 @@
-export const frontend = [
+﻿export const frontend = [
     'Javascript',
     'Next.js',
     'TailwindCSS',
@@ -27,8 +27,32 @@ export const techSupport = [
 
 export const projectData = [
     {
-        title: 'CSFlix',
+        title: 'IponicsPH',
         // Each project's icon and screenshots live in its own folder under /images/projects
+        icon: '/images/projects/IponicsPH/icon.svg',
+        screenshots: [
+            '/images/projects/IponicsPH/Home.jpg',
+            '/images/projects/IponicsPH/Savings.jpg',
+            '/images/projects/IponicsPH/activity.jpg',
+            '/images/projects/IponicsPH/Plan.jpg',
+        ],
+        // Phone screenshots, so the viewer shows them in a tall frame
+        tallScreenshots: true,
+        tagline: 'Allowance Budgeting App',
+        type: 'Mobile App',
+        description: 'An Android app for planning and tracking an allowance in the Philippines, with spending activity and savings. All data stays on the phone.',
+        stack: ['React', 'TypeScript', 'Vite', 'Capacitor'],
+        highlights: [
+            'Allowance planning built for the Philippines',
+            'Spending activity and savings in one place',
+            'All data kept on the phone',
+        ],
+        link: '',
+        // An app to install, so its card shows Download instead of Live Website
+        download: '/projects/IponicsPH/IponicsPH.apk',
+    },
+    {
+        title: 'CSFlix',
         icon: '/images/projects/csflix/icon.svg',
         screenshots: [
             '/images/projects/csflix/home.jpg',
@@ -48,7 +72,9 @@ export const projectData = [
     },   
     {
          title: 'Portfolio',
-         icon: '',
+         // Still listed on /projects, just not in the home page's Featured Projects
+         featured: false,
+         icon: '/images/projects/portfolio/icon-cutout.png',
          screenshots: ['/images/projects/portfolio/home.jpg', '/images/projects/portfolio/home-2.jpg'],
          tagline: 'AI-Assisted Personal Website',
          type: 'Personal Project',
@@ -59,7 +85,7 @@ export const projectData = [
             'AI assistant that answers visitor questions',
             'Light and dark themes with a responsive layout',
          ],
-         link: 'https://hvtepacia.com/'
+         link: 'https://myrtepacia.tech/'
     },
      {
         title: 'Restaurant Discrete Event Simulation',
@@ -74,14 +100,19 @@ export const projectData = [
             'Dashboard for wait times, table utilization, and revenue',
             'Built with TypeScript, React, and Python',
         ],
-        link: ''
-        // https://restaurant-discrete-event-simulatio.vercel.app/
+        link: 'https://restaurant-discrete-event-simulatio.vercel.app/'
     },
 
 
 ]
 
 export const certificates = [
+    // Newest first; the home page shows the first few
+    {
+        title: "Prompt, Connect, Convert: The New Era of AI-Powered Marketing",
+        provider: "National Teachers College",
+        image: '/images/certificates/ai-powered-marketing.jpg'
+    },
     {
         title: "Code Connect Workshop",
         provider: "Negros Oriental State University",
@@ -101,6 +132,20 @@ export const certificates = [
         title: "Using HTML and CSS to Design a Website",
         provider: "Department of Information and Communications Technology",
         image: '/images/certificates/html-css.jpg'
+    },
+]
+
+// Events shown in the home page gallery; each program's photos live in its own folder
+export const programs = [
+    {
+        title: 'Code Connect',
+        description: "A hands-on workshop on databases and programming languages, run by the computing student organizations at Negros Oriental State University.",
+        photos: [
+            '/images/gallery/code-connect/1.jpg',
+            '/images/gallery/code-connect/2.jpg',
+            '/images/gallery/code-connect/3.jpg',
+            '/images/gallery/code-connect/4.jpg',
+        ],
     },
 ]
 
@@ -128,7 +173,7 @@ export const profile = {
     github: 'https://github.com/myrtepacia',
     githubUsername: 'myrtepacia',
     linkedin: 'https://www.linkedin.com/in/myrtepacia/',
-    site: 'https://hvtepacia.com',
+    site: 'https://myrtepacia.tech',
 }
 
 export const socials = [

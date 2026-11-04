@@ -8,8 +8,8 @@ import SectionTitle from './SectionTitle'
 import Lightbox from './Lightbox'
 import ProjectCard from './ProjectCard'
 
-// Every project is featured, in the order listed in constants
-const featured = projectData
+// Featured unless a project says otherwise, in the order listed in constants
+const featured = projectData.filter((project) => project.featured !== false)
 
 // How long each card stays in front before the stack rotates to the next one
 const AUTOPLAY_MS = 3000
@@ -174,6 +174,7 @@ const ProjectShowcase = () => {
         return (
           <Lightbox
             fixedFrame
+            tallFrame={featured[preview.project].tallScreenshots}
             src={shots[preview.shot]}
             alt={`${featured[preview.project].title} screenshot ${preview.shot + 1} of ${shots.length}`}
             onClose={() => setPreview(null)}

@@ -1,8 +1,10 @@
 import BubbleChat from "@/components/BubbleChat";
+import IntroLoader from "@/components/home/IntroLoader";
 import TopNav from "@/components/home/TopNav";
 import Hero from "@/components/home/Hero";
 import ProjectShowcase from "@/components/home/ProjectShowcase";
 import Education from "@/components/home/Education";
+import Gallery from "@/components/home/Gallery";
 import ConnectFooter from "@/components/home/ConnectFooter";
 import ContactIntro from "@/components/home/ContactIntro";
 import GithubContributions from "@/sections/GithubContributions";
@@ -11,12 +13,14 @@ export default function Home() {
   return (
     // overflow-x-clip: the fanned project cards may poke past the viewport edge; clip keeps the sticky header working
     <div className="min-h-screen overflow-x-clip">
+      <IntroLoader />
       <TopNav />
 
       <main id="top" className="mx-auto max-w-[880px] space-y-20 px-5 pb-20 sm:px-8">
         <Hero />
         <ProjectShowcase />
         <Education />
+        <Gallery />
         <GithubContributions />
 
         <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20">

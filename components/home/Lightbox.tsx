@@ -14,13 +14,16 @@ type LightboxProps = {
   // screenshots) instead of sizing to each one, so the viewer doesn't jump
   // around when stepping between images
   fixedFrame?: boolean
+  // Use a tall phone-shaped frame instead, for portrait screenshots that would
+  // be tiny inside the 2:1 one
+  tallFrame?: boolean
   // Optional dot row under the image: how many images there are, which one is showing, and how to jump to one
   count?: number
   index?: number
   onSelect?: (index: number) => void
 }
 
-const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false, count = 0, index = 0, onSelect }: LightboxProps) => {
+const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false, tallFrame = false, count = 0, index = 0, onSelect }: LightboxProps) => {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -83,7 +86,11 @@ const Lightbox = ({ src, alt, onClose, onPrev, onNext, fixedFrame = false, count
           <div
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
-            className='flex aspect-[2/1] w-[min(calc(100vw-7rem),80vw,1200px,calc(70vh*2))] touch-pan-y items-center justify-center'
+            className={`flex touch-pan-y items-center justify-center ${
+              tallFrame
+                ? 'aspect-[6/13] w-[min(calc(100vw-7rem),calc(75vh*6/13))]'
+                : 'aspect-[2/1] w-[min(calc(100vw-7rem),80vw,1200px,calc(70vh*2))]'
+            }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={src} alt={alt} className='max-h-full max-w-full rounded-xl object-contain ring-1 ring-white/10' />

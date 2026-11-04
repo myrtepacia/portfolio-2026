@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUpRight, Award, ChevronDown, ChevronRight, CornerDownLeft, FolderGit2, Hash, Mail, Search, X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { ArrowUpRight, Award, ChevronDown, ChevronRight, CornerDownLeft, Download, FolderGit2, Hash, Mail, Search, X } from 'lucide-react'
 import type { IconType } from 'react-icons'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { certificates, profile, projectData, socials } from '@/constants'
@@ -11,13 +12,20 @@ type Item = {
   label: string
   href: string
   external?: boolean
+  // The row downloads the file at href instead of opening it
+  download?: boolean
   // Child rows sit indented under their section
   parent?: string
 }
 
 // Rows listed under a section, shown indented beneath it
 const children: Record<string, Omit<Item, 'parent'>[]> = {
-  projects: projectData.map((p) => ({ label: p.title, href: p.link || '/projects', external: Boolean(p.link) })),
+  projects: projectData.map((p) => ({
+    label: p.title,
+    href: p.link || p.download || '/projects',
+    external: Boolean(p.link),
+    download: Boolean(p.download),
+  })),
   education: certificates.map((c) => ({ label: c.title, href: c.image, external: true })),
   contact: [
     { label: profile.email, href: `mailto:${profile.email}` },
@@ -46,6 +54,7 @@ const items: Item[] = [
 ]
 
 const CommandMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const router = useRouter()
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState(0)
   // Sections whose child rows are showing; children stay hidden until their section is clicked
@@ -86,8 +95,14 @@ const CommandMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) 
       return
     }
     close()
-    if (item.external) window.open(item.href, '_blank', 'noopener,noreferrer')
+    if (item.download) {
+      const link = document.createElement('a')
+      link.href = item.href
+      link.download = ''
+      link.click()
+    } else if (item.external) window.open(item.href, '_blank', 'noopener,noreferrer')
     else if (item.href.startsWith('mailto:')) window.open(item.href, '_self')
+    else if (item.href.startsWith('/')) router.push(item.href)
     else document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -142,7 +157,9 @@ const CommandMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) 
           {results.length === 0 && <li className='px-3 py-6 text-center text-sm text-muted'>No results</li>}
           {results.map((item, index) => {
             const isSelected = index === selected
-            const Icon = brandIcons[item.label]
+            const Icon = item.download
+              ? Download
+              : brandIcons[item.label]
               ? brandIcons[item.label]
               : item.external && !item.parent
               ? ArrowUpRight

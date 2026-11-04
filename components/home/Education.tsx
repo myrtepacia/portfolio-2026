@@ -8,9 +8,10 @@ import SectionTitle from './SectionTitle'
 import Lightbox from './Lightbox'
 import CertificateCard from './CertificateCard'
 
-// Only the first few show on the landing page; the rest live on /certificates
-const VISIBLE = 2
-const shown = certificates.slice(0, VISIBLE)
+// Only the newest few show on the home page; the rest live on /certificates
+const shown = certificates.slice(0, 4)
+// Phones show fewer, since the cards stack in one long column
+const SHOWN_ON_PHONES = 2
 
 const Education = () => {
   const [open, setOpen] = useState<number | null>(null)
@@ -33,9 +34,14 @@ const Education = () => {
         </Link>
       </div>
 
-      <ul className='grid gap-4 sm:grid-cols-2'>
+      <ul className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
         {shown.map((cert, index) => (
-          <CertificateCard key={cert.title} {...cert} onView={() => setOpen(index)} />
+          <CertificateCard
+            key={cert.title}
+            {...cert}
+            onView={() => setOpen(index)}
+            className={index >= SHOWN_ON_PHONES ? 'max-sm:hidden' : ''}
+          />
         ))}
       </ul>
 

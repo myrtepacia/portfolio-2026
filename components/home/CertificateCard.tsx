@@ -1,6 +1,3 @@
-import { Award, Eye } from 'lucide-react'
-import { MonoLabel } from './SectionTitle'
-
 type CertificateCardProps = {
   title: string
   provider: string
@@ -9,31 +6,26 @@ type CertificateCardProps = {
   className?: string
 }
 
-// Certificate card shared by the home page and /certificates: image preview,
-// label, title and provider, and a View Certificate button that opens it.
+// Certificate card shared by the home page and /certificates: an image preview, a
+// one-line title and provider, and a View Credential button that opens it.
 const CertificateCard = ({ title, provider, image, onView, className = '' }: CertificateCardProps) => (
-  <li className={`flex flex-col overflow-hidden rounded-2xl border border-line bg-surface ${className}`}>
-    {/* Preview only; the certificate opens from the View Certificate button below */}
-    <div className='relative aspect-[16/10] overflow-hidden border-b border-line bg-wash'>
+  <li className={`flex min-w-0 flex-col rounded-2xl border border-line bg-surface p-4 ${className}`}>
+    {/* Preview only; the certificate opens from the button below. object-contain on
+        white shows the whole certificate, including tall ones like the NC II */}
+    <div className='aspect-[7/5] overflow-hidden rounded-lg bg-white'>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={image} alt='' loading='lazy' className='h-full w-full object-cover object-top' />
+      <img src={image} alt='' loading='lazy' className='h-full w-full object-contain' />
     </div>
 
-    <div className='flex flex-1 flex-col p-4'>
-      <div className='flex items-center justify-between gap-2'>
-        <MonoLabel icon={<Award size={11} />}>Certificate</MonoLabel>
-      </div>
-      <h3 className='mt-3 text-[15px] font-semibold leading-snug'>{title}</h3>
-      <p className='mt-1 text-xs text-muted'>{provider}</p>
-    </div>
+    <h3 className='mt-4 truncate text-[15px] font-semibold' title={title}>{title}</h3>
+    <p className='mt-1 truncate text-xs text-muted' title={provider}>{provider}</p>
 
     <button
       type='button'
       onClick={onView}
-      className='flex items-center justify-center gap-2 border-t border-line py-2.5 font-mono text-[11px] text-muted transition-colors hover:bg-wash hover:text-fg'
+      className='mt-4 w-full cursor-pointer rounded-lg border border-line bg-bg py-2 text-[13px] font-medium transition-colors hover:bg-wash'
     >
-      <Eye size={13} />
-      View Certificate
+      View Credential
     </button>
   </li>
 )

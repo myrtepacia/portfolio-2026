@@ -8,7 +8,7 @@ import { useGSAP } from '@gsap/react'
 import ProjectCard from '@/components/home/ProjectCard'
 
 // This page's own order (the home page keeps the constants order)
-const PAGE_ORDER = ['CSFlix', 'Restaurant Discrete Event Simulation', 'Portfolio']
+const PAGE_ORDER = ['IponicsPH', 'CSFlix', 'Restaurant Discrete Event Simulation', 'Portfolio']
 const orderedProjects = [...projectData].sort((a, b) => {
   // Projects not listed above keep their place after the listed ones
   const rank = (title: string) => (PAGE_ORDER.indexOf(title) + 1 || PAGE_ORDER.length + 1)
@@ -42,7 +42,8 @@ const Page = () => {
       </div>
 
       {/* Same cards as the home page's Featured Projects stack, laid out flat, with
-          the tech stack in place of the buttons. A card with a live site opens it. */}
+          the tech stack in place of the buttons. A card with a live site opens it,
+          and a card with an app to install downloads it. */}
       {/* Cards come out the same height on their own (one-line title, three-line
           description, one row of tags), so nothing is stretched to match */}
       {/* Two columns from tablet width up, one on phones. Phone cards keep a desktop
@@ -58,6 +59,15 @@ const Page = () => {
                 target='_blank'
                 rel='noopener noreferrer'
                 aria-label={`${project.title}: visit the live website (opens in a new tab)`}
+                className={`${cardClass} hover:bg-wash`}
+              >
+                <ProjectCard project={project} footer='stack' showType={false} />
+              </a>
+            ) : project.download ? (
+              <a
+                href={project.download}
+                download
+                aria-label={`${project.title}: download the APK`}
                 className={`${cardClass} hover:bg-wash`}
               >
                 <ProjectCard project={project} footer='stack' showType={false} />

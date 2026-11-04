@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { Clapperboard, Globe, ImageIcon, MessageSquare, Sparkles, UtensilsCrossed } from 'lucide-react'
+import { Clapperboard, Download, Globe, ImageIcon, MessageSquare, Sparkles, UtensilsCrossed } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { projectData } from '@/constants'
 
@@ -26,27 +26,41 @@ const Laurel = ({ flip = false }: { flip?: boolean }) => (
   </svg>
 )
 
-// Store-badge style button: icon + small caption over a bold label.
-// Compact on phones so two of them fit side by side in a card.
-const BadgeButton = ({ icon: Icon, caption, label, dark, ...props }: {
+type BadgeProps = {
   icon: LucideIcon
   caption: string
   label: string
   dark?: boolean
-} & React.ComponentProps<'button'>) => (
-  <button
-    type='button'
-    {...props}
-    className={`inline-flex h-10 shrink-0 items-center gap-1.5 rounded-lg px-2 text-left transition-opacity hover:opacity-85 sm:h-11 sm:gap-2 sm:px-3 ${
-      dark ? 'bg-fg text-bg' : 'border border-line bg-surface text-fg'
-    }`}
-  >
+}
+
+const badgeClass = (dark?: boolean) =>
+  `inline-flex h-10 shrink-0 items-center gap-1.5 rounded-lg px-2 text-left transition-opacity hover:opacity-85 sm:h-11 sm:gap-2 sm:px-3 ${
+    dark ? 'bg-fg text-bg' : 'border border-line bg-surface text-fg'
+  }`
+
+const BadgeContent = ({ icon: Icon, caption, label }: BadgeProps) => (
+  <>
     <Icon strokeWidth={1.8} className='size-4 sm:size-5' />
     <span className='leading-none'>
       <span className='block text-[8px] opacity-80 sm:text-[9px]'>{caption}</span>
       <span className='mt-0.5 block whitespace-nowrap text-[12px] font-semibold tracking-tight sm:text-[14px]'>{label}</span>
     </span>
+  </>
+)
+
+// Store-badge style button: icon + small caption over a bold label.
+// Compact on phones so two of them fit side by side in a card.
+const BadgeButton = ({ icon, caption, label, dark, ...props }: BadgeProps & React.ComponentProps<'button'>) => (
+  <button type='button' {...props} className={badgeClass(dark)}>
+    <BadgeContent icon={icon} caption={caption} label={label} />
   </button>
+)
+
+// The same badge as a link, for files to download
+const BadgeLink = ({ icon, caption, label, dark, ...props }: BadgeProps & React.ComponentProps<'a'>) => (
+  <a {...props} className={badgeClass(dark)}>
+    <BadgeContent icon={icon} caption={caption} label={label} />
+  </a>
 )
 
 // Slide speed for tag rows that don't fit, in pixels per second
@@ -117,8 +131,8 @@ type ProjectCardProps = {
   // False for cards that are on screen but not usable yet (the side cards of
   // the home page stack), so keyboard users can't tab into them
   focusable?: boolean
-  // Bottom row: the Live Website and Screenshots buttons (home page), or the
-  // project's tech stack as tags (/projects)
+  // Bottom row: the Live Website or Download and Screenshots buttons (home page),
+  // or the project's tech stack as tags (/projects)
   footer?: 'buttons' | 'stack'
   // Show the type badge (e.g. "School Project") at the top; /projects hides it
   showType?: boolean
@@ -187,6 +201,18 @@ const ProjectCard = ({ project, onPreview, focusable = true, footer = 'buttons',
               label='Live Website'
               tabIndex={tabIndex}
               onClick={() => window.open(project.link, '_blank', 'noopener,noreferrer')}
+            />
+          )}
+          {/* Apps to install get a Download button instead */}
+          {project.download && (
+            <BadgeLink
+              dark
+              icon={Download}
+              caption='APK'
+              label='Download'
+              href={project.download}
+              download
+              tabIndex={tabIndex}
             />
           )}
           {project.screenshots.length > 0 && onPreview && (

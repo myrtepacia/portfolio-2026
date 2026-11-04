@@ -39,7 +39,7 @@ const Page = () => {
       </div>
 
       {/* Same cards as the home page's Certificates & Training section */}
-      <ul className='grid gap-4 sm:grid-cols-2'>
+      <ul className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
         {certificates.map((cert, index) => (
           <CertificateCard key={cert.title} {...cert} className='certificate-card' onView={() => setOpen(index)} />
         ))}

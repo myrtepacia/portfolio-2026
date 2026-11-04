@@ -253,3 +253,91 @@ svg.icon-toggle {
   opacity: 0.55;
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
+
+/* Home page intro (components/home/IntroLoader.tsx): the lines draw on, hold and
+   erase above a filling bar, then the overlay fades out and stops catching clicks */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: var(--bg);
+  animation: intro-fade 0.45s ease 2.7s forwards;
+}
+
+/* Thin loading bar under the letters; fills for the length of the intro. Uses the
+   theme's text color to match the black-and-white profile photo */
+.intro-bar {
+  width: 9rem;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.intro-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: intro-bar 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.intro-stroke {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: intro-draw 2.3s ease-in-out forwards;
+}
+
+/* Round line caps leave a dot on a zero-length dash, so opacity hides each line
+   until it starts drawing and again once it has erased */
+@keyframes intro-draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  35%,
+  65% {
+    stroke-dashoffset: 0;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0;
+  }
+}
+
+@keyframes intro-bar {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes intro-fade {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+[data-intro-seen] .intro-overlay {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay {
+    display: none;
+  }
+}

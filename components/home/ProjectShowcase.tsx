@@ -78,7 +78,7 @@ const ProjectShowcase = () => {
 
       <div
         ref={stackRef}
-        className='relative -mx-5 h-[400px] overflow-hidden px-5 [--card-w:300px] [--fan:96px] sm:mx-0 sm:h-[380px] sm:overflow-visible sm:px-0 sm:[--card-w:380px] sm:[--fan:250px]'
+        className='reveal relative -mx-5 h-[400px] overflow-hidden px-5 [--card-w:300px] [--fan:96px] sm:mx-0 sm:h-[380px] sm:overflow-visible sm:px-0 sm:[--card-w:380px] sm:[--fan:250px]'
         onKeyDown={(e) => {
           if (e.key === 'ArrowLeft') go(-1)
           if (e.key === 'ArrowRight') go(1)
@@ -159,7 +159,7 @@ const ProjectShowcase = () => {
         })}
       </div>
 
-      <div className='mt-3 flex justify-center'>
+      <div className='reveal mt-3 flex justify-center'>
         <Link href='/projects' className='inline-flex items-center gap-1 font-mono text-xs text-subtle hover:text-fg'>
           View all projects
           <ArrowUpRight size={12} />

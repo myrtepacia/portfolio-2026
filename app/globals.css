@@ -341,3 +341,32 @@ svg.icon-toggle {
     display: none;
   }
 }
+
+/* Scroll fade-in (components/home/ScrollReveal.tsx). The hidden state only applies
+   when scripts can run and motion is welcome, so content is never stuck invisible */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--reveal-delay, 0s);
+  }
+
+  /* Cards in the same row arrive one after another */
+  li.reveal:nth-child(2) {
+    --reveal-delay: 0.1s;
+  }
+
+  li.reveal:nth-child(3) {
+    --reveal-delay: 0.2s;
+  }
+
+  li.reveal:nth-child(4) {
+    --reveal-delay: 0.3s;
+  }
+}

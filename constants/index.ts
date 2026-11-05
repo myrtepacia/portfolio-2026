@@ -45,7 +45,7 @@ export const projectData = [
         highlights: [
             'Allowance planning built for the Philippines',
             'Spending activity and savings in one place',
-            'All data kept on the phone',
+            'Home-screen widget for what you can still spend today',
         ],
         link: '',
         // An app to install, so its card shows Download instead of Live Website

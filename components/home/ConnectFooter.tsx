@@ -12,11 +12,11 @@ const primary = [
 const ConnectFooter = () => {
   return (
     <footer>
-      <div className='flex justify-center'>
+      <div className='reveal flex justify-center'>
         <MonoLabel icon={<MessageSquare size={12} />}>Connect across platforms</MonoLabel>
       </div>
 
-      <ul className='mx-auto mt-4 grid max-w-[480px] gap-3 sm:grid-cols-2'>
+      <ul className='reveal mx-auto mt-4 grid max-w-[480px] gap-3 sm:grid-cols-2'>
         {primary.map(({ label, handle, href, icon: Icon }) => (
           // Email takes its own row, at the same width as one card, centered under GitHub and Facebook
           <li key={label} className={label === 'Email' ? 'sm:col-span-2 sm:mx-auto sm:w-[calc(50%-6px)]' : undefined}>
@@ -39,7 +39,7 @@ const ConnectFooter = () => {
         ))}
       </ul>
 
-      <p className='mt-12 border-t border-line py-6 text-center text-xs text-subtle'>
+      <p className='reveal mt-12 border-t border-line py-6 text-center text-xs text-subtle'>
         © {new Date().getFullYear()} {profile.name}. All rights reserved.
       </p>
     </footer>

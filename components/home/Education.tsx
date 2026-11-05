@@ -10,7 +10,7 @@ import CertificateCard from './CertificateCard'
 
 // Only the newest few show on the home page; the rest live on /certificates
 const shown = certificates.slice(0, 4)
-// Phones show fewer, since the cards stack in one long column
+// Phones show one row of two; the rest are a tap away on /certificates
 const SHOWN_ON_PHONES = 2
 
 const Education = () => {
@@ -27,20 +27,20 @@ const Education = () => {
         <Link
           href='/certificates'
           // mb-8 matches the title block's bottom margin so it lines up with the subtitle
-          className='mb-8 inline-flex shrink-0 items-center gap-1 font-mono text-[11px] uppercase tracking-[0.12em] text-subtle transition-colors hover:text-fg'
+          className='reveal mb-8 inline-flex shrink-0 items-center gap-1 font-mono text-[11px] uppercase tracking-[0.12em] text-subtle transition-colors hover:text-fg'
         >
           View all
           <ArrowUpRight size={12} />
         </Link>
       </div>
 
-      <ul className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+      <ul className='grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4'>
         {shown.map((cert, index) => (
           <CertificateCard
             key={cert.title}
             {...cert}
             onView={() => setOpen(index)}
-            className={index >= SHOWN_ON_PHONES ? 'max-sm:hidden' : ''}
+            className={`reveal ${index >= SHOWN_ON_PHONES ? 'max-sm:hidden' : ''}`}
           />
         ))}
       </ul>

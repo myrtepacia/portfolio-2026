@@ -4,7 +4,7 @@ type SectionTitleProps = {
 }
 
 const SectionTitle = ({ title, subtitle }: SectionTitleProps) => (
-  <div className='mb-8'>
+  <div className='reveal mb-8'>
     {/* One line on every phone: the size scales with the screen (up to 28px) instead of wrapping */}
     <h2 className='whitespace-nowrap text-[clamp(20px,6.4vw,28px)] font-bold tracking-[-0.03em] sm:text-[32px]'>{title}</h2>
     {subtitle && <p className='mt-2 text-[15px] text-muted'>{subtitle}</p>}

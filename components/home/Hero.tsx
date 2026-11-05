@@ -50,7 +50,7 @@ const Hero = () => {
       </div>
 
       {/* Wraps only when the email truly runs out of room, not at a fixed breakpoint */}
-      <div className='mt-5 flex flex-wrap items-start gap-x-6 gap-y-2 text-[13px] text-subtle'>
+      <div className='reveal mt-5 flex flex-wrap items-start gap-x-6 gap-y-2 text-[13px] text-subtle'>
         {/* Local time sits directly under the location */}
         <div className='flex flex-col gap-2'>
           <a
@@ -74,7 +74,7 @@ const Hero = () => {
         </Link>
       </div>
 
-      <div className='mt-8 flex flex-wrap items-center gap-3'>
+      <div className='reveal mt-8 flex flex-wrap items-center gap-3'>
         <a
           href='#projects'
           className='inline-flex h-10 items-center gap-2 rounded-lg bg-fg px-4 text-sm font-medium text-bg transition-opacity hover:opacity-85'
@@ -93,7 +93,7 @@ const Hero = () => {
         </Link>
       </div>
 
-      <div aria-label='Education' className='mt-12 border-t border-line pt-6'>
+      <div aria-label='Education' className='reveal mt-12 border-t border-line pt-6'>
         <MonoLabel icon={<GraduationCap size={13} />}>Education</MonoLabel>
         <ul className='mt-3 grid gap-3 sm:grid-cols-2'>
           {education.map((item) => (
@@ -124,7 +124,7 @@ const Hero = () => {
         </ul>
       </div>
 
-      <div id='stack' className='mt-10 scroll-mt-20 border-t border-line pt-6'>
+      <div id='stack' className='reveal mt-10 scroll-mt-20 border-t border-line pt-6'>
         <div className='flex items-center justify-between'>
           <h2 className='font-mono text-[11px] uppercase tracking-[0.12em] text-subtle'>Stack</h2>
           <Link

@@ -24,7 +24,7 @@ const Gallery = () => {
           const extra = photos.length - PREVIEW
 
           return (
-            <li key={title} className='flex min-w-0 flex-col rounded-2xl border border-line bg-surface p-5 sm:p-6'>
+            <li key={title} className='reveal flex min-w-0 flex-col rounded-2xl border border-line bg-surface p-5 sm:p-6'>
               <h3 className='text-lg font-semibold'>{title}</h3>
               <p className='mt-2 text-sm leading-relaxed text-muted'>{description}</p>
 

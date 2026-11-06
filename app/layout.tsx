@@ -7,7 +7,7 @@ import ScriptCleanup from "@/components/ScriptCleanup";
 import { profile } from "@/constants";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-geist-sans",  
   subsets: ["latin"],
 });
 

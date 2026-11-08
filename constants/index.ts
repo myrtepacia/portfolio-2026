@@ -163,7 +163,6 @@ export const profile = {
     name: 'Henmyr Vincent L. Tepacia',
     shortName: 'Henmyr Tepacia',
     initials: 'HT',
-    role: 'Student Developer / Freelancer',
     location: 'Dumaguete, Philippines',
     mapUrl: 'https://maps.app.goo.gl/ierGoY5Ps5taCW9JA',
     city: 'Dumaguete, PH',
@@ -220,13 +219,6 @@ export const stack = [
 
 
 export const journey = [
-    {
-        title: 'Freelance Web Developer',
-        role: 'Student Developer / Freelancer',
-        date: 'Present',
-        description: 'Building websites and web apps for clients alongside my studies, from the first call to deployment.',
-        current: true,
-    },
     {
         title: 'BS Computer Science Student',
         role: 'Negros Oriental State University',

@@ -161,7 +161,7 @@ export const hireme = [
 
 export const profile = {
     name: 'Henmyr Vincent L. Tepacia',
-    shortName: 'Henmyr Tepacia',
+    shortName: 'Henmyr Vincent Tepacia',
     initials: 'HT',
     location: 'Dumaguete, Philippines',
     mapUrl: 'https://maps.app.goo.gl/ierGoY5Ps5taCW9JA',

@@ -68,7 +68,7 @@ export const projectData = [
             'QR-code e-tickets scanned from the admin dashboard',
             'Customer reviews and film management for admins',
         ],
-        link: 'https://csflix.gt.tc'
+        link: 'https://csflix.app'
     },   
     {
          title: 'Portfolio',

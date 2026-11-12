@@ -52,6 +52,8 @@ export const projectData = [
     },
     {
         title: 'CSFlix',
+        // Still listed on /projects, just not in the home page's Featured Projects
+        featured: false,
         icon: '/images/projects/csflix/icon.svg',
         screenshots: [
             '/images/projects/csflix/home.jpg',
@@ -73,7 +75,7 @@ export const projectData = [
          title: 'Portfolio',
          // Still listed on /projects, just not in the home page's Featured Projects
          featured: false,
-         icon: '/images/projects/portfolio/icon-cutout.png',
+         icon: '/images/projects/portfolio/icon-color.png',
          screenshots: ['/images/projects/portfolio/home.jpg', '/images/projects/portfolio/home-2.jpg'],
          tagline: 'AI-Assisted Personal Website',
          type: 'Personal Project',
@@ -88,6 +90,8 @@ export const projectData = [
     },
      {
         title: 'Restaurant Discrete Event Simulation',
+        // Still listed on /projects, just not in the home page's Featured Projects
+        featured: false,
         icon: '/images/projects/restaurant-sim/icon.svg',
         screenshots: ['/images/projects/restaurant-sim/landing.jpg'],
         tagline: 'Restaurant Operations Simulation Dashboard',

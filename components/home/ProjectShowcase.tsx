@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { projectData } from '@/constants'
@@ -13,6 +14,87 @@ const featured = projectData.filter((project) => project.featured !== false)
 
 // How long each card stays in front before the stack rotates to the next one
 const AUTOPLAY_MS = 3000
+
+type Project = (typeof projectData)[number]
+
+// How long each screenshot stays in front before the phones rotate
+const PHONE_ROTATE_MS = 3000
+
+// Where a phone sits, by its place in the rotation: 0 is in front, 1 and 2 peek
+// out behind it on the left and right, and any others wait hidden behind the front
+const PHONE_POSITIONS = [
+  'z-20',
+  '-translate-x-[62%] translate-y-3 -rotate-6 scale-[0.86] z-10 opacity-90',
+  'translate-x-[62%] translate-y-3 rotate-6 scale-[0.86] z-10 opacity-90',
+]
+const PHONE_WAITING = 'translate-y-6 scale-75 z-0 opacity-0 pointer-events-none'
+
+// Layout for a single featured project: the card's details on the left and its
+// screenshots shown as phones on the right (below on small screens)
+const Spotlight = ({ project, onPreview }: { project: Project; onPreview: (shot: number) => void }) => {
+  const shots = project.screenshots
+  // Which screenshot is in front; the rest follow it in order
+  const [front, setFront] = useState(0)
+  // Paused while the mouse is over the phones
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (paused || shots.length < 2) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const timer = setTimeout(() => setFront((i) => (i + 1) % shots.length), PHONE_ROTATE_MS)
+    return () => clearTimeout(timer)
+  }, [front, paused, shots.length])
+
+  return (
+    // No card frame: the details and the phones sit straight on the page
+    <article className='reveal grid items-center gap-8 md:grid-cols-2'>
+      {/* The "Mobile App" badge (the card's first row) shows on desktop, hidden on phones */}
+      <div className='flex flex-col justify-center max-md:[&>ul:first-child]:hidden'>
+        {/* No Screenshots button here (the phones beside it open the screenshots) */}
+        <ProjectCard project={project} />
+      </div>
+
+      <div
+        className='relative order-first flex min-h-[330px] items-center justify-center overflow-hidden md:order-none'
+        onPointerEnter={(e) => {
+          if (e.pointerType === 'mouse') setPaused(true)
+        }}
+        onPointerLeave={(e) => {
+          if (e.pointerType === 'mouse') setPaused(false)
+        }}
+      >
+        {shots.map((src, shot) => {
+          // Place in the rotation, counting from the screenshot in front
+          const place = (shot - front + shots.length) % shots.length
+          const position = PHONE_POSITIONS[place] ?? PHONE_WAITING
+          return (
+            <button
+              key={src}
+              type='button'
+              onClick={() => onPreview(shot)}
+              tabIndex={place < PHONE_POSITIONS.length ? 0 : -1}
+              aria-hidden={place >= PHONE_POSITIONS.length}
+              aria-label={`View ${project.title} screenshot ${shot + 1}`}
+              className={`absolute aspect-[922/1989] w-[118px] cursor-pointer overflow-hidden rounded-[18px] border-[3px] border-[#111] bg-black shadow-[0_18px_40px_-14px_rgba(0,0,0,0.45)] transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] sm:w-[140px] ${position}`}
+            >
+              <Image src={src} alt='' fill sizes='140px' className='object-cover object-top' />
+            </button>
+          )
+        })}
+      </div>
+    </article>
+  )
+}
+
+// Centered under the whole section, below Download on phones (where the columns stack)
+const ViewAllLink = () => (
+  <div className='reveal mt-6 flex justify-center'>
+    <Link href='/projects' className='inline-flex items-center gap-1 font-mono text-xs text-subtle hover:text-fg'>
+      View all projects
+      <ArrowUpRight size={12} />
+    </Link>
+  </div>
+)
 
 const ProjectShowcase = () => {
   const [active, setActive] = useState(0)
@@ -70,12 +152,18 @@ const ProjectShowcase = () => {
   }
 
   return (
-    <section id='projects' aria-label='Featured projects' className='scroll-mt-20'>
+    <section id='projects' aria-label='Featured project' className='scroll-mt-20 !mb-12'>
       <SectionTitle
-        title='Featured Projects'
+        title='Featured Project'
         subtitle='School, personal, and collaborative builds where I take an idea from a rough sketch to a working, deployed app.'
       />
 
+      {total === 1 ? (
+        <>
+          <Spotlight project={featured[0]} onPreview={(shot) => setPreview({ project: 0, shot })} />
+          <ViewAllLink />
+        </>
+      ) : (
       <div
         ref={stackRef}
         className='reveal relative -mx-5 h-[400px] overflow-hidden px-5 [--card-w:300px] [--fan:96px] sm:mx-0 sm:h-[380px] sm:overflow-visible sm:px-0 sm:[--card-w:380px] sm:[--fan:250px]'
@@ -158,13 +246,16 @@ const ProjectShowcase = () => {
           )
         })}
       </div>
+      )}
 
+      {total > 1 && (
       <div className='reveal mt-3 flex justify-center'>
         <Link href='/projects' className='inline-flex items-center gap-1 font-mono text-xs text-subtle hover:text-fg'>
           View all projects
           <ArrowUpRight size={12} />
         </Link>
       </div>
+      )}
 
       {preview !== null && (() => {
         // Arrows step through this project's own screenshots, never into another project

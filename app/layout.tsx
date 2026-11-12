@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import GridBackground from "@/components/GridBackground";
 import ScriptCleanup from "@/components/ScriptCleanup";
+import NoContextMenu from "@/components/NoContextMenu";
+import ConsoleWarning from "@/components/ConsoleWarning";
 import { profile } from "@/constants";
 
 const geistSans = Geist({
@@ -77,6 +79,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans bg-bg text-fg antialiased`}>
         <ScriptCleanup />
+        <NoContextMenu />
+        <ConsoleWarning />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

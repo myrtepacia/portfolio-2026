@@ -25,7 +25,7 @@ const TopNav = () => {
       <header className='sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md'>
         <div className='mx-auto flex h-14 max-w-[1040px] items-center justify-between gap-4 px-5 sm:px-8'>
           <a href='#about' className='text-[15px] font-semibold tracking-tight'>
-            Henmyr <span className='font-normal text-subtle'>/ tech</span>
+            HVT <span className='font-normal text-subtle'>/ tech</span>
           </a>
 
           <div className='flex items-center gap-2'>

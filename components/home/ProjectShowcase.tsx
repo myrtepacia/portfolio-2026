@@ -20,30 +20,76 @@ type Project = (typeof projectData)[number]
 // How long each screenshot stays in front before the phones rotate
 const PHONE_ROTATE_MS = 3000
 
-// Where a phone sits, by its place in the rotation: 0 is in front, 1 and 2 peek
-// out behind it on the left and right, and any others wait hidden behind the front
-const PHONE_POSITIONS = [
-  'z-20',
-  '-translate-x-[62%] translate-y-3 -rotate-6 scale-[0.86] z-10 opacity-90',
-  'translate-x-[62%] translate-y-3 rotate-6 scale-[0.86] z-10 opacity-90',
-]
+// How far a finger has to drag the phones (in px) to switch screenshots
+const PHONE_DRAG_THRESHOLD = 40
+
+// Where each phone sits. The rotation moves left to right: the left phone comes
+// to the front, the front one moves to the right, and the right one tucks
+// behind the front until it comes back on the left
+const PHONE_FRONT = 'z-20'
+const PHONE_LEFT = '-translate-x-[62%] translate-y-3 -rotate-6 scale-[0.86] z-10 opacity-90'
+const PHONE_RIGHT = 'translate-x-[62%] translate-y-3 rotate-6 scale-[0.86] z-10 opacity-90'
 const PHONE_WAITING = 'translate-y-6 scale-75 z-0 opacity-0 pointer-events-none'
+
+// Position for a phone by its place in the rotation (0 = front, 1 = next up)
+const phonePosition = (place: number, total: number) => {
+  if (place === 0) return PHONE_FRONT
+  if (place === 1) return PHONE_LEFT
+  if (place === total - 1 && total > 2) return PHONE_RIGHT
+  return PHONE_WAITING
+}
 
 // Layout for a single featured project: the card's details on the left and its
 // screenshots shown as phones on the right (below on small screens)
 const Spotlight = ({ project, onPreview }: { project: Project; onPreview: (shot: number) => void }) => {
   const shots = project.screenshots
+  const total = shots.length
   // Which screenshot is in front; the rest follow it in order
   const [front, setFront] = useState(0)
-  // Paused while the mouse is over the phones
+  // Paused only while the phones are being dragged
   const [paused, setPaused] = useState(false)
+  // `switched` is set once this drag has changed the photo, so one drag = one switch
+  const dragStart = useRef<{ x: number; y: number; id: number; switched: boolean } | null>(null)
+  // Set when a touch turned into a drag, so letting go doesn't also open the viewer
+  const dragged = useRef(false)
+
+  const step = (by: number) => setFront((i) => (i + by + total) % total)
 
   useEffect(() => {
-    if (paused || shots.length < 2) return
+    if (paused || total < 2) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const timer = setTimeout(() => setFront((i) => (i + 1) % shots.length), PHONE_ROTATE_MS)
+    const timer = setTimeout(() => step(1), PHONE_ROTATE_MS)
     return () => clearTimeout(timer)
-  }, [front, paused, shots.length])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [front, paused, total])
+
+  // Dragging with a finger or the mouse: once the drag passes the threshold the
+  // next screenshot switches in right away (the phones don't follow the pointer).
+  // Dragging right brings the left phone to the front, matching the rotation
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (total < 2 || (e.pointerType === 'mouse' && e.button !== 0)) return
+    dragStart.current = { x: e.clientX, y: e.clientY, id: e.pointerId, switched: false }
+    dragged.current = false
+    setPaused(true)
+  }
+  const onPointerMove = (e: React.PointerEvent) => {
+    const start = dragStart.current
+    if (!start || start.id !== e.pointerId || start.switched) return
+    const dx = e.clientX - start.x
+    const dy = e.clientY - start.y
+    // Mostly vertical: let the page scroll instead
+    if (!dragged.current && Math.abs(dy) > Math.abs(dx)) return
+    if (Math.abs(dx) > 6) dragged.current = true
+    if (Math.abs(dx) < PHONE_DRAG_THRESHOLD) return
+    step(dx > 0 ? 1 : -1)
+    start.switched = true
+  }
+  const endDrag = (e: React.PointerEvent) => {
+    const start = dragStart.current
+    if (!start || start.id !== e.pointerId) return
+    dragStart.current = null
+    setPaused(false)
+  }
 
   return (
     // No card frame: the details and the phones sit straight on the page
@@ -55,32 +101,39 @@ const Spotlight = ({ project, onPreview }: { project: Project; onPreview: (shot:
       </div>
 
       <div
-        className='relative order-first flex min-h-[330px] items-center justify-center overflow-hidden md:order-none'
-        onPointerEnter={(e) => {
-          if (e.pointerType === 'mouse') setPaused(true)
-        }}
-        onPointerLeave={(e) => {
-          if (e.pointerType === 'mouse') setPaused(false)
-        }}
+        // touch-pan-y: vertical swipes still scroll the page; sideways ones drag the phones
+        className='relative order-first flex min-h-[330px] cursor-grab touch-pan-y select-none items-center justify-center overflow-hidden active:cursor-grabbing md:order-none'
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        // A mouse drag that leaves the phones ends there
+        onPointerLeave={endDrag}
       >
-        {shots.map((src, shot) => {
-          // Place in the rotation, counting from the screenshot in front
-          const place = (shot - front + shots.length) % shots.length
-          const position = PHONE_POSITIONS[place] ?? PHONE_WAITING
-          return (
-            <button
-              key={src}
-              type='button'
-              onClick={() => onPreview(shot)}
-              tabIndex={place < PHONE_POSITIONS.length ? 0 : -1}
-              aria-hidden={place >= PHONE_POSITIONS.length}
-              aria-label={`View ${project.title} screenshot ${shot + 1}`}
-              className={`absolute aspect-[922/1989] w-[118px] cursor-pointer overflow-hidden rounded-[18px] border-[3px] border-[#111] bg-black shadow-[0_18px_40px_-14px_rgba(0,0,0,0.45)] transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] sm:w-[140px] ${position}`}
-            >
-              <Image src={src} alt='' fill sizes='140px' className='object-cover object-top' />
-            </button>
-          )
-        })}
+        <div className='absolute inset-0 flex items-center justify-center'>
+          {shots.map((src, shot) => {
+            // Place in the rotation, counting from the screenshot in front
+            const place = (shot - front + total) % total
+            const position = phonePosition(place, total)
+            const waiting = position === PHONE_WAITING
+            return (
+              <button
+                key={src}
+                type='button'
+                onClick={() => {
+                  if (!dragged.current) onPreview(shot)
+                }}
+                tabIndex={waiting ? -1 : 0}
+                aria-hidden={waiting}
+                aria-label={`View ${project.title} screenshot ${shot + 1}`}
+                draggable={false}
+                className={`absolute aspect-[922/1989] w-[118px] cursor-[inherit] overflow-hidden rounded-[18px] border-[3px] border-[#111] bg-black shadow-[0_18px_40px_-14px_rgba(0,0,0,0.45)] transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] sm:w-[140px] ${position}`}
+              >
+                <Image src={src} alt='' fill sizes='140px' draggable={false} className='object-cover object-top' />
+              </button>
+            )
+          })}
+        </div>
       </div>
     </article>
   )

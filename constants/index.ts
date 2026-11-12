@@ -1,4 +1,4 @@
-export const frontend = [
+﻿export const frontend = [
     'Javascript',
     'Next.js',
     'TailwindCSS',
@@ -164,7 +164,6 @@ export const profile = {
     name: 'Henmyr Vincent L. Tepacia',
     shortName: 'Henmyr Vincent Tepacia',
     initials: 'HT',
-     role: '',
     location: 'Dumaguete, Philippines',
     mapUrl: 'https://maps.app.goo.gl/ierGoY5Ps5taCW9JA',
     city: 'Dumaguete, PH',

@@ -69,7 +69,7 @@ export const projectData = [
             'QR-code e-tickets scanned from the admin dashboard',
             'Customer reviews and film management for admins',
         ],
-        link: 'https://csflix.gt.tc'
+        link: 'https://csflix.app'
     },   
     {
          title: 'Portfolio',
@@ -162,9 +162,9 @@ export const hireme = [
 
 export const profile = {
     name: 'Henmyr Vincent L. Tepacia',
-    shortName: 'Henmyr Tepacia',
+    shortName: 'Henmyr Vincent Tepacia',
     initials: 'HT',
-    role: 'Student Developer / Freelancer',
+     role: '',
     location: 'Dumaguete, Philippines',
     mapUrl: 'https://maps.app.goo.gl/ierGoY5Ps5taCW9JA',
     city: 'Dumaguete, PH',

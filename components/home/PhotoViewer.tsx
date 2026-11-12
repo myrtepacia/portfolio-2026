@@ -106,7 +106,10 @@ const PhotoViewer = ({ title, photos, index, onSelect, onClose }: PhotoViewerPro
         </div>
 
         {hasMany && (
-          <div className='flex gap-2 overflow-x-auto border-t border-line p-3 sm:justify-center'>
+          // Centered at every size; the inner row is only as wide as the thumbnails, so
+          // when there are too many to fit it still scrolls from the first one
+          <div className='overflow-x-auto border-t border-line p-3'>
+            <div className='mx-auto flex w-max gap-2'>
             {photos.map((photo, i) => (
               <button
                 key={photo}
@@ -121,6 +124,7 @@ const PhotoViewer = ({ title, photos, index, onSelect, onClose }: PhotoViewerPro
                 <Image src={photo} alt='' fill sizes='64px' className='object-cover' />
               </button>
             ))}
+            </div>
           </div>
         )}
       </div>

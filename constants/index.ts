@@ -1,4 +1,4 @@
-﻿export const frontend = [
+export const frontend = [
     'Javascript',
     'Next.js',
     'TailwindCSS',
@@ -23,7 +23,6 @@ export const techSupport = [
     'Basic Computer Troubleshooting',
 
 ]
-
 
 export const projectData = [
     {
@@ -103,7 +102,6 @@ export const projectData = [
         link: 'https://restaurant-discrete-event-simulatio.vercel.app/'
     },
 
-
 ]
 
 export const certificates = [
@@ -158,7 +156,6 @@ export const hireme = [
 
 ]
 
-
 export const profile = {
     name: 'Henmyr Vincent L. Tepacia',
     shortName: 'Henmyr Tepacia',
@@ -183,95 +180,8 @@ export const socials = [
     { label: 'Discord', href: 'https://discord.com/users/300006432798015489' },
 ]
 
-export const milestones = [
-    {
-        title: 'BS Computer Science',
-        subtitle: 'Negros Oriental State University',
-        year: '2024 - Present',
-        current: true,
-    },
-    {
-        title: 'Computer System Servicing',
-        subtitle: 'Demetrio L. Alviola National High School',
-        year: '2024',
-        current: false,
-    },
-    {
-        title: 'First Hello World',
-        subtitle: 'Where it all started',
-        year: '2021',
-        current: false,
-    },
-]
-
-export const stack = [
-    { name: 'Next.js', category: 'Full-Stack Framework' },
-    { name: 'React', category: 'UI Library' },
-    { name: 'TypeScript', category: 'Type Safety' },
-    { name: 'JavaScript', category: 'Language' },
-    { name: 'TailwindCSS', category: 'Styling' },
-    { name: 'Node.js', category: 'Server Runtime' },
-    { name: 'PHP', category: 'Backend' },
-    { name: 'Python', category: 'Scripting' },
-    { name: 'Git', category: 'Version Control' },
-    { name: 'Figma', category: 'Design' },
-    { name: 'Vercel', category: 'Deployment' },
-]
-
-
-export const journey = [
-    {
-        title: 'Freelance Web Developer',
-        role: 'Student Developer / Freelancer',
-        date: 'Present',
-        description: 'Building websites and web apps for clients alongside my studies, from the first call to deployment.',
-        current: true,
-    },
-    {
-        title: 'BS Computer Science Student',
-        role: 'Negros Oriental State University',
-        date: '2024 - Present',
-        description: 'Learning software development through school projects like CSFlix and the restaurant simulation.',
-        current: false,
-    },
-    {
-        title: 'Computer System Servicing NC II',
-        role: 'Demetrio L. Alviola National High School',
-        date: '2024',
-        description: 'Hands-on training in hardware setup, printer servicing, and computer troubleshooting.',
-        current: false,
-    },
-    {
-        title: 'First Hello World',
-        role: 'Where it all started',
-        date: '2021',
-        description: 'Wrote my first program and got hooked on building things.',
-        current: false,
-    },
-]
-
 // "Education & Experience" list on the home page, newest first.
 // Leave `end` out for something still ongoing; it shows as "Present".
-export const educationAndExperience = [
-    {
-        start: '2024',
-        title: 'Freelance Web Developer',
-        place: 'Self-employed',
-    },
-    {
-        start: '2024',
-        title: 'BS Computer Science',
-        place: 'Negros Oriental State University',
-        link: 'https://web.facebook.com/NORSUPIOMAIN',
-    },
-    {
-        start: '2022',
-        end: '2024',
-        title: 'Computer System Servicing NC II',
-        place: 'Demetrio L. Alviola National High School',
-        link: 'https://web.facebook.com/DlanhsSince1968',
-    },
-]
 
 export const education = [
     {
@@ -292,9 +202,3 @@ export const education = [
     },
 ]
 
-export const interests = [
-    { title: 'CyberSecurity', detail: 'Learning how systems break so I can build safer ones' },
-    { title: 'Artificial Intelligence', detail: 'Exploring AI tools and assistants for everyday problems' },
-    { title: 'Data Systems', detail: 'Databases, data flow, and making sense of information' },
-    { title: 'Tech Events & Teamwork', detail: 'Workshops, hackathons, and learning with others' },
-]

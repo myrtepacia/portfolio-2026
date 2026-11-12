@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowDown, ArrowUpRight, Calendar, Clock, GraduationCap, Mail, MapPin, School, University } from 'lucide-react'
 import { backend, devTools, education, frontend, profile } from '@/constants'
-import portrait from '@/public/images/face-halftone.png'
+import portrait from '@/public/images/portrait.png'
 import { MonoLabel } from './SectionTitle'
 import LocalTime from './LocalTime'
 
@@ -35,14 +35,12 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* Halftone portrait with the background cut out; the bottom fades so the
+        {/* Color portrait with the background cut out; the bottom fades so the
             shirt blends into the page instead of ending in a hard edge */}
         <Image
           src={portrait}
           alt={`Portrait of ${profile.name}`}
-          // Serve the original 512px file: resized copies blur the halftone dots
-          unoptimized
-         
+          sizes='(max-width: 640px) 68vw, 400px'
           // Centered square sized like the 591px reference design: 400px there, the
           // same share of the screen (67.7%) on smaller phones; hidden from 640px
           className='mx-auto aspect-square h-auto w-[min(400px,67.7vw)] select-none [mask-image:linear-gradient(to_bottom,black_72%,transparent)] sm:hidden'

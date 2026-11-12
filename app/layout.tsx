@@ -24,7 +24,7 @@ const description =
 export const metadata: Metadata = {
   metadataBase: new URL(profile.site),
   title: {
-    default: `${profile.shortName} · ${profile.role}`,
+    default: `${profile.shortName}`,
     template: `%s · ${profile.shortName}`,
   },
   description,
@@ -49,14 +49,14 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: profile.shortName,
-    title: `${profile.shortName} · ${profile.role}`,
+    title: `${profile.shortName}`,
     description,
     locale: "en_US",
     images: [{ url: "/images/profile-img.jpg", alt: profile.name }],
   },
   twitter: {
     card: "summary",
-    title: `${profile.shortName} · ${profile.role}`,
+    title: `${profile.shortName}`,
     description,
     images: ["/images/profile-img.jpg"],
   },
